@@ -14,4 +14,37 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="title" value="OUPharmacy" />
         <put-attribute name="content" value="/WEB-INF/jsp/index.jsp" />
     </definition>
+    <definition name="medicine" extends="baseLayout">
+        <put-attribute name="title" value="OUPharmacy" />
+        <put-attribute name="content" value="/WEB-INF/jsp/medicine.jsp" />
+    </definition>
+    
+    <definition name="login" extends="baseLayout">
+        <put-attribute name="title" value="Dang nhap" />
+        <put-attribute name="content" value="/WEB-INF/jsp/login.jsp" />
+    </definition>
+    
+    <definition name="register" extends="baseLayout">
+        <put-attribute name="title" value="OUPharmacy" />
+        <put-attribute name="content" value="/WEB-INF/jsp/register.jsp" />
+    </definition>
+    
+    
+    <!--admin-->
+    <definition name="adminBaseLayout" template="/WEB-INF/layout/admin/base.jsp">
+        <put-attribute name="title" value="Quan tri he thong phong mach tu" />
+        <put-attribute name="topbar" value="/WEB-INF/layout/admin/topbar.jsp" />
+        <put-attribute name="left" value="/WEB-INF/layout/admin/left.jsp" />
+        <put-attribute name="pageName" value="" />
+        <put-attribute name="content" value="" />
+        <put-attribute name="footer" value="/WEB-INF/layout/admin/footer.jsp" />
+    </definition>
+    
+     <definition name="dashboard" extends="adminBaseLayout">
+        <put-attribute name="title" value="Bang dieu khien" />
+        <put-attribute name="pageName" value="DashBoard" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/dashboard.jsp" />
+    </definition>
+    
 </tiles-definitions>
+

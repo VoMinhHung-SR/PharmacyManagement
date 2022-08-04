@@ -4,6 +4,7 @@
     Author     : ASUS
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
@@ -31,7 +32,30 @@
                     <a class="nav-link" href="#timeline">Timeline</a>
                 </li>
 
-                <a class="navbar-brand d-none d-lg-block" href="index.html">
+                <div class="btn-group">
+                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+                        Sony
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Tablet</a>
+                        <a class="dropdown-item" href="#">Smartphone</a>
+                    </div>
+                </div>
+                
+                <c:forEach var="c" items="${categories}">
+                    <li class="nav-item">
+                        <c:url value="/" var="catePath">
+                            <c:param name="cateId" value="${c.id}"/>
+                        </c:url>
+                        <a class="nav-link" href="${catePath}">${c.name}</a>
+                    </li>
+                </c:forEach>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#timeline">Thuốc</a>
+                </li>
+
+                <a class="navbar-brand d-none d-lg-block" href="<c:url value="/" />">
                     OUPharmacy
                     <strong class="d-block">Health Specialist</strong>
                 </a>
@@ -41,12 +65,31 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#booking">Booking</a>
+                    <a class="nav-link" href="#booking">Đặt lịch</a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="#contact">Contact</a>
                 </li>
+                <c:choose>
+                    <c:when test="${pageContext.request.userPrincipal.name == null}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="<c:url value="/login"/>">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<c:url value="/register" />">Registry</a>
+                        </li>
+                    </c:when>
+                    <c:when test="${pageContext.request.userPrincipal.name != null}">
+                        <li class="nav-item">
+                            <a class="nav-link text-success" href="#">${pageContext.request.userPrincipal.name}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-danger" href="<c:url value="/logout" />">Logout</a>
+                        </li>
+                    </c:when>
+                </c:choose>
+
             </ul>
         </div>
 

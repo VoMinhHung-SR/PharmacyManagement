@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="com.vmh_OUPharmacy_war_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.vmh.pojo.Examination</class>
+    <class>com.vmh.pojo.Prescription</class>
+    <class>com.vmh.pojo.Medicine</class>
+    <class>com.vmh.pojo.Category</class>
+    <class>com.vmh.pojo.MedicineUnit</class>
+    <class>com.vmh.pojo.Patient</class>
+    <class>com.vmh.pojo.User</class>
+    <class>com.vmh.pojo.ExaminationDetail</class>
+    <class>com.vmh.pojo.Bill</class>
+    <class>com.vmh.pojo.PrescriptionDetail</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pharmacydb?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="123456789"/>
+    </properties>
+  </persistence-unit>
+</persistence>
