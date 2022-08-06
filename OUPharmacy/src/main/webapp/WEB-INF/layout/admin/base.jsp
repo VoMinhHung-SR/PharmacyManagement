@@ -5,9 +5,11 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+
+<tiles:importAttribute name="javascripts" />
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -138,9 +140,11 @@
         <!--Custom JavaScript -->
         <script src="<c:url value="/admin/js/custom.js"/>"></script>
 
+ 
         <c:forEach var="js" items="${javascripts}">
             <script src="<c:url value="${js}"/>"></script>
         </c:forEach>
+            
         <!--chartis chart-->
         <script src="<c:url value="/admin/plugins/bower_components/chartist/dist/chartist.min.js"/>"></script>
         <script src="<c:url value="/admin/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"/>"></script>

@@ -57,7 +57,10 @@
                                     <td>${m.categoryId.name}</td>
                                     <td>
                                         <button type="button" class="btn btn-success"><i class="fas fa-pencil-alt"></i></button>
-                                        <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                                        <button type="button" class="btn btn-danger" 
+                                                onclick="deleteMedicineUnit('<c:url value="/api/medicines/${m.id}"/>')">
+                                            <i class="far fa-trash-alt"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             </c:forEach> 
