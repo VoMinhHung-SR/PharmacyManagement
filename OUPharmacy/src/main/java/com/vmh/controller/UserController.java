@@ -42,10 +42,8 @@ public class UserController {
             model.addAttribute("errMgs", "Mat khau khong hop le");
         } else {
             if (this.userDetailsService.addUser(user) == true) {
-                System.out.println("1");
                 return "redirect:/login";
             }
-            System.out.println("0");
             model.addAttribute("errMgs", "He thong gap loi!! VUI LONG QUAY LAI SAU");
         }
         return "register";

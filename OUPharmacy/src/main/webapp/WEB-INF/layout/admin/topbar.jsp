@@ -4,6 +4,7 @@
     Author     : ASUS
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -13,17 +14,17 @@
             <!-- ============================================================== -->
             <!-- Logo -->
             <!-- ============================================================== -->
-            <a class="navbar-brand" href="dashboard.html">
+            <a class="navbar-brand" href="<c:url value="/admin/dashboard"/>">
                 <!-- Logo icon -->
                 <b class="logo-icon">
                     <!-- Dark Logo icon -->
-                    <img src="plugins/images/logo-icon.png" alt="homepage" />
+                    <img src="<c:url value="/admin/plugins/images/logo-icon.png"/>" alt="homepage" />
                 </b>
                 <!--End Logo icon -->
                 <!-- Logo text -->
                 <span class="logo-text">
                     <!-- dark Logo text -->
-                    <img src="plugins/images/logo-text.png" alt="homepage" />
+                    <img src="<c:url value="/admin/plugins/images/logo-text.png"/>" alt="homepage" />
                 </span>
             </a>
             <!-- ============================================================== -->
@@ -66,7 +67,7 @@
                 <!-- ============================================================== -->
                 <li>
                     <a class="profile-pic" href="#">
-                        <img src="plugins/images/users/varun.jpg" alt="user-img" width="36"
+                        <img src="<c:url value="/admin/plugins/images/users/varun.jpg"/>" alt="user-img" width="36"
                              class="img-circle"><span class="text-white font-medium">Steave</span></a>
                 </li>
                 <!-- ============================================================== -->

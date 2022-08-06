@@ -25,7 +25,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableWebSecurity
 @EnableTransactionManagement
-@ComponentScan(basePackages = {"com.vmh.repository", "com.vmh.service"})
+@ComponentScan(basePackages = {"com.vmh.repository", 
+    "com.vmh.service", "cp.vmh.api"})
 class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
     private UserDetailsService userDetailsService;

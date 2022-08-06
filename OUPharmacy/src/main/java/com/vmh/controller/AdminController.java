@@ -4,6 +4,7 @@
  */
 package com.vmh.controller;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +17,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class AdminController {
     
+ 
     @GetMapping("/dashboard")
     public String dashboardView(){
         return "dashboard";
+    }
+    
+    
+    @GetMapping("/users")
+    public String listUsersView(){
+        return "users";
     }
 }

@@ -49,7 +49,6 @@ public class UserServiceImpl implements UserService{
                     ObjectUtils.asMap("resource_type", "auto"));
             
             user.setAvatar((String) r.get("secure_url"));
-            System.out.println("1");
             return this.userRepository.addUser(user);
             
         } catch (IOException ex) {

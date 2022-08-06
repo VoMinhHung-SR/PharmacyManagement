@@ -5,6 +5,8 @@
 package com.vmh.config;
 
 import com.vmh.converter.DateConverter;
+import com.vmh.formatter.CategoryFormatter;
+import com.vmh.formatter.MedicineFormatter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -30,7 +32,7 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan(basePackages = {"com.vmh.controller", "com.vmh.repository",
-    "com.vmh.service"})
+    "com.vmh.service", "com.vmh.api"})
 public class WebApplicationContextConfig implements WebMvcConfigurer {
 
      @Override
@@ -86,6 +88,8 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new DateConverter("yyyy-mm-dd"));
+        registry.addFormatter(new CategoryFormatter());
+        registry.addFormatter(new MedicineFormatter());
     }
     
     @Bean

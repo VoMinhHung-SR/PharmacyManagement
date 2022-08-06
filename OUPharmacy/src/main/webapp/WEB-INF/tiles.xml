@@ -38,12 +38,50 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="pageName" value="" />
         <put-attribute name="content" value="" />
         <put-attribute name="footer" value="/WEB-INF/layout/admin/footer.jsp" />
+        <put-list-attribute name="javascripts">
+        </put-list-attribute>
     </definition>
     
-     <definition name="dashboard" extends="adminBaseLayout">
+    <definition name="dashboard" extends="adminBaseLayout">
         <put-attribute name="title" value="Bang dieu khien" />
         <put-attribute name="pageName" value="DashBoard" />
         <put-attribute name="content" value="/WEB-INF/jsp/admin/dashboard.jsp" />
+        <put-list-attribute name="javascripts">
+        </put-list-attribute>
+    </definition>
+    
+    <definition name="medicines" extends="adminBaseLayout">    
+        <put-attribute name="title" value="Quan ly thuoc" />
+        <put-attribute name="pageName" value="Quan ly thuoc" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/medicines.jsp" />
+        
+        
+        <put-list-attribute name="javascripts">
+            <add-attribute value="/admin/js/api-script/medicineUnit.js"/>
+        </put-list-attribute> 
+    </definition>
+    
+    <definition name="add-medicine" extends="adminBaseLayout">
+        <put-attribute name="title" value="Quan ly thuoc" />
+        <put-attribute name="pageName" value="Them thuoc" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/add-medicine.jsp" />
+        <put-list-attribute name="javascripts">
+        </put-list-attribute>
+    </definition>
+    <definition name="add-medicine-unit" extends="adminBaseLayout">
+        <put-attribute name="title" value="Quan ly thuoc" />
+        <put-attribute name="pageName" value="Them thuoc" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/add-medicine-unit.jsp" />
+        <put-list-attribute name="javascripts">
+        </put-list-attribute>
+    </definition>
+    
+    <definition name="users" extends="adminBaseLayout">
+        <put-attribute name="title" value="Quan ly thong tin nguoi dung" />
+        <put-attribute name="pageName" value="Quan ly thong tin nguoi dung" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/users.jsp" />
+        <put-list-attribute name="javascripts">
+        </put-list-attribute>
     </definition>
     
 </tiles-definitions>

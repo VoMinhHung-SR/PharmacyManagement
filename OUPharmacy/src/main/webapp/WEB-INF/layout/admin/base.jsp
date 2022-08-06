@@ -4,6 +4,8 @@
     Author     : ASUS
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
@@ -33,15 +35,19 @@
 
         <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
 
+
+
         <!-- Favicon icon -->
-        <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="<c:url value="/admin/plugins/images/favicon.png"/>">
 
         <!-- Custom CSS -->
-        <link href="plugins/bower_components/chartist/dist/chartist.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
+        <link href="<c:url value="/admin/plugins/bower_components/chartist/dist/chartist.min.css"/>" rel="stylesheet">
+        <link rel="stylesheet" href="<c:url value="/admin/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css"/>">
+
         <!-- Custom CSS -->
-        <link href="css/style.min.css" rel="stylesheet">
-        
+        <link href="<c:url value="/admin/css/style.min.css"/>" rel="stylesheet">
+
+
     </head>
     <body><!-- ============================================================== -->
         <!-- Main wrapper - style you can find in pages.scss -->
@@ -113,29 +119,33 @@
         <!-- ============================================================== -->
         <!-- End Wrapper -->
         <!-- ============================================================== -->
-        
-        
+
+
         <!-- ============================================================== -->
         <!-- All Jquery -->
         <!-- ============================================================== -->
-        <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="<c:url value="/admin/plugins/bower_components/jquery/dist/jquery.min.js"/>"></script>
         <!-- Bootstrap tether Core JavaScript -->
-        <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="js/app-style-switcher.js"></script>
-        
+        <script src="<c:url value="/admin/bootstrap/dist/js/bootstrap.bundle.min.js"/>"></script>
+        <script src="<c:url value="/admin/js/app-style-switcher.js"/>"></script>
+
         <!--Wave Effects -->
-        <script src="js/waves.js"></script>
-        
+        <script src="<c:url value="/admin/js/waves.js"/>"></script>
+
         <!--Menu sidebar -->
-        <script src="js/sidebarmenu.js"></script>
-        
+        <script src="<c:url value="/admin/js/sidebarmenu.js"/>"></script>
+
         <!--Custom JavaScript -->
-        <script src="js/custom.js"></script>
-        
+        <script src="<c:url value="/admin/js/custom.js"/>"></script>
+
+        <c:forEach var="js" items="${javascripts}">
+            <script src="<c:url value="${js}"/>"></script>
+        </c:forEach>
         <!--chartis chart-->
-        <script src="plugins/bower_components/chartist/dist/chartist.min.js"></script>
-        <script src="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-        <script src="js/pages/dashboards/dashboard1.js"></script>
+        <script src="<c:url value="/admin/plugins/bower_components/chartist/dist/chartist.min.js"/>"></script>
+        <script src="<c:url value="/admin/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"/>"></script>
+        <script src="<c:url value="/admin/js/pages/dashboards/dashboard1.js"/>"></script>
+
 
 
     </body>
