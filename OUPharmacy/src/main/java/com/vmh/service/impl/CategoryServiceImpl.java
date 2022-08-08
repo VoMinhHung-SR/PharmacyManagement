@@ -30,5 +30,10 @@ public class CategoryServiceImpl implements CategoryService{
     public Category getCategoryById(int cateId) {
         return this.categoryRepository.getCategoryById(cateId);
     }
+
+    @Override
+    public int countCategories() {
+        return this.categoryRepository.countCategories();
+    }
     
 }

@@ -40,12 +40,12 @@ public class MedicineUnitServiceImpl implements MedicineUnitService{
     }
 
     @Override
-    public boolean addOrUpdate(MedicineUnit medicineUnit) {
+    public boolean addMedicineUnit(MedicineUnit medicineUnit) {
         try{
            Map r = this.cloudinary.uploader().upload(medicineUnit.getFile().getBytes(),
                     ObjectUtils.asMap("resource_type", "auto"));
             medicineUnit.setImage((String) r.get("secure_url"));
-            this.medicineUnitRepository.addOrUpdate(medicineUnit);
+            this.medicineUnitRepository.addMedicineUnit(medicineUnit);
             return true;
             
         }catch(IOException ex){
@@ -63,6 +63,11 @@ public class MedicineUnitServiceImpl implements MedicineUnitService{
     @Override
     public int countMedicines() {
         return this.medicineUnitRepository.countMedicines();
+    }
+
+    @Override
+    public boolean updateMedicineUnit(MedicineUnit mu, int i) {
+        return this.medicineUnitRepository.updateMedicineUnit(mu, i);
     }
     
 }

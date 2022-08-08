@@ -5,9 +5,7 @@
 package com.vmh.repository.impl;
 
 import com.vmh.pojo.Medicine;
-import com.vmh.pojo.MedicineUnit;
 import com.vmh.repository.MedicineRepository;
-import java.io.IOException;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -59,17 +57,31 @@ public class MedicineRepositoryImpl implements MedicineRepository {
     @Override
     public boolean addMedicine(Medicine medicine) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
-        try{
-            if(getMedicineByName(medicine.getName())){
+        try {
+            if (getMedicineByName(medicine.getName()) == false) {
+                session.save(medicine);
                 return true;
             }
-            session.save(medicine);
-            return true;
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
             ex.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public Medicine getMedicineDetail(int i) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Medicine> q = builder.createQuery(Medicine.class);
+        Root root = q.from(Medicine.class);
+        // +Lay tat ca dong du lieu
+        q = q.select(root);
+
+        Predicate p = builder.equal(root.get("id").as(Integer.class), i);
+        q = q.where(p);
+
+        return session.createQuery(q).getSingleResult();
     }
 
 }

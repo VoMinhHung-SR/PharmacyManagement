@@ -30,7 +30,7 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
     </definition>
     
     
-    <!--admin-->
+    <!--    ============Admin=============  -->
     <definition name="adminBaseLayout" template="/WEB-INF/layout/admin/base.jsp">
         <put-attribute name="title" value="Quan tri he thong phong mach tu" />
         <put-attribute name="topbar" value="/WEB-INF/layout/admin/topbar.jsp" />
@@ -47,6 +47,9 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="pageName" value="DashBoard" />
         <put-attribute name="content" value="/WEB-INF/jsp/admin/dashboard.jsp" />
         <put-list-attribute name="javascripts">
+            <add-attribute value="/admin/plugins/bower_components/chartist/dist/chartist.min.js"/>
+            <add-attribute value="/admin/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"/>
+            <add-attribute value="/admin/js/pages/dashboards/dashboard1.js"/>
         </put-list-attribute>
     </definition>
     
@@ -68,10 +71,19 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-list-attribute name="javascripts">
         </put-list-attribute>
     </definition>
+    
     <definition name="add-medicine-unit" extends="adminBaseLayout">
         <put-attribute name="title" value="Quan ly thuoc" />
         <put-attribute name="pageName" value="Them thuoc" />
         <put-attribute name="content" value="/WEB-INF/jsp/admin/add-medicine-unit.jsp" />
+        <put-list-attribute name="javascripts">
+        </put-list-attribute>
+    </definition>
+    
+    <definition name="categories" extends="adminBaseLayout">
+        <put-attribute name="title" value="Quan ly danh muc" />
+        <put-attribute name="pageName" value="Quan ly danh muc" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/categories.jsp" />
         <put-list-attribute name="javascripts">
         </put-list-attribute>
     </definition>

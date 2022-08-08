@@ -47,13 +47,19 @@ public class MedicineUnitRepositoryImpl implements MedicineUnitRepository {
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<MedicineUnit> q = builder.createQuery(MedicineUnit.class);
         Root root = q.from(MedicineUnit.class);
+
+        Root<Medicine> medicineRoot = q.from(Medicine.class);
+
         // +Lay tat ca dong du lieu
         q = q.select(root);
 
         if (params != null) {
+
             List<Predicate> predicates = new ArrayList<>();
+            predicates.add(builder.equal(root.get("medicineId"), medicineRoot.get("id")));
+
             if (params.containsKey("kw") == true) {
-                Predicate p1 = builder.like(root.get("name").as(String.class),
+                Predicate p1 = builder.like(medicineRoot.get("name").as(String.class),
                         String.format("%%%s%%", params.get("kw")));
                 predicates.add(p1);
             }
@@ -72,10 +78,16 @@ public class MedicineUnitRepositoryImpl implements MedicineUnitRepository {
 
             if (params.containsKey("cateId") == true) {
                 int cateId = Integer.parseInt(params.get("cateId"));
-                Predicate p4 = builder.equal(root.get("category"), cateId);
+                Predicate p4 = builder.equal(root.get("categoryId"), cateId);
                 predicates.add(p4);
             }
-
+            
+            if (params.containsKey("page") && !params.get("page").isEmpty()) {
+                page = Integer.parseInt(params.get("page"));
+            } else {
+                page = 1;
+            }
+            
             q = q.where(predicates.toArray(new Predicate[]{}));
         }
 
@@ -108,7 +120,7 @@ public class MedicineUnitRepositoryImpl implements MedicineUnitRepository {
     }
 
     @Override
-    public boolean addOrUpdate(MedicineUnit medicine) {
+    public boolean addMedicineUnit(MedicineUnit medicine) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
         try {
             session.save(medicine);
@@ -120,9 +132,28 @@ public class MedicineUnitRepositoryImpl implements MedicineUnitRepository {
     }
 
     @Override
+    public boolean updateMedicineUnit(MedicineUnit medicineUnit, int medicineUnitId) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            MedicineUnit m = session.get(MedicineUnit.class, medicineUnitId);
+            m.setInStock(medicineUnit.getInStock());
+            m.setPrice(medicineUnit.getPrice());
+            m.setImage(medicineUnit.getImage());
+            m.setCategoryId(medicineUnit.getCategoryId());
+            m.setMedicineId(medicineUnit.getMedicineId());
+
+            session.update(m);
+            return true;
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public boolean deleteMedicines(int id) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
-
         try {
             MedicineUnit p = session.get(MedicineUnit.class, id);
             session.delete(p);

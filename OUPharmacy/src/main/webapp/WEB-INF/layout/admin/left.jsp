@@ -20,7 +20,15 @@
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<c:url value="/admin/dashboard"/>"
                        aria-expanded="false">
                         <i class="far fa-clock" aria-hidden="true"></i>
-                        <span class="hide-menu">Dashboard</span>
+                        <span class="hide-menu">Thong Ke</span>
+                    </a>
+                </li>
+                 <li class="sidebar-item">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" 
+                       href="<c:url value="/admin/categories" />"
+                       aria-expanded="false">
+                        <i class="fas fa-list-ul" aria-hidden="true"></i>
+                        <span class="hide-menu">Quan ly danh muc</span>
                     </a>
                 </li>
                 <li class="sidebar-item">

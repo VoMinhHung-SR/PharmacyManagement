@@ -15,7 +15,8 @@ import java.util.Map;
 public interface MedicineUnitRepository {
     List<MedicineUnit> getMedicineUnits(Map<String, String> params, int page);
     MedicineUnit getMedicineUnitDetail(int id);
-    boolean addOrUpdate (MedicineUnit medicine);
+    boolean addMedicineUnit (MedicineUnit medicine);
+    boolean updateMedicineUnit (MedicineUnit medicineUnit, int medicineUnitId);
     boolean deleteMedicines(int id);
     int countMedicines();
 }

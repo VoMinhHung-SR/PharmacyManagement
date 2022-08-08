@@ -45,10 +45,15 @@
         <!-- Custom CSS -->
         <link href="<c:url value="/admin/plugins/bower_components/chartist/dist/chartist.min.css"/>" rel="stylesheet">
         <link rel="stylesheet" href="<c:url value="/admin/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css"/>">
-
+        <link rel="stylesheet" href="<c:url value="/admin/css/sweet-alert2.css"/>">
         <!-- Custom CSS -->
         <link href="<c:url value="/admin/css/style.min.css"/>" rel="stylesheet">
-
+        <!--SweetAlert2-->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" id="theme-styles">
+        <!--Jquery-->
+        <!--CDN-->
+       
 
     </head>
     <body><!-- ============================================================== -->
@@ -140,15 +145,15 @@
         <!--Custom JavaScript -->
         <script src="<c:url value="/admin/js/custom.js"/>"></script>
 
- 
+
         <c:forEach var="js" items="${javascripts}">
             <script src="<c:url value="${js}"/>"></script>
         </c:forEach>
-            
+
         <!--chartis chart-->
-        <script src="<c:url value="/admin/plugins/bower_components/chartist/dist/chartist.min.js"/>"></script>
-        <script src="<c:url value="/admin/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"/>"></script>
-        <script src="<c:url value="/admin/js/pages/dashboards/dashboard1.js"/>"></script>
+
+        <!--SweetAlert2-->
+        <script src="<c:url value="/admin/js/common-js/alert.js"/>"></script>
 
 
 

@@ -13,6 +13,7 @@ import java.util.List;
  */
 public interface MedicineService {
    List<Medicine> getMedicines();
+   Medicine getMedicineDetail(int id);
    boolean getMedicineByName(String name);
    boolean addMedicine(Medicine medicine);
 }

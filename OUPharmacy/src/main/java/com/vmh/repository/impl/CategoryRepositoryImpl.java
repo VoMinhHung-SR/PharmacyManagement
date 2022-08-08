@@ -37,5 +37,13 @@ public class CategoryRepositoryImpl implements CategoryRepository{
         Session session = this.sessionFactory.getObject().getCurrentSession();
         return session.get(Category.class,cateId);
     }
+
+    @Override
+    public int countCategories() {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        Query q = session.createQuery("SELECT COUNT(*) FROM Category");
+
+        return Integer.parseInt(q.getSingleResult().toString());
+    }
     
 }

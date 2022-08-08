@@ -7,6 +7,10 @@ package com.vmh.config;
 import com.vmh.converter.DateConverter;
 import com.vmh.formatter.CategoryFormatter;
 import com.vmh.formatter.MedicineFormatter;
+import com.vmh.validator.MedicineUnitValidator;
+import com.vmh.validator.WebAppValidator;
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -32,7 +36,7 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan(basePackages = {"com.vmh.controller", "com.vmh.repository",
-    "com.vmh.service", "com.vmh.api"})
+    "com.vmh.service", "com.vmh.api", "com.vmh.validator"})
 public class WebApplicationContextConfig implements WebMvcConfigurer {
 
      @Override
@@ -71,7 +75,7 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
         return resource;
 
     }
-
+    //====Validator====
     @Bean(name = "validator")
     public LocalValidatorFactoryBean validator() {
         LocalValidatorFactoryBean bean
@@ -79,11 +83,21 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
         bean.setValidationMessageSource(messageSource());
         return bean;
     }
+    @Bean
+    public WebAppValidator medicineUnitValidator(){
+        Set<Validator> springValidators = new HashSet<>();
+        springValidators.add(new MedicineUnitValidator());
+        
+        WebAppValidator webAppValidator = new WebAppValidator();
+        webAppValidator.setSpringValidators(springValidators);
+        return webAppValidator;
+    }
 
     @Override
     public Validator getValidator() {
         return validator();
     }
+    //====End Validator====
     
     @Override
     public void addFormatters(FormatterRegistry registry) {

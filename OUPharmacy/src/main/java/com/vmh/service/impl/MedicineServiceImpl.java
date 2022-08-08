@@ -34,4 +34,9 @@ public class MedicineServiceImpl implements MedicineService{
     public boolean addMedicine(Medicine mdcn) {
          return this.medicineRepository.addMedicine(mdcn);
     }
+
+    @Override
+    public Medicine getMedicineDetail(int i) {
+        return this.medicineRepository.getMedicineDetail(i);
+    }
 }
