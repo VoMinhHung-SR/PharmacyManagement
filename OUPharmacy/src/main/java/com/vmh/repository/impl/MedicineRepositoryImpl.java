@@ -37,6 +37,7 @@ public class MedicineRepositoryImpl implements MedicineRepository {
         Root root = q.from(Medicine.class);
         // +Lay tat ca dong du lieu
         q = q.select(root);
+        
 
         Predicate p = builder.equal(root.get("name").as(String.class), name);
         q = q.where(p);

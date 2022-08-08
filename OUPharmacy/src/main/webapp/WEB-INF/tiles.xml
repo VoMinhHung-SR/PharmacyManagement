@@ -96,5 +96,13 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         </put-list-attribute>
     </definition>
     
+     <definition name="add-user" extends="adminBaseLayout">
+        <put-attribute name="title" value="Them nguoi dung" />
+        <put-attribute name="pageName" value="Them nguoi dung" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/add-user.jsp" />
+        <put-list-attribute name="javascripts">
+        </put-list-attribute>
+    </definition>
+    
 </tiles-definitions>
 

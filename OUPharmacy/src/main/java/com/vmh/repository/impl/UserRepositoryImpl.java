@@ -57,5 +57,33 @@ public class UserRepositoryImpl implements UserRepository{
         Query query = session.createQuery(q);
         return query.getResultList();
     }
+
+    @Override
+    public List<User> getUserByUserRole(String userRole) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<User> q = builder.createQuery(User.class);
+        Root root = q.from(User.class);
+        
+        if(!userRole.isEmpty()){
+            Predicate p = builder.equal(root.get("userRole")
+                    .as(String.class),userRole.trim());
+            q = q.where(p);
+        }
+        Query query = session.createQuery(q);
+        return query.getResultList();
+    }
+
+    @Override
+    public boolean addUserWithUserRole(User user, String string) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try{
+            session.save(user);
+            return true;
+        }catch(HibernateException ex){
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
     
 }

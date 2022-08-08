@@ -13,5 +13,7 @@ import java.util.List;
  */
 public interface UserRepository {
     boolean addUser(User user);
+    boolean addUserWithUserRole(User user, String userRole);
     List<User> getUser(String username);
+    List<User> getUserByUserRole(String userRole);
 }

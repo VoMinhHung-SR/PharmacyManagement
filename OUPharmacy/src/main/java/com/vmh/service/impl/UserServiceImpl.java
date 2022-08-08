@@ -49,8 +49,8 @@ public class UserServiceImpl implements UserService{
                     ObjectUtils.asMap("resource_type", "auto"));
             
             user.setAvatar((String) r.get("secure_url"));
-            return this.userRepository.addUser(user);
-            
+            this.userRepository.addUser(user);
+            return true;
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
             ex.printStackTrace();
@@ -75,5 +75,31 @@ public class UserServiceImpl implements UserService{
         return new org.springframework.security.core.userdetails.User(
                 u.getUsername(), u.getPassword(), authorities);
     }
+
+    @Override
+    public List<User> getUserByUserRole(String string) {
+        return this.userRepository.getUserByUserRole(string);
+    }
+
+    @Override
+    public boolean addUserWithUserRole(User user, String string) {
+        try {
+            String pass = user.getPassword();
+            user.setPassword(this.passwordEncoder.encode(pass));
+            user.setUserRole(string);
+            
+            Map r = this.cloudinary.uploader().upload(user.getFile().getBytes(),
+                    ObjectUtils.asMap("resource_type", "auto"));
+            
+            user.setAvatar((String) r.get("secure_url"));
+            this.userRepository.addUserWithUserRole(user,string);
+            return true;
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
     
 }

@@ -41,10 +41,18 @@
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" 
-                       href="<c:url value="/admin/users" />"
+                       href="<c:url value="/admin/users/role-1" />"
                        aria-expanded="false">
                         <i class="fas fa-users" aria-hidden="true"></i>
-                        <span class="hide-menu">Quan ly nguoi dung</span>
+                        <span class="hide-menu">Quan ly bac si</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" 
+                       href="<c:url value="/admin/users/role-2" />"
+                       aria-expanded="false">
+                        <i class="fas fa-users" aria-hidden="true"></i>
+                        <span class="hide-menu">Quan ly y ta</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
