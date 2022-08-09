@@ -77,8 +77,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<User> getUserByUserRole(String string) {
-        return this.userRepository.getUserByUserRole(string);
+    public List<User> getUserByUserRole(Map<String, String> params, String string, int page) {
+        return this.userRepository.getUserByUserRole(params,string,page);
     }
 
     @Override
@@ -99,6 +99,11 @@ public class UserServiceImpl implements UserService{
             ex.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public int countUsersByUserRole(String string) {
+        return this.userRepository.countUsersByUserRole(string);
     }
 
     

@@ -29,7 +29,7 @@
 
                     <div class="col-md-6 mb-4">
                         <c:url var="filter" value="/admin/users/${thisRole}/">
-                            <c:param name="kw" value="${kw}" />
+                            <c:param name="name" value="${name}" />
                         </c:url>
                         <form id="form-filter" action="${filter}">
                             <input name="page" id="page" hidden/>
@@ -38,7 +38,7 @@
                                     <div class="form-group">
                                         <input class="form-control" type="text" 
                                                placeholder="Nhap ten nguoi dung..." 
-                                               name="kw"
+                                               name="name"
                                                aria-label="Search">
                                     </div>
                                 </div>
@@ -104,6 +104,16 @@
                         </tbody>
                     </table>
                 </div>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination" style="justify-content: center">
+                        <c:forEach begin="1" end="${Math.ceil(usersCounter/6)}" var="i">
+                            <c:url value="/admin/users/${thisRole}/" var="m">
+                                <c:param value="${i}" name="page" />
+                            </c:url>
+                            <li class="page-item"><a class="page-link" href="${m}">${i}</a></li>
+                            </c:forEach>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>

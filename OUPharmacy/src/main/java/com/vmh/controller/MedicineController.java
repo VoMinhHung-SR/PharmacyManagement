@@ -32,8 +32,9 @@ public class MedicineController {
     MedicineService medicineService;
 
     @GetMapping("/admin/medicines")
-    public String listMedicinesView(Model model, @RequestParam(required = false) Map<String, String> params,
-                                    @RequestParam(required = false, defaultValue = "1") String page) {
+    public String listMedicinesView(Model model, 
+            @RequestParam(required = false) Map<String, String> params,
+            @RequestParam(required = false, defaultValue = "1") String page) {
         int p = Integer.parseInt(page);
         model.addAttribute("medicines", this.medicineUnitService.getMedicineUnits(params, p));
         model.addAttribute("medicinesCouter", this.medicineUnitService.countMedicines());

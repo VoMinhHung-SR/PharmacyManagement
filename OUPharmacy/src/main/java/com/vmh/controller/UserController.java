@@ -6,6 +6,7 @@ package com.vmh.controller;
 
 import com.vmh.pojo.User;
 import com.vmh.service.UserService;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -52,10 +54,15 @@ public class UserController {
 
     //   ==== Admin =====
     @GetMapping("/admin/users/{userRole}")
-    public String listUsersView(Model model, @PathVariable(value = "userRole") String userRole) {
+    public String listUsersView(Model model, 
+            @RequestParam(required = false) Map<String, String> params,
+            @RequestParam(required = false, defaultValue = "1") String page,
+            @PathVariable(value = "userRole") String userRole) {
+        
+        int p = Integer.parseInt(page); 
 
         model.addAttribute("thisRole", userRole);
-
+        
         if (userRole.equals("role-1")) {
             userRole = "ROLE_DOCTOR";
         } else if (userRole.equals("role-2")) {
@@ -64,8 +71,8 @@ public class UserController {
             model.addAttribute("errMgs", "Role user khong hop le!!");
         }
 
-        model.addAttribute("usersByUserRole", this.userDetailsService.getUserByUserRole(userRole));
-
+        model.addAttribute("usersByUserRole", this.userDetailsService.getUserByUserRole(params,userRole,p));
+        model.addAttribute("usersCounter", this.userDetailsService.countUsersByUserRole(userRole));
         return "users";
     }
 

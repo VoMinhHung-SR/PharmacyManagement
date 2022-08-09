@@ -6,6 +6,7 @@ package com.vmh.repository;
 
 import com.vmh.pojo.User;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -15,5 +16,6 @@ public interface UserRepository {
     boolean addUser(User user);
     boolean addUserWithUserRole(User user, String userRole);
     List<User> getUser(String username);
-    List<User> getUserByUserRole(String userRole);
+    List<User> getUserByUserRole(Map<String, String> params,String userRole, int page);
+    int countUsersByUserRole(String userRole);
 }
