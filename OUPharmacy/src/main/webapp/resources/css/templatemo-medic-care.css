@@ -705,7 +705,7 @@ strong {
 .booking-form .form-control {
   background: transparent;
   border-radius: 0;
-  border: 0;
+  border: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
   color: #6c757d;
   font-weight: var(--font-weight-normal);

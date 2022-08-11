@@ -4,6 +4,7 @@
  */
 package com.vmh.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -58,6 +59,7 @@ public class Examination implements Serializable {
     private Date createdDate;
     @Column(name = "active")
     private Short active;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "examinationId")
     private Collection<ExaminationDetail> examinationDetailCollection;
     @JoinColumn(name = "user_examination_id", referencedColumnName = "id")

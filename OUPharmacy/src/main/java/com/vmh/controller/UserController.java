@@ -8,8 +8,11 @@ import com.vmh.pojo.User;
 import com.vmh.service.UserService;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -72,7 +75,6 @@ public class UserController {
         }
 
         model.addAttribute("usersByUserRole", this.userDetailsService.getUserByUserRole(params,userRole,p));
-        model.addAttribute("usersCounter", this.userDetailsService.countUsersByUserRole(userRole));
         return "users";
     }
 

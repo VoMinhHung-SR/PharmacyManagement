@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
@@ -32,27 +33,9 @@
                     <a class="nav-link" href="#timeline">Timeline</a>
                 </li>
 
-                <div class="btn-group">
-                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
-                        Sony
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Tablet</a>
-                        <a class="dropdown-item" href="#">Smartphone</a>
-                    </div>
-                </div>
-                
-                <c:forEach var="c" items="${categories}">
-                    <li class="nav-item">
-                        <c:url value="/" var="catePath">
-                            <c:param name="cateId" value="${c.id}"/>
-                        </c:url>
-                        <a class="nav-link" href="${catePath}">${c.name}</a>
-                    </li>
-                </c:forEach>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#timeline">Thuốc</a>
+                    <a class="nav-link" href="<c:url value="/medicines"/>">Thuốc</a>
                 </li>
 
                 <a class="navbar-brand d-none d-lg-block" href="<c:url value="/" />">
@@ -64,9 +47,7 @@
                     <a class="nav-link" href="#reviews">Testimonials</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#booking">Đặt lịch</a>
-                </li>
+
 
                 <li class="nav-item">
                     <a class="nav-link" href="#contact">Contact</a>
@@ -82,11 +63,45 @@
                     </c:when>
                     <c:when test="${pageContext.request.userPrincipal.name != null}">
                         <li class="nav-item">
-                            <a class="nav-link text-success" href="#">${pageContext.request.userPrincipal.name}</a>
+                            <a class="nav-link" href="<c:url value="/booking"/>">Đặt lịch</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-danger" href="<c:url value="/logout" />">Logout</a>
-                        </li>
+                        <div class="dropdown">
+                            
+                            <div class="dropbtn" onclick="myFunction()">
+                                <c:if test="${currentUser.avatar != null}">
+                                    <img src="${currentUser.avatar}" 
+                                     class="rounded-circle img-fluid " 
+                                     style="width: 30px;"
+                                     alt="${pageContext.request.userPrincipal.name}" />
+                                    ${pageContext.request.userPrincipal.name}
+                                </c:if>
+                                <c:if test="${currentUser.avatar == null}">
+                                     <i class="bi bi-person-fill"></i> ${pageContext.request.userPrincipal.name}
+                                </c:if>
+                            </div>
+
+                            <div id="myDropdown" class="dropdown-content">
+                                <sec:authorize access="hasRole('ADMIN')">
+                                    <a href="<c:url value="/admin/dashboard"/>" >
+                                        <i class="bi bi-person-fill"></i>
+                                        Trang quản trị
+                                    </a>
+                                    <hr style="padding: 0;margin: 0"></hr>
+                                </sec:authorize>
+                                <a class="text-danger"
+                                   href="<c:url value="/booking-list" />">
+                                    <i class="bi bi-box-arrow-in-right p-0"></i> Danh sách đặt lịch
+                                </a>
+                                    
+                               <hr style="padding: 0;margin: 0"></hr>
+                               
+                                <a class="text-danger"
+                                   href="<c:url value="/logout" />">
+                                    <i class="bi bi-box-arrow-in-right p-0"></i> Đăng xuất
+                                </a>
+                            </div>
+                        </div>
+
                     </c:when>
                 </c:choose>
 
@@ -95,3 +110,23 @@
 
     </div>
 </nav>
+
+<script>
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+// Close the dropdown menu if the user clicks outside of it
+    window.onclick = function (event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>

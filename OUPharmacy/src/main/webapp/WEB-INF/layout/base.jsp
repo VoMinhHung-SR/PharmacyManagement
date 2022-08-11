@@ -4,8 +4,10 @@
     Author     : ASUS
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<tiles:importAttribute name="javascripts" />
 <!doctype html>
 <html>
     <head>
@@ -24,16 +26,19 @@
 
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="<c:url value="/css/bootstrap.min.css"/>" rel="stylesheet">
 
-        <link href="css/bootstrap-icons.css" rel="stylesheet">
+        <link href="<c:url value="/css/bootstrap-icons.css"/>" rel="stylesheet">
 
-        <link href="css/owl.carousel.min.css" rel="stylesheet">
+        <link href="<c:url value="/css/owl.carousel.min.css"/>" rel="stylesheet">
 
-        <link href="css/owl.theme.default.min.css" rel="stylesheet">
+        <link href="<c:url value="/css/owl.theme.default.min.css"/>" rel="stylesheet">
 
-        <link href="css/templatemo-medic-care.css" rel="stylesheet">
+        <link href="<c:url value="/css/templatemo-medic-care.css"/>" rel="stylesheet">
 
+        <link href="<c:url value="/css/custom.css"/>" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
     </head>
 
@@ -44,17 +49,20 @@
             <!-- content -->
             <tiles:insertAttribute name="content" />
         </main>
-        
+
         <!-- footer -->
         <tiles:insertAttribute name="footer" />
 
 
         <!-- JAVASCRIPT FILES -->
-        <script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.bundle.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/scrollspy.min.js"></script>
-        <script src="js/custom.js"></script>
-
+        <script src="<c:url value="/js/jquery.min.js"/>"></script>
+        <script src="<c:url value="/js/bootstrap.bundle.min.js"/>"></script>
+        <script src="<c:url value="/js/owl.carousel.min.js"/>"></script>
+        <script src="<c:url value="/js/scrollspy.min.js"/>"></script>
+        <script src="<c:url value="/js/custom.js"/>"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+        <c:forEach var="js" items="${javascripts}">
+            <script src="<c:url value="${js}"/>"></script>
+        </c:forEach>
     </body>
 </html>

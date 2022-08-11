@@ -8,27 +8,59 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
         <put-attribute name="content" value="" />
         <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
+        <put-list-attribute name="javascripts">
+        </put-list-attribute> 
     </definition>
     
     <definition name="index" extends="baseLayout">
         <put-attribute name="title" value="OUPharmacy" />
         <put-attribute name="content" value="/WEB-INF/jsp/index.jsp" />
+        <put-list-attribute name="javascripts">
+        </put-list-attribute> 
     </definition>
     <definition name="medicine" extends="baseLayout">
         <put-attribute name="title" value="OUPharmacy" />
         <put-attribute name="content" value="/WEB-INF/jsp/medicine.jsp" />
+        <put-list-attribute name="javascripts">
+        </put-list-attribute> 
     </definition>
     
     <definition name="login" extends="baseLayout">
         <put-attribute name="title" value="Dang nhap" />
         <put-attribute name="content" value="/WEB-INF/jsp/login.jsp" />
+        <put-list-attribute name="javascripts">
+        </put-list-attribute> 
     </definition>
     
     <definition name="register" extends="baseLayout">
         <put-attribute name="title" value="OUPharmacy" />
         <put-attribute name="content" value="/WEB-INF/jsp/register.jsp" />
+        <put-list-attribute name="javascripts">
+        </put-list-attribute> 
     </definition>
     
+    <definition name="user-medicines" extends="baseLayout">
+        <put-attribute name="title" value="OUPharmacy" />
+        <put-attribute name="content" value="/WEB-INF/jsp/medicines.jsp" />
+        <put-list-attribute name="javascripts">
+        </put-list-attribute> 
+    </definition>
+    
+    <definition name="booking" extends="baseLayout">
+        <put-attribute name="title" value="Dat lich kham" />
+        <put-attribute name="content" value="/WEB-INF/jsp/booking.jsp" />
+        <put-list-attribute name="javascripts">
+             <add-attribute value="/js/booking.js"/>
+        </put-list-attribute> 
+    </definition>
+    
+    <definition name="booking-list" extends="baseLayout">
+        <put-attribute name="title" value="Dat lich kham" />
+        <put-attribute name="content" value="/WEB-INF/jsp/booking-list.jsp" />
+        <put-list-attribute name="javascripts">
+            <add-attribute value="/js/booking.js"/>
+        </put-list-attribute> 
+    </definition>
     
     <!--    ============Admin=============  -->
     <definition name="adminBaseLayout" template="/WEB-INF/layout/admin/base.jsp">

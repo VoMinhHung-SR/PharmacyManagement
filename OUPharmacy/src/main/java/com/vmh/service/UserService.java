@@ -24,5 +24,6 @@ public interface UserService extends UserDetailsService {
     List<User> getUserByUserRole(Map<String, String> params,String userRole, int page);
 
     int countUsersByUserRole(String userRole);
+    
 
 }

@@ -36,7 +36,7 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan(basePackages = {"com.vmh.controller", "com.vmh.repository",
-    "com.vmh.service", "com.vmh.api", "com.vmh.validator"})
+    "com.vmh.service", "com.vmh.api", "com.vmh.validator", "com.vmh.handler"})
 public class WebApplicationContextConfig implements WebMvcConfigurer {
 
      @Override

@@ -67,8 +67,19 @@
                 <!-- ============================================================== -->
                 <li>
                     <a class="profile-pic" href="#">
-                        <img src="<c:url value="/admin/plugins/images/users/varun.jpg"/>" alt="user-img" width="36"
-                             class="img-circle"><span class="text-white font-medium">Steave</span></a>
+                        <c:if test="${currentUser.avatar != null}">
+                            <img src="${currentUser.avatar}" 
+                                 class="img-circle img-fluid " 
+                                 style="width: 36px;"
+                                 alt="${pageContext.request.userPrincipal.name}" />
+                            <span class="text-white font-medium">${pageContext.request.userPrincipal.name}</span>
+
+                        </c:if>
+                        <c:if test="${currentUser.avatar == null}">
+                            <i class="bi bi-person-fill"></i> ${pageContext.request.userPrincipal.name}
+                        </c:if>
+
+                    </a>
                 </li>
                 <!-- ============================================================== -->
                 <!-- User profile and search -->

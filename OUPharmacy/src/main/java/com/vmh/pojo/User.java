@@ -4,6 +4,7 @@
  */
 package com.vmh.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -51,6 +52,9 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "User.findByUserRole", query = "SELECT u FROM User u WHERE u.userRole = :userRole")})
 public class User implements Serializable {
 
+    @Column(name = "is_superuser")
+    private Short isSuperuser;
+
     private static final long serialVersionUID = 1L;
     public static final String ADMIN = "ROLE_ADMIN";
     public static final String DOCTOR = "ROLE_DOCTOR";
@@ -68,6 +72,7 @@ public class User implements Serializable {
     private String username;
     @Basic(optional = false)
     @NotNull
+    @JsonIgnore
     @Size(min = 1, max = 255)
     @Column(name = "password")
     private String password;
@@ -107,13 +112,17 @@ public class User implements Serializable {
     @Column(name = "user_role")
     private String userRole;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    @JsonIgnore
     private Collection<Prescription> prescriptionCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userExaminationId")
+    @JsonIgnore
     private Collection<Examination> examinationCollection;
     
     @Transient
+    @JsonIgnore
     private MultipartFile file;
     @Transient
+    @JsonIgnore
     private String confirmPassword;
 
     public User() {
@@ -132,6 +141,14 @@ public class User implements Serializable {
         this.userRole = userRole;
     }
 
+    public boolean hasRole(String userRole){
+        if(this.getUserRole().equals(userRole)){
+            return true;
+        }
+        return false;
+    }
+    
+    
     public Integer getId() {
         return id;
     }
@@ -305,6 +322,14 @@ public class User implements Serializable {
      */
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public Short getIsSuperuser() {
+        return isSuperuser;
+    }
+
+    public void setIsSuperuser(Short isSuperuser) {
+        this.isSuperuser = isSuperuser;
     }
 
 }

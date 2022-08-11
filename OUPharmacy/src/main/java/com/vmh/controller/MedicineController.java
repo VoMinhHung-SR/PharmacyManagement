@@ -31,6 +31,18 @@ public class MedicineController {
     @Autowired
     MedicineService medicineService;
 
+    @GetMapping("/medicines")
+    public String userListMedicineView(Model model, 
+            @RequestParam(required = false) Map<String, String> params,
+            @RequestParam(required = false, defaultValue = "1") String page){
+        int p = Integer.parseInt(page);
+        model.addAttribute("medicines", this.medicineUnitService.getMedicineUnits(params, p));
+        model.addAttribute("medicinesCouter", this.medicineUnitService.countMedicines());
+        return "user-medicines";
+    }
+
+    
+    
     @GetMapping("/admin/medicines")
     public String listMedicinesView(Model model, 
             @RequestParam(required = false) Map<String, String> params,

@@ -134,11 +134,10 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public int countUsersByUserRole(String string) {
+    public int countUsersByUserRole(String userRole) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
-        Query q = session.createQuery("SELECT COUNT(*) FROM User Where userRole =" + "'{string}'");
+        Query q = session.createQuery("SELECT COUNT(*) FROM User Where userRole = '" + userRole + "'");
 
         return Integer.parseInt(q.getSingleResult().toString());
     }
-
 }

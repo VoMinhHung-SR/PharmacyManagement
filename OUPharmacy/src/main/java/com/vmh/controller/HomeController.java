@@ -5,6 +5,7 @@
 package com.vmh.controller;
 
 import com.vmh.service.CategoryService;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,8 +25,9 @@ public class HomeController {
     private CategoryService categoryService;
     
     @ModelAttribute
-    public void commonAttributes(Model model){
+    public void commonAttributes(Model model, HttpSession session){
         model.addAttribute("categories", this.categoryService.getCategories());
+        model.addAttribute("currentUser", session.getAttribute("currentUser"));
     }
     
     @RequestMapping(value = "/")
