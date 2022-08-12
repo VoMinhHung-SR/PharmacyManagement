@@ -9,8 +9,6 @@ import com.vmh.pojo.User;
 import com.vmh.repository.ExaminationRepository;
 import com.vmh.repository.UserRepository;
 import com.vmh.service.ExaminationService;
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +23,7 @@ public class ExaminationServiceImpl implements ExaminationService{
 
     @Autowired
     private ExaminationRepository examinationRepository;
-    
+
     
     @Autowired
     private UserRepository userRepository;
@@ -49,6 +47,16 @@ public class ExaminationServiceImpl implements ExaminationService{
     @Override
     public boolean deleteExamination(int i) {
         return this.examinationRepository.deleteExamination(i);
+    }
+
+    @Override
+    public List<Examination> getExaminations() {
+        return this.examinationRepository.getExaminations();
+    }
+
+    @Override
+    public Examination getExaminationById(int i) {
+        return this.examinationRepository.getExaminationById(i);
     }
     
 }

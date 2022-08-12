@@ -7,6 +7,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<c:if test="${errMgs != null}">
+    <h1 class="text-center text-danger">${errMgs}</h1>
+</c:if>
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
@@ -53,6 +56,9 @@
                             <thead>
                                 <tr>
                                     <th class="border-top-0">#</th>
+
+                                    <th class="border-top-0">Ten khoan</th>
+
                                     <th class="border-top-0">Mô tả</th>
                                     <th class="border-top-0">Ngày tạo</th>
                                     <th class="border-top-0">Chức năng</th>
@@ -62,9 +68,9 @@
                                 <c:if test="${bookingList.size() == 0}">
 
                                     <tr>
-                                        <td colspan="4">
+                                        <td colspan="5">
                                             <h5 class="text-center text-danger">
-                                                Người dùng hiện tại chưa có đặt lịch khám!! 
+                                                Hiện tại người dùng chưa đặt lịch khám!! 
                                             </h5>
                                         </td>
                                     </tr>
@@ -75,6 +81,8 @@
                                     <tr>
 
                                         <td>${b.id}</td>
+
+                                        <th class="border-top-0">${b.userExaminationId.username}</th>
 
                                         <td >${b.description}</td>
                                         <td class="created-date">${b.createdDate}</td>

@@ -25,7 +25,7 @@ const addExamination = () => {
     });
 };
 
-//Delete /api/medicines/{medicineUnitId}
+//Delete /api/booking/{bookingId}
 const deleteExamination = (endpoint) => {
     if (confirm('Ban co muon xoa khong?')) {
         const d = fetch(endpoint, {
@@ -36,6 +36,29 @@ const deleteExamination = (endpoint) => {
         }).then(function (res) {
             if (res.status === 204) {
                 alert("xoa thanh cong");
+                location.reload();
+            }
+        }).catch(err => {
+            console.log("Error!!");
+            console.log(err);
+        })
+
+    } else {
+        console.log('BAN DA HUY!');
+    }
+}
+
+//POST : /api/booking-list/nur-censored/{bookingId}
+const sendEmailChecker = (endpoint) => {
+    if (confirm('Ban co muon gui xac nhan chu?')) {
+        const d = fetch(endpoint, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function (res) {
+            if (res.status === 200) {
+                alert("gui thanh thanh cong");
                 location.reload();
             }
         }).catch(err => {

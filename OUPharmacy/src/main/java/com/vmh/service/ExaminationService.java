@@ -14,6 +14,8 @@ import java.util.Map;
  * @author ASUS
  */
 public interface ExaminationService {
+    List<Examination> getExaminations();
+    Examination getExaminationById(int id);
     Examination addExamination(String description, User creator);
     List<Examination> getExaminationByUserId(Map<String, String> params,int id);
     boolean deleteExamination(int id);

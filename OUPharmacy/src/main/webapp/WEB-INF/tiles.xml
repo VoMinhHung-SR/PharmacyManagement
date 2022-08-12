@@ -55,10 +55,32 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
     </definition>
     
     <definition name="booking-list" extends="baseLayout">
-        <put-attribute name="title" value="Dat lich kham" />
+        <put-attribute name="title" value="Danh sach lich kham" />
         <put-attribute name="content" value="/WEB-INF/jsp/booking-list.jsp" />
         <put-list-attribute name="javascripts">
             <add-attribute value="/js/booking.js"/>
+        </put-list-attribute> 
+    </definition>
+    
+     <definition name="booking-list-nur-cen" extends="baseLayout">
+        <put-attribute name="title" value="Kiem duyet lich kham" />
+        <put-attribute name="content" value="/WEB-INF/jsp/censored.jsp" />
+        <put-list-attribute name="javascripts">
+            <add-attribute value="/js/booking.js"/>
+        </put-list-attribute> 
+    </definition>
+    
+    <definition name="patients" extends="baseLayout">
+        <put-attribute name="title" value="Ke toa thuoc" />
+        <put-attribute name="content" value="/WEB-INF/jsp/patients.jsp" />
+        <put-list-attribute name="javascripts">
+        </put-list-attribute> 
+    </definition>
+    
+    <definition name="prescription" extends="baseLayout">
+        <put-attribute name="title" value="Ke toa thuoc" />
+        <put-attribute name="content" value="/WEB-INF/jsp/prescription.jsp" />
+        <put-list-attribute name="javascripts">
         </put-list-attribute> 
     </definition>
     

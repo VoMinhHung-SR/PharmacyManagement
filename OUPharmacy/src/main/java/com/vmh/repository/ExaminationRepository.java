@@ -5,7 +5,6 @@
 package com.vmh.repository;
 
 import com.vmh.pojo.Examination;
-import com.vmh.pojo.User;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +13,8 @@ import java.util.Map;
  * @author ASUS
  */
 public interface ExaminationRepository {
+    List<Examination> getExaminations();
+    Examination getExaminationById(int id);
     List<Examination> getExaminationByUserId(Map<String, String> params,int id);
     Examination addExamination(Examination e);
     boolean deleteExamination(int id);

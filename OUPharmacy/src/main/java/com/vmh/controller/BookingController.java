@@ -30,6 +30,7 @@ public class BookingController {
         model.addAttribute(new Examination());
         return "booking";
     }
+    
     @GetMapping("/booking-list")
     public String bookingListView(Model model, @RequestParam Map<String, String> params, HttpSession session){
         User u = (User) session.getAttribute("currentUser");
@@ -47,4 +48,22 @@ public class BookingController {
         model.addAttribute("errMgs", "Da co loi xay ra, vui long quay lai sau!!");      
         return "booking-list";
     }
+    
+    @GetMapping("/booking-list/nur-censored")
+    public String bookingListNurseCensoredView(Model model, HttpSession session){
+        User u = (User) session.getAttribute("currentUser");
+        if(u != null){
+            try{
+                model.addAttribute("bookingList", 
+                        this.examinationService.getExaminations());
+                return "booking-list-nur-cen";
+            }catch(Exception ex){
+                System.err.println(ex.getMessage());
+                ex.printStackTrace();
+            }
+        }
+        model.addAttribute("errMgs", "Da co loi xay ra, vui long quay lai sau!!");      
+        return "booking-list-nur-cen";
+    }
+    
 }

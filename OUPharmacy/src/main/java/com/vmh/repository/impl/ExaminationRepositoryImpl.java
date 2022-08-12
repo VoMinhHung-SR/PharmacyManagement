@@ -95,4 +95,37 @@ public class ExaminationRepositoryImpl implements ExaminationRepository {
         return false;
     }
 
+    @Override
+    public List<Examination> getExaminations() {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Examination> q = builder.createQuery(Examination.class);
+        Root root = q.from(Examination.class);
+        
+        q = q.select(root);
+        q = q.orderBy(builder.asc(root.get("createdDate")));
+
+        Query query = session.createQuery(q);
+        
+        return query.getResultList();
+    }
+
+    
+    @Override
+    public Examination getExaminationById(int examinationId) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Examination> query = builder.createQuery(Examination.class);
+            Root<Examination> root = query.from(Examination.class);
+            query.select(root);
+            query.where(builder.equal(root.get("id").as(Integer.class), examinationId));
+
+            return session.createQuery(query).getSingleResult();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
 }

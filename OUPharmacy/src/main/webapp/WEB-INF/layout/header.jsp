@@ -32,11 +32,17 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#timeline">Timeline</a>
                 </li>
-
-
-                <li class="nav-item">
-                    <a class="nav-link" href="<c:url value="/medicines"/>">Thuốc</a>
-                </li>
+                <sec:authorize access="hasRole('ROLE_NURSE')">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<c:url value="/booking-list/nur-censored"/>">Duyệt đơn</a>
+                    </li>
+                </sec:authorize>
+                <sec:authorize access="hasRole('ROLE_DOCTOR')">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<c:url value="/patients"/>">Kê toa</a>
+                    </li>
+                </sec:authorize>
+                    
 
                 <a class="navbar-brand d-none d-lg-block" href="<c:url value="/" />">
                     OUPharmacy
@@ -66,17 +72,17 @@
                             <a class="nav-link" href="<c:url value="/booking"/>">Đặt lịch</a>
                         </li>
                         <div class="dropdown">
-                            
+
                             <div class="dropbtn" onclick="myFunction()">
                                 <c:if test="${currentUser.avatar != null}">
                                     <img src="${currentUser.avatar}" 
-                                     class="rounded-circle img-fluid " 
-                                     style="width: 30px;"
-                                     alt="${pageContext.request.userPrincipal.name}" />
+                                         class="rounded-circle img-fluid " 
+                                         style="width: 30px;"
+                                         alt="${pageContext.request.userPrincipal.name}" />
                                     ${pageContext.request.userPrincipal.name}
                                 </c:if>
                                 <c:if test="${currentUser.avatar == null}">
-                                     <i class="bi bi-person-fill"></i> ${pageContext.request.userPrincipal.name}
+                                    <i class="bi bi-person-fill"></i> ${pageContext.request.userPrincipal.name}
                                 </c:if>
                             </div>
 
@@ -88,13 +94,13 @@
                                     </a>
                                     <hr style="padding: 0;margin: 0"></hr>
                                 </sec:authorize>
-                                <a class="text-danger"
+                                <a 
                                    href="<c:url value="/booking-list" />">
                                     <i class="bi bi-box-arrow-in-right p-0"></i> Danh sách đặt lịch
                                 </a>
-                                    
-                               <hr style="padding: 0;margin: 0"></hr>
-                               
+
+                                <hr style="padding: 0;margin: 0"></hr>
+
                                 <a class="text-danger"
                                    href="<c:url value="/logout" />">
                                     <i class="bi bi-box-arrow-in-right p-0"></i> Đăng xuất

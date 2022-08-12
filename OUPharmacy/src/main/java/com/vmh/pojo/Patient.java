@@ -43,6 +43,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Patient.findByActive", query = "SELECT p FROM Patient p WHERE p.active = :active")})
 public class Patient implements Serializable {
 
+    @Column(name = "gender")
+    private Integer gender;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,12 +68,10 @@ public class Patient implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateOfBirth;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "phone_number")
     private String phoneNumber;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "address")
     private String address;
@@ -194,6 +195,14 @@ public class Patient implements Serializable {
     @Override
     public String toString() {
         return "com.vmh.pojo.Patient[ id=" + id + " ]";
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
     }
     
 }

@@ -52,6 +52,7 @@ public class ApiBookingController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
     
+    
     @DeleteMapping("/booking/{bookingId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBooking(@PathVariable(value="bookingId") int id){
