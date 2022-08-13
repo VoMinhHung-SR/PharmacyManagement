@@ -4,6 +4,7 @@
  */
 package com.vmh.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -70,8 +71,10 @@ public class Prescription implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User userId;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "prescriptionBillId")
     private Collection<Bill> billCollection;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "prescriptionId")
     private Collection<PrescriptionDetail> prescriptionDetailCollection;
 

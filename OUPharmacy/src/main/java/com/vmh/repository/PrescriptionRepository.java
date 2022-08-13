@@ -5,11 +5,15 @@
 package com.vmh.repository;
 
 import com.vmh.pojo.Prescription;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author ASUS
  */
 public interface PrescriptionRepository {
-    boolean addPrescription(Prescription presciption);
+    Prescription addPrescription(Prescription presciption);
+    List<Prescription> getPrescriptionByPatientId(
+            Map<String, String> params,int patientId);
 }

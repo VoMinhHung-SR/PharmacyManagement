@@ -15,7 +15,7 @@ import java.util.Map;
 public interface ExaminationRepository {
     List<Examination> getExaminations();
     Examination getExaminationById(int id);
-    List<Examination> getExaminationByUserId(Map<String, String> params,int id);
+    List<Examination> getExaminationByUserId(Map<String, String> params,int userId);
     Examination addExamination(Examination e);
     boolean deleteExamination(int id);
 }

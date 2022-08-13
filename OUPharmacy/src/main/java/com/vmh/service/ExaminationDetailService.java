@@ -4,7 +4,7 @@
  */
 package com.vmh.service;
 
-import com.vmh.pojo.Prescription;
+import com.vmh.pojo.ExaminationDetail;
 import java.util.List;
 import java.util.Map;
 
@@ -12,8 +12,6 @@ import java.util.Map;
  *
  * @author ASUS
  */
-public interface PrescriptionService {
-    Prescription addPrescription(Prescription p);
-    List<Prescription> getPrescriptionByPatientId(
-            Map<String, String> params,int patientId);
+public interface ExaminationDetailService {
+    List<ExaminationDetail> getExaminationsByPatientId(Map<String, String> params,int patientId);
 }

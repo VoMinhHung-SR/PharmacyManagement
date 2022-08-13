@@ -4,9 +4,11 @@
  */
 package com.vmh.repository.impl;
 
+import com.vmh.pojo.Examination;
+import com.vmh.pojo.ExaminationDetail;
 import com.vmh.pojo.Patient;
 import com.vmh.pojo.Prescription;
-import com.vmh.repository.PrescriptionRepository;
+import com.vmh.repository.ExaminationDetailRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +18,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -29,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class PrescriptionRepositoryImpl implements PrescriptionRepository {
+public class ExaminationDetailRepositoryImpl implements ExaminationDetailRepository {
 
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
@@ -38,25 +41,12 @@ public class PrescriptionRepositoryImpl implements PrescriptionRepository {
     private Environment env;
 
     @Override
-    public Prescription addPrescription(Prescription p) {
+    public List<ExaminationDetail> getExaminationsByPatientId(Map<String, String> params, int patientId) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
         try {
-            session.save(p);
-            return p;
-        } catch (Exception ex) {
-            System.err.println(ex.getMessage());
-            ex.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public List<Prescription> getPrescriptionByPatientId(Map<String, String> params, int patientId) {
-        Session session = this.sessionFactory.getObject().getCurrentSession();
-        
             CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Prescription> q = builder.createQuery(Prescription.class);
-            Root root = q.from(Prescription.class);
+            CriteriaQuery<ExaminationDetail> q = builder.createQuery(ExaminationDetail.class);
+            Root root = q.from(ExaminationDetail.class);
             Root<Patient> patientRoot = q.from(Patient.class);
 
             q = q.select(root);
@@ -66,37 +56,28 @@ public class PrescriptionRepositoryImpl implements PrescriptionRepository {
             Predicate p2 = builder.equal(root.get("patientId"), patientRoot.get("id"));
             predicates.add(p1);
             predicates.add(p2);
-            if (params != null) {
+            
 
-                if (params.containsKey("kw") == true) {
-                    Predicate p3 = builder.like(root.get("sign").as(String.class),
-                            String.format("%%%s%%", params.get("kw")));
-                    predicates.add(p3);
-                }
-            }
-            
             q.where(predicates.toArray(new Predicate[]{}));
-            q = q.orderBy(builder.desc(root.get("createdDate")));
-            
+            q = q.orderBy(builder.desc(root.get("id")));
+
             Query query = session.createQuery(q);
-            
-            if(query == null)
-                return null;
-            
+
             int page = 1;
             int pageSize = Integer.parseInt(env.getProperty("page.size").toString());;
             if (params.containsKey("page") && !params.get("page").isEmpty()) {
                 page = Integer.parseInt(params.get("page"));
             }
             int startPage = (page - 1) * pageSize;
-            
-            
+
             query.setMaxResults(pageSize);
             query.setFirstResult(startPage);
 
             return query.getResultList();
-
-        
+        } catch (HibernateException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return null;
     }
 
 }
