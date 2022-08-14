@@ -84,6 +84,15 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
             <add-attribute value="/js/prescription.js"/>
         </put-list-attribute> 
     </definition>
+    
+    <definition name="prescription-detail" extends="baseLayout">
+        <put-attribute name="title" value="Ke toa thuoc" />
+        <put-attribute name="content" value="/WEB-INF/jsp/prescription-detail.jsp" />
+        <put-list-attribute name="javascripts">
+            <add-attribute value="/js/prescription-detail.js"/>
+        </put-list-attribute> 
+    </definition>
+    
     <definition name="medical-records" extends="baseLayout">
         <put-attribute name="title" value="Ho so benh an" />
         <put-attribute name="content" value="/WEB-INF/jsp/medical-records.jsp" />

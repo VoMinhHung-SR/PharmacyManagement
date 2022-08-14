@@ -99,4 +99,10 @@ public class PrescriptionRepositoryImpl implements PrescriptionRepository {
         
     }
 
+    @Override
+    public Prescription getPrescriptionById(int id) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        return session.get(Prescription.class,id);
+    }
+
 }

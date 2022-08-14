@@ -54,3 +54,25 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .show {
     display:block;
 }
+
+.list {
+    width: 70%;
+
+    list-style: none;
+    margin: 0px;
+    margin-top: 10px;
+    position: absolute;
+    padding-left: 0px;
+    background-color: #ffffff;
+    border-radius: 0 0 5px 5px;
+}
+.list-items {
+    background-color: #dddddd;
+    padding: 10px 10px; 
+}
+.list-items:hover {
+    background-color: rgba(108,117,125,0.8);
+
+}
+
+

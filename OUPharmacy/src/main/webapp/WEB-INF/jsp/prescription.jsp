@@ -18,24 +18,20 @@
                 <h3 class="box-title text-center pt-5 text-danger mb-3">
                     Chẩn đoán bệnh lý
                 </h3>
-
                 <div class="table-responsive mt-3">
 
                     <table class="table text-nowrap">
                         <thead>
                             <tr>
-
                                 <th class="border-top-0">Họ</th>
                                 <th class="border-top-0">Tên</th>
                                 <th class="border-top-0">Ngày sinh</th>
                                 <th class="border-top-0">SÐT</th>
                                 <th class="border-top-0">Giới tính</th>
                                 <th class="border-top-0 text-center">Chức năng xem</th>
-
                             </tr>
                         </thead>
                         <tbody>
-
                             <tr>
                                 <td>${patient.firstName}</td>
                                 <td>${patient.lastName}</td>
@@ -55,16 +51,16 @@
                                 </td>
                                 <td>
                                     <div class="text-center">
-                                    <a href="<c:url value="/patients/${patient.id}/medical-records/"/>" target="_blank">
-                                        <button type="button" class="btn btn-primary">
-                                            <i class="bi bi-clipboard2-plus"></i>Bệnh án
-                                        </button>
-                                    </a>
-                                    <a href="<c:url value="/patients/${patient.id}/booking-list/"/>" target="_blank">
-                                        <button type="button" class="btn btn-primary">
-                                            <i class="bi bi-clipboard2-plus"></i>Lịch sử khám
-                                        </button>
-                                    </a>
+                                        <a href="<c:url value="/patients/${patient.id}/medical-records/"/>" target="_blank">
+                                            <button type="button" class="btn btn-primary">
+                                                <i class="bi bi-clipboard2-plus"></i>Bệnh án
+                                            </button>
+                                        </a>
+                                        <a href="<c:url value="/patients/${patient.id}/booking-list/"/>" target="_blank">
+                                            <button type="button" class="btn btn-primary">
+                                                <i class="bi bi-clipboard2-plus"></i>Lịch sử khám
+                                            </button>
+                                        </a>
                                     </div>
                                     
                                 </td>
