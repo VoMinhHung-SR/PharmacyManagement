@@ -69,6 +69,7 @@ public class MedicineUnit implements Serializable {
     @ManyToOne(optional = false)
     @JsonIgnore
     private Medicine medicineId;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "medicineUnitId")
     private Collection<PrescriptionDetail> prescriptionDetailCollection;
 

@@ -4,6 +4,8 @@
  */
 package com.vmh.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -31,8 +33,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PrescriptionDetail.findAll", query = "SELECT p FROM PrescriptionDetail p"),
     @NamedQuery(name = "PrescriptionDetail.findById", query = "SELECT p FROM PrescriptionDetail p WHERE p.id = :id"),
     @NamedQuery(name = "PrescriptionDetail.findByQuantity", query = "SELECT p FROM PrescriptionDetail p WHERE p.quantity = :quantity"),
-    @NamedQuery(name = "PrescriptionDetail.findByUse", query = "SELECT p FROM PrescriptionDetail p WHERE p.use = :use")})
+    @NamedQuery(name = "PrescriptionDetail.findByUses", query = "SELECT p FROM PrescriptionDetail p WHERE p.uses = :uses")})
 public class PrescriptionDetail implements Serializable {
+
+    
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,13 +51,15 @@ public class PrescriptionDetail implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "use")
-    private String use;
+    @Column(name = "uses")
+    private String uses;
     @JoinColumn(name = "medicine_unit_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @JsonIgnoreProperties({"inStock", "price", "image"})
     private MedicineUnit medicineUnitId;
     @JoinColumn(name = "prescription_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @JsonIgnoreProperties({"sign","diagnosed","createdDate","active","patientId","userId"})
     private Prescription prescriptionId;
 
     public PrescriptionDetail() {
@@ -63,10 +69,10 @@ public class PrescriptionDetail implements Serializable {
         this.id = id;
     }
 
-    public PrescriptionDetail(Integer id, int quantity, String use) {
+    public PrescriptionDetail(Integer id, int quantity, String uses) {
         this.id = id;
         this.quantity = quantity;
-        this.use = use;
+        this.uses = uses;
     }
 
     public Integer getId() {
@@ -85,12 +91,13 @@ public class PrescriptionDetail implements Serializable {
         this.quantity = quantity;
     }
 
-    public String getUse() {
-        return use;
+
+    public String getUses() {
+        return uses;
     }
 
-    public void setUse(String use) {
-        this.use = use;
+    public void setUses(String uses) {
+        this.uses = uses;
     }
 
     public MedicineUnit getMedicineUnitId() {

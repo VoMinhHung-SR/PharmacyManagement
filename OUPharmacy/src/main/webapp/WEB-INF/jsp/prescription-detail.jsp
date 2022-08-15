@@ -90,7 +90,7 @@
                                                         </div>
                                                         <div class="form-outline mb-4 col-2">
                                                             <label class="form-label" for="quantity">Số lượng<span class="text-danger">(*)</span></label>
-                                                            <input type="text"  id="quantity"  name="quantity" class="form-control form-control-lg" />
+                                                            <input type="number"  id="quantity"  name="quantity" class="form-control form-control-lg" />
                                                         </div>
                                                         <div class="form-outline mb-4 col-3">
                                                             <label class="form-label" for="use">Liều dùng<span class="text-danger">(*)</span></label>
@@ -101,7 +101,7 @@
                                                             <input
                                                                 class="btn btn-success ms-2"
                                                                 type="button"
-                                                                onclick ="addRowPrescriptionDetail()",
+                                                                onclick ="addRowPrescriptionDetail(${prescription.id})",
                                                                 value="Thêm">  
                                                             </input>
 
@@ -139,21 +139,15 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody id="prescriptionDetail">
-                                                                <tr>
-                                                                    <th scope="row">1</th>
-                                                                    <td>Mark</td>
-                                                                    <td>Otto</td>
-                                                                    <td>@mdo</td>
-                                                                    <td class="text-center"><input type="button" value="X" class="btn btn-danger"/></td>
-                                                                </tr>
-                                                  
+                                             
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                    <div style="text-align: end" class="m-3">
+                                                    <div style="text-align: end" id="export" class="m-3">
                                                         <input style="margin-left: auto" 
                                                                class="btn btn-success btn-lg ms-2"
                                                                type="button"
+                                                               onclick="exportPrescriptionDetail()"
                                                                value="Ra toa">  
                                                         </input>
                                                     </div>
@@ -174,15 +168,21 @@
 </div>
 
 <script>
-    window.onload = () => {
-        
-        medicinesOnLoad();
-        
+    window.onload = () => {    
+        medicinesOnLoad();    
         let dates = document.querySelectorAll(".createdDate");
         for (let i = 0; i < dates.length; i++) {
             let d = dates[i];
             d.innerText = moment(d.innerText).format('DD/MM/YYYY');
         }
-
+        if(document.getElementById("prescriptionDetail").innerText === ""){
+            document.getElementById("prescriptionDetail").innerHTML =
+                        `<tr> 
+                            <th scope="row" colspan="5" class="text-center">
+                                Hiện tại chưa có thuốc trong toa!!!
+                            </th>
+                        </tr>`
+            document.getElementById("export").style.display ="none";
+        }
     };
 </script>

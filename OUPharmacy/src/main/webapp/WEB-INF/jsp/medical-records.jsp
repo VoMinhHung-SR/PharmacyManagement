@@ -56,7 +56,7 @@
                                             <td class="created-date">${p.createdDate}</td>
 
                                             <td>
-                                                Hùng Doctor
+                                                ${p.userId.username}
                                             </td>
                                         </tr>
                                     </c:forEach> 

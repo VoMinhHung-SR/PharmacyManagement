@@ -5,11 +5,27 @@
 
 
 // remove member item
-const removeMemberItem = (i) => {
-    document.getElementById("member-area").removeChild(document.getElementById(`member-${i}`));
+const removeItem = (m) => {
+    document.querySelector(`.m_${m}`).remove();
 
-    memberArray.splice(memberArray.indexOf(i), 1);
+    for (let i = 0; i < prescriptionJson.length; i++) {
+        if (prescriptionJson[i].medicineUnitId === m) {
+            prescriptionJson.splice(i, 1);
+            break;
+        }
+    }
+    if (prescriptionJson.length === 0) {
+        document.getElementById("prescriptionDetail").innerHTML =
+                `<tr> 
+                            <th scope="row" colspan="5" class="text-center">
+                                Hiện tại chưa có thuốc trong toa!!!
+                            </th>
+                        </tr>`;
+        document.getElementById("export").style.display = "none";
+    }
+    console.info(prescriptionJson);
 };
+
 
 
 let medicinesName = [];
@@ -26,10 +42,8 @@ const medicinesOnLoad = () => {
         console.info(data);
         data.forEach(d => medicinesName.push({"id": d.id, "name": d.name}));
         console.info(medicinesName);
-        //Sort names in ascending order  
     });
 };
-
 const createDataRow = (data) => {
     let h = document.querySelector(`.m_${data.medicineUnit}`);
     if (h !== null && h !== undefined) {
@@ -38,6 +52,10 @@ const createDataRow = (data) => {
         return false;
     } else {
         countMedicine++;
+        if (countMedicine === 1 || prescriptionJson.length === 0) {
+            document.getElementById("prescriptionDetail").innerText = "";
+            document.getElementById("export").style.display = "block";
+        }
         let tbPrescriptionElement = document.getElementById("prescriptionDetail");
         let trPrescriptionElement = document.createElement("tr");
         let thPrescriptionElement = document.createElement("th");
@@ -45,15 +63,19 @@ const createDataRow = (data) => {
         let tdPrescriptionElement2 = document.createElement("td");
         let tdPrescriptionElement3 = document.createElement("td");
         let tdPrescriptionElement4 = document.createElement("td");
-
         thPrescriptionElement.innerText = countMedicine;
         tdPrescriptionElement1.innerText = data.name;
         tdPrescriptionElement2.innerText = data.quantity;
         tdPrescriptionElement3.innerText = data.use;
         tdPrescriptionElement4.innerHTML = `<input type="button" value="X" class="btn btn-danger"/>`;
-
         trPrescriptionElement.classList.add(`m_${data.medicineUnit}`);
         tdPrescriptionElement2.classList.add(`quantity`);
+        tdPrescriptionElement4.classList.add(`text-center`);
+        tdPrescriptionElement4.onclick = () => {
+            console.log(data.medicineUnit);
+            removeItem(data.medicineUnit);
+        }
+
         trPrescriptionElement.appendChild(thPrescriptionElement);
         trPrescriptionElement.appendChild(tdPrescriptionElement1);
         trPrescriptionElement.appendChild(tdPrescriptionElement2);
@@ -63,11 +85,10 @@ const createDataRow = (data) => {
     }
     return true;
 };
-
 let prescriptionJson = [];
 let currentMedicineTarget = [];
 let currentMedicineIdTarget = 0;
-const addRowPrescriptionDetail = () => {
+const addRowPrescriptionDetail = (prescriptionId) => {
     let prescriptionRowData = {
         name: document.getElementById("medicine").value,
         quantity: document.getElementById("quantity").value,
@@ -76,29 +97,23 @@ const addRowPrescriptionDetail = () => {
     };
     let prescriptionDetail = {
         quantity: document.getElementById("quantity").value,
-        use: document.getElementById("use").value,
-        medicineUnit: currentMedicineIdTarget
+        uses: document.getElementById("use").value,
+        medicineUnitId: currentMedicineIdTarget,
+        prescriptionId: prescriptionId
     };
-    
-//    for(p in prescriptionJson){
-//        if(p.medicineUnit === prescriptionDetail.medicineUnit)
-//            p.quantity = parseInt(p.quantity) + parseInt(prescriptionDetail.quantity);
-//     
-//    }
-      if(createDataRow(prescriptionRowData)){
-        prescriptionJson.push(prescriptionDetail);    
-      }else{
-          for(p in prescriptionJson){
-            if (p.medicineUnit === prescriptionDetail.medicineUnit)
-                p.quantity = (parseInt(p.quantity) + parseInt(prescriptionDetail.quantity)).toString();
+    console.info(prescriptionJson);
+    if (createDataRow(prescriptionRowData)) {
+        prescriptionJson.push(prescriptionDetail);
+    } else {
+        for (let p = 0; p < prescriptionJson.length; p++) {
+            if (prescriptionJson[p].medicineUnitId === prescriptionDetail.medicineUnit)
+                prescriptionJson[p].quantity = (parseInt(prescriptionJson[p].quantity) +
+                        parseInt(prescriptionDetail.quantity)).toString();
         }
-      }
-          
-//    createDataRow(prescriptionRowData);
-//    prescriptionJson.push(prescriptionDetail);
+    }
+
     console.info(prescriptionRowData);
     console.info(prescriptionJson);
-
 //    Them thanh cong
     console.log("SUCCESS");
     currentMedicineIdTarget = 0;
@@ -106,8 +121,6 @@ const addRowPrescriptionDetail = () => {
     document.getElementById("quantity").value = "";
     document.getElementById("use").value = "";
 };
-
-//let sortedNames = medicinesName.sort();
 let input = document.getElementById("medicine");
 input.addEventListener("keyup", (e) => {
     removeElements();
@@ -134,35 +147,40 @@ input.addEventListener("keyup", (e) => {
         }
     }
 });
-//input.addEventListener("keyup", (e) => {
-//    removeElements();
-//    for (let i of sortedNames) {
-//        if (i.toLowerCase().startsWith(input.value.toLowerCase()) && input.value !== "") {
-//            let listItem = document.createElement("li");
-//            //One common class name
-//            listItem.classList.add("list-items");
-//            listItem.style.cursor = "pointer";
-//            listItem.setAttribute("onclick", "displayNames('" + i + "')");
-//            //Display matched part in bold
-//            let word = "<b>" + i.substr(0, input.value.length) + "</b>";
-//            word += i.substr(input.value.length);
-//            //display the value in array
-//            listItem.innerHTML = word;
-//            document.querySelector(".list").appendChild(listItem);
-//        }
-//    }
-//});
-
 const displayNames = (value) => {
     input.value = value;
     removeElements();
 };
-
 const removeElements = () => {
     let items = document.querySelectorAll(".list-items");
     items.forEach((item) => {
         item.remove();
     });
+};
+
+
+const exportPrescriptionDetail = () => {
+    if (prescriptionJson.length !== 0) {
+        prescriptionJson.forEach(p => {
+            fetch('/OUPharmacy/api/prescription-detail', {
+                method: "POST",
+                body: JSON.stringify({
+                    "quantity": p.quantity,
+                    "uses": p.uses,
+                    "medicineUnitId": p.medicineUnitId,
+                    "prescriptionId": p.prescriptionId
+                }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(res => res.json()).then(data => {
+                console.info(data);
+            }).catch(err => {
+                console.log(err);
+            });
+        });
+        alert("them thanh cong!!")
+    }
 };
 
 
