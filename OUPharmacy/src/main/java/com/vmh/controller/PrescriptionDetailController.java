@@ -4,6 +4,8 @@
  */
 package com.vmh.controller;
 
+import com.vmh.pojo.Examination;
+import com.vmh.service.ExaminationDetailService;
 import com.vmh.service.PatientService;
 import com.vmh.service.PrescriptionService;
 import java.util.Map;
@@ -25,15 +27,20 @@ public class PrescriptionDetailController {
    @Autowired
    private PatientService patientService;
     
+   @Autowired ExaminationDetailService examinationDetailService;
+   
+   
     @Autowired
     private PrescriptionService prescriptionService;
     
-    @GetMapping("/patients/{patientId}/add-prescription/{prescriptionId}")
+    @GetMapping("/patients/{patientId}/booking/{bookingId}/prescriptions/{prescriptionId}")
     public String addPrescriptionDetailView(Model model,
             @PathVariable(value="patientId") int patientId,
+            @PathVariable(value="bookingId") int examinationDetailId,
             @PathVariable(value="prescriptionId") int prescriptionId){
         try{
             model.addAttribute("patient", this.patientService.getPatientById(patientId));
+             model.addAttribute("examinationDetail", this.examinationDetailService.getExaminationDetail(examinationDetailId));
             model.addAttribute("prescription", this.prescriptionService.getPrescriptionById(prescriptionId));        
             return "prescription-detail";
         }catch(NoResultException exNoR){

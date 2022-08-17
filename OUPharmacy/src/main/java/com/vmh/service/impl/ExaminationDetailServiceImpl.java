@@ -26,5 +26,10 @@ public class ExaminationDetailServiceImpl implements ExaminationDetailService{
     public List<ExaminationDetail> getExaminationsByPatientId(Map<String, String> params, int patientId) {
         return this.examinationDetailRepository.getExaminationsByPatientId(params, patientId);
     }
+
+    @Override
+    public ExaminationDetail getExaminationDetail(int i) {
+        return this.examinationDetailRepository.getExaminationDetail(i);
+    }
     
 }

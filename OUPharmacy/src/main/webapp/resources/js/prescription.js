@@ -4,7 +4,7 @@
  */
 
 
-const addPrescription = (patientId, userId) => {
+const addPrescription = (patientId, examinationDetailId, userId) => {
     let form = $("#addPrescription");
     let formData = {};
 
@@ -19,7 +19,7 @@ const addPrescription = (patientId, userId) => {
             "diagnosed": formData.diagnosed,
             "createdDate": date,
             "active": 1,
-            "patientId": patientId,
+            "examinationDetailId": examinationDetailId,
             "userId": userId
         }),
         headers: {
@@ -56,12 +56,12 @@ const addPrescription = (patientId, userId) => {
                                             <td>${data.diagnosed}</td>
                                             <td class="created-date">${moment(data.createdDate).fromNow()}</td>
                                             <td>
-                                                Hùng Doctor
+                                                ${data.userId.username}
                                             </td>
                                             <td>
-                                                <a href="/OUPharmacy/patients/${data.patientId.id}/add-prescription/${data.id}">
+                                                <a href="/OUPharmacy/patients/${patientId}/booking/${data.examinationDetailId.id}/prescriptions/${data.id}">
                                                     <button type="button" class="btn btn-primary">
-                                                        <i class="bi bi-clipboard2-plus"></i>Ra toa thuốc
+                                                        <i class="bi bi-clipboard2-plus"></i>Kê toa
                                                     </button>
                                                 </a>
                                             </td>

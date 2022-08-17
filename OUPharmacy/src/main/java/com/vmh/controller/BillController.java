@@ -6,6 +6,7 @@ package com.vmh.controller;
 
 import com.vmh.service.ExaminationDetailService;
 import com.vmh.service.PrescriptionDetailService;
+import com.vmh.service.PrescriptionService;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,10 @@ public class BillController {
     
     @Autowired
     private PrescriptionDetailService prescriptionDetailService;
+    
+    
+    @Autowired
+    private PrescriptionService prescriptionService;
     
     @GetMapping("/patients/{patientId}/bill/")
     public String payView(Model model, @PathVariable(value = "patientId") int patientId , 

@@ -13,5 +13,6 @@ import java.util.Map;
  * @author ASUS
  */
 public interface ExaminationDetailService {
+    ExaminationDetail getExaminationDetail(int examinationDetailId);
     List<ExaminationDetail> getExaminationsByPatientId(Map<String, String> params,int patientId);
 }

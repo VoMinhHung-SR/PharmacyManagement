@@ -93,10 +93,10 @@
                                     </td>
                                     <td>
                                         <c:if test="${option == 1}">
-                                            <a href="<c:url value="/patients/${p.id}/add-prescription/"/>">
+                                            <a href="<c:url value="/patients/${p.id}/booking-list/"/>">
                                                 <button type="button" class="btn btn-primary">
 
-                                                    <i class="bi bi-clipboard2-plus"></i> Kê toa
+                                                    <i class="bi bi-clipboard2-plus"></i> Phiếu khám
                                                 </button>
                                             </a>
                                         </c:if>

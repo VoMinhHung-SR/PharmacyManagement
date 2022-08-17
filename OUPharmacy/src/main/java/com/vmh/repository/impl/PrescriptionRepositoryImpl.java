@@ -4,6 +4,7 @@
  */
 package com.vmh.repository.impl;
 
+import com.vmh.pojo.ExaminationDetail;
 import com.vmh.pojo.Patient;
 import com.vmh.pojo.Prescription;
 import com.vmh.repository.PrescriptionRepository;
@@ -50,19 +51,19 @@ public class PrescriptionRepositoryImpl implements PrescriptionRepository {
     }
 
     @Override
-    public List<Prescription> getPrescriptionByPatientId(Map<String, String> params, int patientId) {
+    public List<Prescription> getPrescriptionByExaminationDetailId(Map<String, String> params, int examinationDetailId) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
 
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Prescription> q = builder.createQuery(Prescription.class);
         Root root = q.from(Prescription.class);
-        Root<Patient> patientRoot = q.from(Patient.class);
+        Root<ExaminationDetail> examinationDetailRoot = q.from(ExaminationDetail.class);
 
         q = q.select(root);
 
         List<Predicate> predicates = new ArrayList<>();
-        Predicate p1 = builder.equal(patientRoot.get("id").as(Integer.class), patientId);
-        Predicate p2 = builder.equal(root.get("patientId"), patientRoot.get("id"));
+        Predicate p1 = builder.equal(examinationDetailRoot.get("id").as(Integer.class), examinationDetailId);
+        Predicate p2 = builder.equal(root.get("examinationDetailId"), examinationDetailRoot.get("id"));
         predicates.add(p1);
         predicates.add(p2);
         if (params != null) {

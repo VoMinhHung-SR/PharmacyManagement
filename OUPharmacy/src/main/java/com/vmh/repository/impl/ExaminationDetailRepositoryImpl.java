@@ -80,4 +80,21 @@ public class ExaminationDetailRepositoryImpl implements ExaminationDetailReposit
         return null;
     }
 
+    @Override
+    public ExaminationDetail getExaminationDetail(int id) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<ExaminationDetail> query = builder.createQuery(ExaminationDetail.class);
+            Root<ExaminationDetail> root = query.from(ExaminationDetail.class);
+            query.select(root);
+            query.where(builder.equal(root.get("id").as(Integer.class), id));
+
+            return session.createQuery(query).getSingleResult();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
 }

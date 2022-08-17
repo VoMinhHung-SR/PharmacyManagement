@@ -15,6 +15,6 @@ import java.util.Map;
 public interface PrescriptionRepository {
     Prescription addPrescription(Prescription presciption);
     Prescription getPrescriptionById(int id);
-    List<Prescription> getPrescriptionByPatientId(
-            Map<String, String> params,int patientId);
+    List<Prescription> getPrescriptionByExaminationDetailId(
+            Map<String, String> params,int examinationDetailId);
 }

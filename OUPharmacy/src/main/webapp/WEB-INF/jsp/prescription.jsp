@@ -15,9 +15,10 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="white-box">
-                <h3 class="box-title text-center pt-5 text-danger mb-3">
+                <h2 class="box-title text-center pt-5 text-danger mb-3">
                     Chẩn đoán bệnh lý
-                </h3>
+                </h2>
+                <h5 class="fw-bold">Phiếu khám số: <span class="text-danger">${examinationDetail.id}</span></h5>
                 <div class="table-responsive mt-3">
 
                     <table class="table text-nowrap">
@@ -33,30 +34,30 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>${patient.firstName}</td>
-                                <td>${patient.lastName}</td>
-                                <td class="dob">${patient.dateOfBirth}</td>
+                                <td>${examinationDetail.patientId.firstName}</td>
+                                <td>${examinationDetail.patientId.lastName}</td>
+                                <td class="dob">${examinationDetail.patientId.dateOfBirth}</td>
                                 <td>${patient.phoneNumber}</td>
                                 <td>
-                                    <c:if test="${patient.gender == 0}">
+                                    <c:if test="${examinationDetail.patientId.gender == 0}">
                                         Nam
                                     </c:if>
-                                    <c:if test="${patient.gender==1}">
+                                    <c:if test="${examinationDetail.patientId.gender==1}">
                                         Nữ
                                     </c:if>
-                                    <c:if test="${patient.gender==2}">
+                                    <c:if test="${examinationDetail.patientId.gender==2}">
                                         Khác
                                     </c:if>
 
                                 </td>
                                 <td>
                                     <div class="text-center">
-                                        <a href="<c:url value="/patients/${patient.id}/medical-records/"/>" target="_blank">
+                                        <a href="<c:url value="/patients/${examinationDetail.patientId.id}/medical-records/"/>" target="_blank">
                                             <button type="button" class="btn btn-primary">
                                                 <i class="bi bi-clipboard2-plus"></i>Bệnh án
                                             </button>
                                         </a>
-                                        <a href="<c:url value="/patients/${patient.id}/booking-list/"/>" target="_blank">
+                                        <a href="<c:url value="/patients/${examinationDetail.patientId.id}/booking-list/"/>" target="_blank">
                                             <button type="button" class="btn btn-primary">
                                                 <i class="bi bi-clipboard2-plus"></i>Lịch sử khám
                                             </button>
@@ -104,8 +105,7 @@
                                             <input style="margin-left: auto" 
                                                    class="btn btn-success btn-lg ms-2"
                                                     type="button"
-                                                    onclick="addPrescription(${patient.id},${currentUser.id})" 
-
+                                                    onclick="addPrescription(${examinationDetail.patientId.id},${examinationDetail.id},${currentUser.id})" 
                                                     value="Thêm">  
                                             </input>
                                         </div>

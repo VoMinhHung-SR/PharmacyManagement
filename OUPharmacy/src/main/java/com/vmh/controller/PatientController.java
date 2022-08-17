@@ -62,7 +62,6 @@ public class PatientController {
         
         return "patients";  
     }
-    
     //    Benh an
     @GetMapping(path="/patients/{patientId}/medical-records/")
     public String getPatientMedicalRecords(Model model,@RequestParam(required = false) Map<String, String> params,
@@ -77,8 +76,8 @@ public class PatientController {
         try{
             model.addAttribute("option", 1);
             model.addAttribute("patient", this.patientService.getPatientById(patientId));
-            model.addAttribute("patientMedicalRecords", 
-                    this.prescriptionService.getPrescriptionByPatientId(params, patientId));
+//            model.addAttribute("patientMedicalRecords", 
+//                    this.prescriptionService.getPrescriptionByPatientId(params, patientId));
             return "medical-records";
         }catch(Exception ex){
             System.err.println(ex.getMessage());
@@ -112,4 +111,6 @@ public class PatientController {
         model.addAttribute("errMgs","Da co loi xay ra. Vui long quay lai sau!!");
         return "medical-records";
     }
+    
+    
 }

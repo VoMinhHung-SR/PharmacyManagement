@@ -4,9 +4,12 @@
  */
 package com.vmh.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +19,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,6 +35,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ExaminationDetail.findAll", query = "SELECT e FROM ExaminationDetail e"),
     @NamedQuery(name = "ExaminationDetail.findById", query = "SELECT e FROM ExaminationDetail e WHERE e.id = :id")})
 public class ExaminationDetail implements Serializable {
+    
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "examinationDetailId")
+    private Collection<Prescription> prescriptionCollection;
 
     @Column(name = "wage")
     private Integer wage;
@@ -113,6 +122,15 @@ public class ExaminationDetail implements Serializable {
 
     public void setWage(Integer wage) {
         this.wage = wage;
+    }
+
+    @XmlTransient
+    public Collection<Prescription> getPrescriptionCollection() {
+        return prescriptionCollection;
+    }
+
+    public void setPrescriptionCollection(Collection<Prescription> prescriptionCollection) {
+        this.prescriptionCollection = prescriptionCollection;
     }
     
 }

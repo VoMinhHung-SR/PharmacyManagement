@@ -5,6 +5,7 @@
 package com.vmh.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -44,6 +45,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Prescription.findByActive", query = "SELECT p FROM Prescription p WHERE p.active = :active")})
 public class Prescription implements Serializable {
 
+    
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,12 +68,15 @@ public class Prescription implements Serializable {
     private Date createdDate;
     @Column(name = "active")
     private Short active;
-    @JoinColumn(name = "patient_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Patient patientId;
+    @JsonIgnoreProperties({"isSuperuser","username", "firstName", "lastName", "gender",
+    "avatar", "dateOfBirth", "phoneNumber", "email", "isActive", "address","userRole"})
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User userId;
+    @JoinColumn(name = "examination_detail_id", referencedColumnName = "id")
+    @JsonIgnoreProperties({"prescriptionCollection", "wage", "examinationId", "patientId"})
+    @ManyToOne(optional = false)
+    private ExaminationDetail examinationDetailId;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "prescriptionBillId")
     private Collection<Bill> billCollection;
@@ -120,7 +126,9 @@ public class Prescription implements Serializable {
     }
 
     public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
+        if(createdDate!= null)
+            this.createdDate = createdDate;
+        this.createdDate = new Date();
     }
 
     public Short getActive() {
@@ -129,14 +137,6 @@ public class Prescription implements Serializable {
 
     public void setActive(Short active) {
         this.active = active;
-    }
-
-    public Patient getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(Patient patientId) {
-        this.patientId = patientId;
     }
 
     public User getUserId() {
@@ -188,6 +188,14 @@ public class Prescription implements Serializable {
     @Override
     public String toString() {
         return "com.vmh.pojo.Prescription[ id=" + id + " ]";
+    }
+
+    public ExaminationDetail getExaminationDetailId() {
+        return examinationDetailId;
+    }
+
+    public void setExaminationDetailId(ExaminationDetail examinationDetailId) {
+        this.examinationDetailId = examinationDetailId;
     }
     
 }

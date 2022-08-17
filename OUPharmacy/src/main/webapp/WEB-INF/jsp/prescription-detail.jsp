@@ -16,10 +16,10 @@
         <div class="col-sm-12">
             <div class="white-box">
                 <h3 class="box-title text-center pt-5 text-danger">Thông tin bệnh án</h3>
-                <c:if test="${prescription != null && prescription.patientId.id == patient.id}">
+                <c:if test="${prescription != null && prescription.examinationDetailId.patientId.id == patient.id}">
                     <p class="fw-bold">Họ tên bệnh nhân: 
                         <span class="text-danger fw-bold">
-                            ${prescription.patientId.firstName} ${prescription.patientId.lastName}
+                            ${prescription.examinationDetailId.patientId.firstName} ${prescription.examinationDetailId.patientId.lastName}
                         </span>
                     </p>
                 </c:if>
@@ -37,7 +37,7 @@
                             </thead>
 
                             <tbody>
-                                <c:if test="${prescription == null || prescription.patientId.id != patient.id}">
+                                <c:if test="${prescription == null || prescription.examinationDetailId.patientId.id != patient.id}">
                                     <tr>
                                         <td colspan="5">
                                             <h5 class="text-center text-danger">
@@ -46,7 +46,7 @@
                                         </td>
                                     </tr>
                                 </c:if>
-                                <c:if test="${prescription != null && prescription.patientId.id == patient.id}">
+                                <c:if test="${prescription != null && prescription.examinationDetailId.patientId.id == patient.id}">
                                     <tr>
                                         <td>${prescription.sign}</td>
                                         <td>${prescription.diagnosed}</td>
@@ -54,12 +54,12 @@
                                         <td>${prescription.userId.username}</td>
                                         <td>
                                             <div class="text-center">
-                                                <a href="<c:url value="/patients/${prescription.patientId.id}/medical-records/"/>" target="_blank">
+                                                <a href="<c:url value="/patients/${patient.id}/medical-records/"/>" target="_blank">
                                                     <button type="button" class="btn btn-primary">
                                                         <i class="bi bi-clipboard2-plus"></i>Bệnh án
                                                     </button>
                                                 </a>
-                                                <a href="<c:url value="/patients/${prescription.patientId.id}/booking-list/"/>" target="_blank">
+                                                <a href="<c:url value="/patients/${patient.id}/booking-list/"/>" target="_blank">
                                                     <button type="button" class="btn btn-primary">
                                                         <i class="bi bi-clipboard2-plus"></i>Lịch sử khám
                                                     </button>
@@ -72,7 +72,7 @@
                         </table>
                     </div>   
                 </div>
-                <c:if test="${prescription != null && prescription.patientId.id == patient.id}">
+                <c:if test="${prescription != null && prescription.examinationDetailId.patientId.id == patient.id}">
                     <form id="addPrescription">
                         <section class="h-100">
                             <div class="container py-2 h-100">

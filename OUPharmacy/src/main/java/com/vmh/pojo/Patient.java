@@ -81,9 +81,7 @@ public class Patient implements Serializable {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "patientId")
     private Collection<ExaminationDetail> examinationDetailCollection;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "patientId")
-    private Collection<Prescription> prescriptionCollection;
+  
 
     public Patient() {
     }
@@ -166,14 +164,7 @@ public class Patient implements Serializable {
         this.examinationDetailCollection = examinationDetailCollection;
     }
 
-    @XmlTransient
-    public Collection<Prescription> getPrescriptionCollection() {
-        return prescriptionCollection;
-    }
 
-    public void setPrescriptionCollection(Collection<Prescription> prescriptionCollection) {
-        this.prescriptionCollection = prescriptionCollection;
-    }
 
     @Override
     public int hashCode() {

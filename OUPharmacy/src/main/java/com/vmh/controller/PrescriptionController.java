@@ -4,6 +4,7 @@
  */
 package com.vmh.controller;
 
+import com.vmh.service.ExaminationDetailService;
 import com.vmh.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,11 +21,22 @@ public class PrescriptionController {
     
     @Autowired
     private PatientService patientService;
-     
-    @GetMapping(path="/patients/{patientId}/add-prescription/")
+    
+    @Autowired
+    ExaminationDetailService examinationDetailService;
+    
+    @GetMapping(path = "/patients/{patientId}/booking/{bookingId}/add-prescription/")
     public String addPatientPrescriptionView(Model model,
-            @PathVariable(value = "patientId") int patientId){
-        model.addAttribute("patient", this.patientService.getPatientById(patientId));
+            @PathVariable(value = "patientId") int patientId,
+            @PathVariable(value = "bookingId") int examinationDetailId) {
+        try {
+            model.addAttribute("examinationDetail", this.examinationDetailService.getExaminationDetail(examinationDetailId));
+            model.addAttribute("patient", this.patientService.getPatientById(patientId));
+            return "prescription";
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        model.addAttribute("errMgs", "Đã có lỗi xảy ra. Vui lòng quay lại sau!!!");
         return "prescription";
     }
 }
