@@ -92,14 +92,21 @@
 
                                     </td>
                                     <td>
-                                        <a href="<c:url value="/patients/${p.id}/add-prescription/"/>">
-                                            <button type="button" class="btn btn-primary">
+                                        <c:if test="${option == 1}">
+                                            <a href="<c:url value="/patients/${p.id}/add-prescription/"/>">
+                                                <button type="button" class="btn btn-primary">
 
-                                                <i class="bi bi-clipboard2-plus"></i> Kê toa
-
-
-                                            </button>
-                                        </a>
+                                                    <i class="bi bi-clipboard2-plus"></i> Kê toa
+                                                </button>
+                                            </a>
+                                        </c:if>
+                                        <c:if test="${option == 2}">
+                                            <a href="<c:url value="/patients/${p.id}/bill/"/>">
+                                                <button type="button" class="btn btn-primary">
+                                                    <i class="bi bi-clipboard2-plus">Thanh toán</i> 
+                                                </button>
+                                            </a>
+                                        </c:if>
                                     </td>
 
                                 </tr>

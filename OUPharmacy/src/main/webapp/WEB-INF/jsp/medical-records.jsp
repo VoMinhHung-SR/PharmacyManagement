@@ -20,11 +20,11 @@
                 <c:if test="${option == 2}">
                     <h3 class="box-title text-center pt-5 text-danger">Danh sách lịch sử khám</h3>
                 </c:if>
-                    <p class="fw-bold">Họ tên bệnh nhân: <span class="text-danger fw-bold">${patient.firstName} ${patient.lastName}</span></p>
+                <p class="fw-bold">Họ tên bệnh nhân: <span class="text-danger fw-bold">${patient.firstName} ${patient.lastName}</span></p>
                 <div class="row">
 
                     <div class="table-responsive mt-5">
-                        
+
                         <c:if test="${option == 1}">
                             <table class="table text-nowrap">
                                 <thead>
@@ -34,6 +34,8 @@
                                         <th class="border-top-0">Chẩn đoán</th>
                                         <th class="border-top-0">Ngày chẩn đoán</th>
                                         <th class="border-top-0">Bác sĩ chẩn đoán</th>
+                                        <th class="border-top-0">Trạng thái</th>
+                                        <th class="border-top-0">Chức năng</th>
                                     </tr>
                                 </thead>
 
@@ -58,13 +60,19 @@
                                             <td>
                                                 ${p.userId.username}
                                             </td>
+                                            <td class="text-danger">Chưa kê toa</td>
+                                            <td>
+                                                <a href="<c:url value="/patients/${p.patientId.id}/add-prescription/${p.id}"/>">
+                                                    <button class="btn btn-info"><i class="bi bi-card-list"></i>Kê toa</button>
+                                                </a>
+                                            </td>
                                         </tr>
                                     </c:forEach> 
                                 </tbody>
                             </table>
                         </c:if>
-                        
-                        
+
+
                         <c:if test="${option == 2}">
                             <table class="table text-nowrap mt-3">
                                 <thead>

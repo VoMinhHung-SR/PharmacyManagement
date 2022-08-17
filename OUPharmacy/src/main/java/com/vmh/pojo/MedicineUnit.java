@@ -67,7 +67,6 @@ public class MedicineUnit implements Serializable {
     private Category categoryId;
     @JoinColumn(name = "medicine_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    @JsonIgnore
     private Medicine medicineId;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "medicineUnitId")

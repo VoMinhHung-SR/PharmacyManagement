@@ -32,8 +32,8 @@ public class PatientController {
     @Autowired
     private ExaminationDetailService examinationDetailService;
     
-
-    @GetMapping(path="/patients")
+    //ROLE: DOCTOR    
+    @GetMapping(path="/r-1/patients")
     public String getPatients(Model model,@RequestParam(required = false) Map<String, String> params){
         
         int page;
@@ -41,7 +41,22 @@ public class PatientController {
             page = Integer.parseInt(params.get("page"));
         else
             page = 1;   
+        model.addAttribute("option" , 1);
+        model.addAttribute("patients", this.patientService.getPatients(params));
+        model.addAttribute("patientCounter", this.patientService.countPatient());
         
+        return "patients";  
+    }
+    //ROLE: NURSE
+    @GetMapping(path="/r-2/patients")
+    public String getPatients2(Model model,@RequestParam(required = false) Map<String, String> params){
+        
+        int page;
+        if(params.get("page") != null && !params.get("page").isEmpty())
+            page = Integer.parseInt(params.get("page"));
+        else
+            page = 1;   
+        model.addAttribute("option" , 2);
         model.addAttribute("patients", this.patientService.getPatients(params));
         model.addAttribute("patientCounter", this.patientService.countPatient());
         
@@ -74,7 +89,6 @@ public class PatientController {
     }
     
     //    Danh sach kham
-    
     @GetMapping(path="/patients/{patientId}/booking-list/")
     public String getPatientBookingList(Model model,@RequestParam(required = false) Map<String, String> params,
             @PathVariable(value = "patientId") int patientId){

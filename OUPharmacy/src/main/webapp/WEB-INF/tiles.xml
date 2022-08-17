@@ -69,6 +69,14 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
             <add-attribute value="/js/booking.js"/>
         </put-list-attribute> 
     </definition>
+    
+    <definition name="bill" extends="baseLayout">
+        <put-attribute name="title" value="Thanh toán tiền khám" />
+        <put-attribute name="content" value="/WEB-INF/jsp/bill.jsp" />
+        <put-list-attribute name="javascripts">
+            <add-attribute value="/js/bill.js"/>
+        </put-list-attribute> 
+    </definition>
     <!--PATIENT-->
     <definition name="patients" extends="baseLayout">
         <put-attribute name="title" value="Ke toa thuoc" />

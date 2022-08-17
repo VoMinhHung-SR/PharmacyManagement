@@ -6,6 +6,8 @@ package com.vmh.service.impl;
 import com.vmh.pojo.PrescriptionDetail;
 import com.vmh.repository.PrescriptionDetailRepository;
 import com.vmh.service.PrescriptionDetailService;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,16 @@ public class PrescriptionDetailServiceImpl implements PrescriptionDetailService{
     @Override
     public PrescriptionDetail addPrescriptionDetail(PrescriptionDetail p) {
         return this.prescriptionDetailRepository.addPrescriptionDetail(p);
+    }
+
+    @Override
+    public List<PrescriptionDetail> getListPreDetailByPrescriptionId(Map<String, String> params, int prescriptionId) {
+        return this.prescriptionDetailRepository.getListPreDetailByPrescriptionId(params, prescriptionId);
+    }
+
+    @Override
+    public List<PrescriptionDetail> getAllPrescriptionDetails() {
+        return this.prescriptionDetailRepository.getAllPrescriptionDetails();
     }
 
 

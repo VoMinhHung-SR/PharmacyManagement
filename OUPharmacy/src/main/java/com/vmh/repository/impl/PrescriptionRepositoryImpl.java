@@ -14,7 +14,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,56 +52,55 @@ public class PrescriptionRepositoryImpl implements PrescriptionRepository {
     @Override
     public List<Prescription> getPrescriptionByPatientId(Map<String, String> params, int patientId) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
-        
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Prescription> q = builder.createQuery(Prescription.class);
-            Root root = q.from(Prescription.class);
-            Root<Patient> patientRoot = q.from(Patient.class);
 
-            q = q.select(root);
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Prescription> q = builder.createQuery(Prescription.class);
+        Root root = q.from(Prescription.class);
+        Root<Patient> patientRoot = q.from(Patient.class);
 
-            List<Predicate> predicates = new ArrayList<>();
-            Predicate p1 = builder.equal(patientRoot.get("id").as(Integer.class), patientId);
-            Predicate p2 = builder.equal(root.get("patientId"), patientRoot.get("id"));
-            predicates.add(p1);
-            predicates.add(p2);
-            if (params != null) {
+        q = q.select(root);
 
-                if (params.containsKey("kw") == true) {
-                    Predicate p3 = builder.like(root.get("sign").as(String.class),
-                            String.format("%%%s%%", params.get("kw")));
-                    predicates.add(p3);
-                }
+        List<Predicate> predicates = new ArrayList<>();
+        Predicate p1 = builder.equal(patientRoot.get("id").as(Integer.class), patientId);
+        Predicate p2 = builder.equal(root.get("patientId"), patientRoot.get("id"));
+        predicates.add(p1);
+        predicates.add(p2);
+        if (params != null) {
+
+            if (params.containsKey("kw") == true) {
+                Predicate p3 = builder.like(root.get("sign").as(String.class),
+                        String.format("%%%s%%", params.get("kw")));
+                predicates.add(p3);
             }
-            
-            q.where(predicates.toArray(new Predicate[]{}));
-            q = q.orderBy(builder.desc(root.get("createdDate")));
-            
-            Query query = session.createQuery(q);
-            
-            if(query == null)
-                return null;
-            
-            int page = 1;
-            int pageSize = Integer.parseInt(env.getProperty("page.size").toString());;
-            if (params.containsKey("page") && !params.get("page").isEmpty()) {
-                page = Integer.parseInt(params.get("page"));
-            }
-            int startPage = (page - 1) * pageSize;
-            
-            
-            query.setMaxResults(pageSize);
-            query.setFirstResult(startPage);
+        }
 
-            return query.getResultList();
+        q.where(predicates.toArray(new Predicate[]{}));
+        q = q.orderBy(builder.desc(root.get("createdDate")));
 
-        
+        Query query = session.createQuery(q);
+
+        if (query == null) {
+            return null;
+        }
+
+        int page = 1;
+        int pageSize = Integer.parseInt(env.getProperty("page.size").toString());;
+        if (params.containsKey("page") && !params.get("page").isEmpty()) {
+            page = Integer.parseInt(params.get("page"));
+        }
+        int startPage = (page - 1) * pageSize;
+
+        query.setMaxResults(pageSize);
+        query.setFirstResult(startPage);
+
+        return query.getResultList();
+
     }
 
     @Override
     public Prescription getPrescriptionById(int id) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
-        return session.get(Prescription.class,id);
+        return session.get(Prescription.class, id);
     }
 
 }

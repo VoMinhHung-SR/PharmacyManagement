@@ -36,10 +36,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="<c:url value="/booking-list/nur-censored"/>">Duyệt đơn</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<c:url value="/r-2/patients"/>">Thanh toán</a>
+                    </li>
                 </sec:authorize>
                 <sec:authorize access="hasRole('ROLE_DOCTOR')">
                     <li class="nav-item">
-                        <a class="nav-link" href="<c:url value="/patients"/>">Kê toa</a>
+                        <a class="nav-link" href="<c:url value="/r-1/patients"/>">Kê toa</a>
                     </li>
                 </sec:authorize>
                     

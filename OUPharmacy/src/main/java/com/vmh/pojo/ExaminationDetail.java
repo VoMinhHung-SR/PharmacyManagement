@@ -4,6 +4,7 @@
  */
 package com.vmh.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -30,6 +31,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ExaminationDetail.findById", query = "SELECT e FROM ExaminationDetail e WHERE e.id = :id")})
 public class ExaminationDetail implements Serializable {
 
+    @Column(name = "wage")
+    private Integer wage;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,10 +42,14 @@ public class ExaminationDetail implements Serializable {
     private Integer id;
     @JoinColumn(name = "examination_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @JsonIgnoreProperties({"isSuperuser", "username", "firstName", "lastName", "avatar",
+        "gender", "dateOfBirth", "phoneNumber", "email", "isActive", "address", "useRole"})
     private Examination examinationId;
+    @JsonIgnoreProperties({"firstName", "lastName", "dateOfBirth", "phoneNumber","address","active", "gender"})
     @JoinColumn(name = "patient_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Patient patientId;
+    
 
     public ExaminationDetail() {
     }
@@ -97,6 +105,14 @@ public class ExaminationDetail implements Serializable {
     @Override
     public String toString() {
         return "com.vmh.pojo.ExaminationDetail[ id=" + id + " ]";
+    }
+
+    public Integer getWage() {
+        return wage;
+    }
+
+    public void setWage(Integer wage) {
+        this.wage = wage;
     }
     
 }

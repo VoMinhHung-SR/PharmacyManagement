@@ -4,6 +4,7 @@
  */
 package com.vmh.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -77,8 +78,10 @@ public class Patient implements Serializable {
     private String address;
     @Column(name = "active")
     private Short active;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "patientId")
     private Collection<ExaminationDetail> examinationDetailCollection;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "patientId")
     private Collection<Prescription> prescriptionCollection;
 

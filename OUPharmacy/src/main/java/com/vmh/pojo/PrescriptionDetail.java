@@ -55,7 +55,7 @@ public class PrescriptionDetail implements Serializable {
     private String uses;
     @JoinColumn(name = "medicine_unit_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    @JsonIgnoreProperties({"inStock", "price", "image"})
+    @JsonIgnoreProperties({"inStock", "image"})
     private MedicineUnit medicineUnitId;
     @JoinColumn(name = "prescription_id", referencedColumnName = "id")
     @ManyToOne(optional = false)

@@ -5,6 +5,7 @@
 package com.vmh.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -64,6 +65,8 @@ public class Examination implements Serializable {
     private Collection<ExaminationDetail> examinationDetailCollection;
     @JoinColumn(name = "user_examination_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @JsonIgnoreProperties({"isSuperuser", "username", "firstName", "lastName", "avatar",
+        "gender", "dateOfBirth", "phoneNumber", "email", "isActive", "address", "userRole"})
     private User userExaminationId;
 
     public Examination() {
@@ -99,7 +102,7 @@ public class Examination implements Serializable {
     }
 
     public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
+        this.createdDate = new Date();
     }
 
     public Short getActive() {
