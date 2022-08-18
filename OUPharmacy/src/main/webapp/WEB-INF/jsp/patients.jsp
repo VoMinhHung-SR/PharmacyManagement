@@ -20,7 +20,7 @@
                 </h3>
 
                 <div class="col-md-12 m-auto">
-                    <c:url var="filter" value="/patients/">
+                    <c:url var="filter" value="/r-${option}/patients/">
                         <c:param name="kw" value="${kw}" />
                     </c:url>
                     <form id="form-filter" action="${filter}">
@@ -118,7 +118,7 @@
                 <nav aria-label="Page navigation example">
                     <ul class="pagination" style="justify-content: center">
                         <c:forEach begin="1" end="${Math.ceil(patientCounter/6)}" var="i">
-                            <c:url value="/patients/" var="m">
+                            <c:url value="/r-${option}/patients/" var="m">
                                 <c:param value="${i}" name="page" />
                             </c:url>
                             <li class="page-item"><a class="page-link" href="${m}">${i}</a></li>

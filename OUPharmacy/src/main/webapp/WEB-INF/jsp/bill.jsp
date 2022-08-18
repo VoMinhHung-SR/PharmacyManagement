@@ -44,10 +44,13 @@
                     <c:forEach items="${bookingList}" var="b">
                         <div class="table-responsive mt-4">
                             <h5>Phiếu khám số: <span class="booking">${b.examinationId.id}</span>
-                                - Bệnh nhân: ${b.patientId.firstName} ${b.patientId.lastName}</h5>
+                                - Bệnh nhân: ${b.patientId.firstName} ${b.patientId.lastName}
+                                <span class="text-success" id="recepit-${b.examinationId.id}"></span>
+                            </h5>
                             <table class="table text-nowrap">
                                 <thead>
                                     <tr>
+                                        <th class="border-top-0">Toa số</th>
                                         <th class="border-top-0">Tên thuốc</th>
                                         <th class="border-top-0">Số lượng</th>
                                         <th class="border-top-0">Liều dùng</th>
@@ -60,14 +63,14 @@
                                 </tbody>
                                 <tfoot>
                                     <tr style="text-align: right">
-                                        <td colspan="5" id="wage">Phí dịch vụ:<span class="wage_${b.examinationId.id}">${b.wage}</span>VNÐ</td>
+                                        <td colspan="6" id="wage">Phí dịch vụ:<span class="wage_${b.examinationId.id}">${b.wage}</span>VNÐ</td>
                                     </tr>
                                     <tr style="text-align: right">
-                                        <td colspan="5"><h5>Tổng tiền: <span class="pay_${b.examinationId.id}"></span></h5></td>
+                                        <td colspan="6"><h5>Tổng tiền: <span class="pay_${b.examinationId.id}"></span></h5></td>
                                     </tr>
                                     <tr style="text-align: right">
-                                        <td colspan="5">
-                                            <input type="button" class="btn btn-success" value="Thanh toán"/>
+                                        <td colspan="6">
+                                            <input type="button" class="export-bill-${b.examinationId.id} btn btn-success" value="Thanh toán" />
                                         </td>
                                     </tr>
                                 </tfoot>

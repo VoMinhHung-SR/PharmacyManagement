@@ -5,11 +5,14 @@
 package com.vmh.repository;
 
 import com.vmh.pojo.Bill;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author ASUS
  */
 public interface BillRepository {
-    boolean addBill (Bill bill);
+    List<Bill> getBillByPrescriptionId(Map<String, String> params, int prescriptionId);
+    Bill addBill (Bill bill);
 }

@@ -10,26 +10,17 @@ const payFunction = (id) => {
     let pay = document.querySelector(`.pay_${id}`);
     let w = document.querySelector(`.wage_${id}`);
     total = parseInt(w.innerText);
-//    prescriptionPatientList.forEach(p => {
-//        if (p.prescriptionId === id) {
-//            if (p.prescriptionDetailContent.length === 0) {
-//                pay.innerText = w.innerText;
-//            } else {
-//                total += p.prescriptionDetailContent[0].quantity * p.prescriptionDetailContent[0].medicineUnitId.price
-//            }
-//        }
-//    });
-    
-    
+
     prescriptions.forEach(p => {
         if (p.examinationDetailId === id) {
             //==== BODY-CONTENT ====
-            if (p.prescriptionContent.length === 0) {    
+            if (p.prescriptionContent.length === 0) {
                 pay.innerText = w.innerText;
             } else {
-                prescriptionPatientList.forEach(prescriptionDetail =>{
-                    if(prescriptionDetail.prescriptionId === p.prescriptionContent[0].id){   
-                        total += prescriptionDetail.prescriptionDetailContent[0].quantity 
+                prescriptionPatientList.forEach(prescriptionDetail => {
+                    if (prescriptionDetail.prescriptionDetailContent.length !== 0 &&
+                            prescriptionDetail.prescriptionId === p.prescriptionContent[0].id) {
+                        total += prescriptionDetail.prescriptionDetailContent[0].quantity
                                 * prescriptionDetail.prescriptionDetailContent[0].medicineUnitId.price;
                     }
                 });
@@ -38,6 +29,41 @@ const payFunction = (id) => {
     });
     pay.innerText = total.toLocaleString('it-IT', {style: 'currency', currency: 'VND'});
 }
+
+let receipt = [];
+const onloadBill = (prescriptionId) => {
+    fetch(`/OUPharmacy/api/prescriptions/${prescriptionId}/pay/`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(res => res.json()).then(data => {
+        // if dont have receipt
+        if (data.length === 0) {
+            receipt.push({
+                "prescriptionBill": prescriptionId,
+                "prescriptionBillContent": []
+            });
+        }
+        data.forEach(d => {
+            let temp = [];
+            temp.push({
+                "id": d.id,
+                "pay": d.pay,
+                "prescriptionBillContent": d.prescriptionBillId.id
+            });
+            receipt.push({
+                "prescriptionBill": d.prescriptionBillId.id,
+                "prescriptionBillContent": temp
+            });
+            console.log("====RECEIPT====");
+            console.info(receipt);
+            console.log("====END-RECEIPT====");
+        });
+    });
+};
+
+
 
 let prescriptions = [];
 const onloadPrescriptionByExaminationDetailId = (examinationDetailId) => {
@@ -56,12 +82,13 @@ const onloadPrescriptionByExaminationDetailId = (examinationDetailId) => {
         data.forEach(d => {
             // Load with each prescription-id
             onloadPrescriptionDetail(d.id);
+            onloadBill(d.id);
             let temp = [];
             temp.push({
                 "id": d.id,
                 "sign": d.sign,
                 "sign": d.diagnosed,
-                "userId": d.userId.id,       
+                "userId": d.userId.id,
                 "examinationDetailId": d.examinationDetailId.id
             });
             prescriptions.push({
@@ -69,9 +96,11 @@ const onloadPrescriptionByExaminationDetailId = (examinationDetailId) => {
                 "prescriptionContent": temp
             });
         });
+
+        console.log("====EXAMINATION-DETAIL====")
         console.info(prescriptions);
     });
-}
+};
 //Load list prescriptionsDetail of patient if they have prescription
 //With param = prescriptionDetailId 
 const prescriptionPatientList = [];
@@ -98,14 +127,14 @@ const onloadPrescriptionDetail = (prescriptionDetailId) => {
                     "id": d.medicineUnitId.id,
                     "price": d.medicineUnitId.price,
                     "medicineId": {
-                        "id" : d.medicineUnitId.medicineId.id,
+                        "id": d.medicineUnitId.medicineId.id,
                         "name": d.medicineUnitId.medicineId.name,
-                        "effect": d.medicineUnitId.medicineId.effect,
+                        "effect": d.medicineUnitId.medicineId.effect
                     }
                 },
                 "prescriptionId": {
                     "id": d.prescriptionId.id,
-                    "examinationDetailId":{
+                    "examinationDetailId": {
                         "id": d.prescriptionId.examinationDetailId.id
                     }
                 }
@@ -120,12 +149,23 @@ const onloadPrescriptionDetail = (prescriptionDetailId) => {
 };
 
 
+
 $(document).ready(function () {
-    let bookingId = document.querySelectorAll(".booking");  
+    let bookingId = document.querySelectorAll(".booking");
     // load prescription Examination-Detail-Id 
+   
     for (var item of bookingId) {
-        onloadPrescriptionByExaminationDetailId(parseInt(item.innerText)); 
+        if(isLoading){
+            document.querySelector(`.p_${item.innerText}`).innerText=
+                    `LOADING...`;
+            document.querySelector(`.p_${item.innerText}`).classList.add("h5");
+            document.querySelector(`.p_${item.innerText}`).classList.add("text-danger");
+        }
+        // LOAD-AREA
+        onloadPrescriptionByExaminationDetailId(parseInt(item.innerText));
     }
+    
+    isLoading = false;
 });
 
 window.onload = () => {
@@ -137,38 +177,68 @@ window.onload = () => {
     }
 
     let bookingId = document.querySelectorAll(".booking");
-
+ 
     setTimeout(() => {
         for (var item of bookingId) {
+            
+            document.querySelector(`.p_${item.innerText}`).innerText="";
+            document.querySelector(`.p_${item.innerText}`).classList.remove("h5");
+            document.querySelector(`.p_${item.innerText}`).classList.remove("text-danger");
+            // FUNCTION SHOW
             showData(parseInt(item.innerText));
             payFunction(parseInt(item.innerText));
         }
     }, 1000);
 
-
-
-
 };
 
-
-let isLoading = false;
+let isLoading = true;
 const showData = (id) => {
     prescriptions.forEach(p => {
         if (p.examinationDetailId === id) {
             //==== BODY-CONTENT ====
+            let bill = document.querySelector(`.export-bill-${p.examinationDetailId}`);
             let a = document.querySelector(`.p_${id}`);
             if (p.prescriptionContent.length === 0) {
                 a.innerHTML = `
                 <tr>
-                    <td colspan="5" class="text-center">
+                    <td colspan="6" class="text-center">
                         Phiếu khám chưa được kê toa thuốc...
                     </td>
                 </tr>`;
             } else {
-                prescriptionPatientList.forEach(prescriptionDetail =>{
-                    if(prescriptionDetail.prescriptionId === p.prescriptionContent[0].id){
+                let skip = 0;
+                prescriptionPatientList.forEach(prescriptionDetail => {
+                    // If prescriptionDetailContent have content and
+                    // equal with prescription.ExaminaionDetailId
+                    if (prescriptionDetail.prescriptionDetailContent.length !== 0 &&
+                            prescriptionDetail.prescriptionId === p.prescriptionContent[0].id) {
+
+                        //EXPORT-BILL-AREA
+                        if (skip === 0) {
+                            skip++;
+                            bill.addEventListener("click", () => {
+                                pay(p.examinationDetailId, prescriptionDetail.prescriptionId);
+                            });
+                            //Show export-bill-btn
+                            receipt.forEach(r => {
+                                let btn = document.querySelector(`.export-bill-${p.examinationDetailId}`);
+                                if (r.prescriptionBillContent.length !== 0
+                                        && r.prescriptionBill === prescriptionDetail.prescriptionId) {
+                                    document.querySelector(`#recepit-${p.examinationDetailId}`).innerHTML =
+                                            `<i class="bi bi-check-circle"></i> Ðã thanh toán`;
+                                    btn.style.display = "none";
+                                }
+
+
+                            });
+                            //EndShow export-bill-btn
+                        }
+                        //EXPORT-BILL-AREA
+
                         a.innerHTML = a.innerHTML + `
                         <tr>
+                            <td>${prescriptionDetail.prescriptionId}</td>
                             <td>
                                 ${prescriptionDetail.prescriptionDetailContent[0].medicineUnitId.medicineId.name}
                             </td>
@@ -184,18 +254,37 @@ const showData = (id) => {
                             </td>
                             <td class="total">
                                ${prescriptionDetail.prescriptionDetailContent[0].quantity
-                            * prescriptionDetail.prescriptionDetailContent[0].medicineUnitId.price}
+                                * prescriptionDetail.prescriptionDetailContent[0].medicineUnitId.price}
                             </td>
-                        </tr>` ;
+                        </tr>`;
                     }
                 })
-                
-
             }
         }
     });
+};
 
-
+const pay = (examinationDetailId, pId) => {
+    let money = parseFloat(document.querySelector(`.pay_${examinationDetailId}`).innerText) * 1000;
+    fetch(`/OUPharmacy/api/prescriptions/${pId}/pay/`, {
+        method: "POST",
+        body: JSON.stringify({
+            "pay": money,
+            "prescriptionBillId": pId
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(res => {
+        console.log(res);
+        if (res.status === 201)
+            alert('Thanh toan thanh cong');
+        return res.json();
+    }).then(data => {
+        console.info(data);
+    }).catch(err => {
+        console.log(err);
+    });
 };
 
 
