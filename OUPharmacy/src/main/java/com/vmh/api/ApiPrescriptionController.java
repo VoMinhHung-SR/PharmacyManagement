@@ -32,6 +32,20 @@ public class ApiPrescriptionController {
     private PrescriptionService prescriptionService;
 
     
+    @GetMapping(path="/prescriptions/",produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<List<Prescription>> getListPrescription(Model model, 
+            Map<String,String> params){
+         try {
+               return new ResponseEntity<>(
+                      this.prescriptionService.getPrescriptions(params),
+                       HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    
+    
     @GetMapping(path="/booking/{bookingId}/prescription",produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<List<Prescription>> getPrescription(Model model, 
             Map<String,String> params,

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : medical-records
-    Created on : Aug 13, 2022, 1:06:14 AM
+    Document   : medicines
+    Created on : Aug 10, 2022, 3:03:22 PM
     Author     : ASUS
 --%>
 
@@ -14,38 +14,13 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="white-box">
-                <c:if test="${option == 1}">
-                    <h3 class="box-title text-center pt-5 text-danger">Danh sách tiền án bệnh</h3>
-                </c:if>
                 <c:if test="${option == 2}">
                     <h3 class="box-title text-center pt-5 text-danger">Danh sách lịch sử khám</h3>
                 </c:if>
-                <p class="fw-bold mt-2">Mã bệnh nhân: <span class="text-danger fw-bold" id="patientId">${patient.id}</span></p>
-                <p class="fw-bold">Họ tên bệnh nhân: <span class="text-danger fw-bold">${patient.firstName} ${patient.lastName}</span></p>
-                
+                <p class="fw-bold mt-2">Họ tên bệnh nhân: <span class="text-danger fw-bold">${patient.firstName} ${patient.lastName}</span></p>
                 <div class="row">
 
                     <div class="table-responsive mt-5">
-
-                        <c:if test="${option == 1}">
-                            <table class="table text-nowrap mt-3">
-                                <thead>
-                                    <tr>
-                                        <th class="border-top-0">#</th>
-                                        <th class="border-top-0">Triệu chứng</th>
-                                        <th class="border-top-0">Chẩn đoán</th>
-                                        <th class="border-top-0">Ngày chẩn đoán</th>
-                                        <th class="border-top-0">Bác sĩ chẩn đoán</th>
-                                        <th class="border-top-0">Trạng thái</th>
-                                        <th class="border-top-0">Chức năng</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody class="patient_${patient.id}">
-                                </tbody>
-                            </table>
-                        </c:if>
-
                         <c:if test="${option == 2}">
                             <table class="table text-nowrap mt-3">
                                 <thead>
@@ -97,17 +72,4 @@
     </div>
 </div>
 
-<script>
-    window.onload = () => {
 
-        let dates = document.querySelectorAll(".created-date")
-        for (let i = 0; i < dates.length; i++) {
-            let d = dates[i];
-            d.innerText = moment(d.innerText).fromNow();
-        }
-        let edList = document.querySelectorAll(".examinationDetailId");
-        for (let e of edList) {
-            onLoadPrescriptionByExaminationDetail(parseInt(e.innerText));
-        }
-    };
-</script>

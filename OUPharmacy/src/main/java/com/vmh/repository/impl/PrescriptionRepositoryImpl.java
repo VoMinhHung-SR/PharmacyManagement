@@ -104,4 +104,17 @@ public class PrescriptionRepositoryImpl implements PrescriptionRepository {
         return session.get(Prescription.class, id);
     }
 
+    @Override
+    public List<Prescription> getPrescriptions(Map<String, String> params) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Prescription> query = builder.createQuery(Prescription.class);
+        Root<Prescription> root = query.from(Prescription.class);
+        query.select(root);
+
+        Query q = session.createQuery(query);
+
+        return q.getResultList();
+    }
+
 }

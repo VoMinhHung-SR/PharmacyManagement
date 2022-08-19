@@ -105,6 +105,14 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="title" value="Ho so benh an" />
         <put-attribute name="content" value="/WEB-INF/jsp/medical-records.jsp" />
         <put-list-attribute name="javascripts">
+            <add-attribute value="/js/examination-detail.js"/>
+        </put-list-attribute> 
+    </definition>
+    <definition name="medical-history" extends="baseLayout">
+        <put-attribute name="title" value="Lich su kham" />
+        <put-attribute name="content" value="/WEB-INF/jsp/medical-history.jsp" />
+        <put-list-attribute name="javascripts">
+            <add-attribute value="/js/examination-detail.js"/>
         </put-list-attribute> 
     </definition>
     <!--    ============Admin=============  -->

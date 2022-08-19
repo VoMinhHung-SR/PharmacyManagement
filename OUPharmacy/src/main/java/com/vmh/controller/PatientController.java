@@ -64,7 +64,8 @@ public class PatientController {
     }
     //    Benh an
     @GetMapping(path="/patients/{patientId}/medical-records/")
-    public String getPatientMedicalRecords(Model model,@RequestParam(required = false) Map<String, String> params,
+    public String getPatientMedicalRecords(Model model,
+            @RequestParam(required = false) Map<String, String> params,
             @PathVariable(value = "patientId") int patientId){
         
         int page;
@@ -76,8 +77,7 @@ public class PatientController {
         try{
             model.addAttribute("option", 1);
             model.addAttribute("patient", this.patientService.getPatientById(patientId));
-//            model.addAttribute("patientMedicalRecords", 
-//                    this.prescriptionService.getPrescriptionByPatientId(params, patientId));
+         
             return "medical-records";
         }catch(Exception ex){
             System.err.println(ex.getMessage());
@@ -86,8 +86,7 @@ public class PatientController {
         model.addAttribute("errMgs","Da co loi xay ra. Vui long quay lai sau!!");
         return "medical-records";
     }
-    
-    //    Danh sach kham
+//        Danh sach kham
     @GetMapping(path="/patients/{patientId}/booking-list/")
     public String getPatientBookingList(Model model,@RequestParam(required = false) Map<String, String> params,
             @PathVariable(value = "patientId") int patientId){
@@ -111,6 +110,31 @@ public class PatientController {
         model.addAttribute("errMgs","Da co loi xay ra. Vui long quay lai sau!!");
         return "medical-records";
     }
+    
+//    //    Danh sach kham
+//    @GetMapping(path="/patients/{patientId}/booking-list/")
+//    public String getPatientBookingList(Model model,@RequestParam(required = false) Map<String, String> params,
+//            @PathVariable(value = "patientId") int patientId){
+//        
+//        int page;
+//        
+//        if(params.get("page") != null && !params.get("page").isEmpty())
+//            page = Integer.parseInt(params.get("page"));
+//        else page = 1; 
+//        
+//        try{
+//            model.addAttribute("option", 2);
+//            model.addAttribute("patient", this.patientService.getPatientById(patientId));
+//            model.addAttribute("patientExaminationDeatails", 
+//                    this.examinationDetailService.getExaminationsByPatientId(params, patientId));
+//            return "medical-history";
+//        }catch(Exception ex){
+//            System.err.println(ex.getMessage());
+//            ex.printStackTrace();
+//        }
+//        model.addAttribute("errMgs","Da co loi xay ra. Vui long quay lai sau!!");
+//        return "medical-history";
+//    }
     
     
 }

@@ -68,13 +68,13 @@ public class Prescription implements Serializable {
     private Date createdDate;
     @Column(name = "active")
     private Short active;
-    @JsonIgnoreProperties({"isSuperuser","username", "firstName", "lastName", "gender",
+    @JsonIgnoreProperties({"isSuperuser", "firstName", "lastName", "gender",
     "avatar", "dateOfBirth", "phoneNumber", "email", "isActive", "address","userRole"})
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User userId;
     @JoinColumn(name = "examination_detail_id", referencedColumnName = "id")
-    @JsonIgnoreProperties({"prescriptionCollection", "wage", "examinationId", "patientId"})
+    @JsonIgnoreProperties({"prescriptionCollection", "wage"})
     @ManyToOne(optional = false)
     private ExaminationDetail examinationDetailId;
     @JsonIgnore
