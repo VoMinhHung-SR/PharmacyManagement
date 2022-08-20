@@ -10,7 +10,7 @@ window.onload = () => {
         d.innerText = moment(d.innerText).fromNow();
     }
 
-    let edList = document.querySelectorAll(".examinationDetailId");
+        let edList = document.querySelectorAll(".examinationDetailId");
     for (let e of edList) {
         onLoadPrescriptionByExaminationDetail(parseInt(e.innerText));
     }
@@ -32,7 +32,11 @@ const onLoadPrescriptionByExaminationDetail = (examinationDetailId) => {
                 temp.push({
                     "id": d.id,
                     "createdDate": d.createdDate,
-                    "examinationDetailId": d.examinationDetailId.id
+                    "examinationDetailId": {
+                        "id":d.examinationDetailId.id,
+                        "examinationId":d.examinationDetailId.examinationId.id
+                        
+                    }
                 });
                 prescriptionByExaminationId.push({
                     "examinationDetailId": d.examinationDetailId.id,
@@ -122,7 +126,7 @@ const showData = (patientId) => {
                 <tr>
                     <td colspan="7">
                         <h5 class="text-center text-danger">
-                            Hiện tại bệnh nhân chưa được kê toa!!!
+                            Hiện tại bệnh nhân chưa có tiền án bênh!!!
                         </h5>
                     </td>
                 </tr>`
@@ -184,7 +188,7 @@ const updateStatus = () => {
     if (bookingChecked.length !== 0) {
         bookingChecked.forEach(b => {
             let statusArea = document.querySelector(`.status_${b.id}`);
-            if(prescriptionPatientList.length !== 0){
+            if(prescriptionPatientList[0].prescriptionDetailContent.length !== 0){
                 statusArea.innerHTML = `<td class="status_${b.id}">Ðã kê toa</td>`;
                 statusArea.classList.add("text-success");
                 document.querySelector(`.btn_${b.id}`).style.display = "none";

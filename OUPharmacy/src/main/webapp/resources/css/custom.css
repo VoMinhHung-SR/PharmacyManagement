@@ -6,7 +6,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Created on : Aug 10, 2022, 4:08:09 PM
     Author     : ASUS
 */
-
+/*Sweet-Alert-CSS*/
+.swal2-cancel{
+    margin: 10px;
+}
+.swal2-confirm{
+    margin: 10px;
+}
 /* Dropdown Button */
 .dropbtn {
     background-color: #f8f9fa;

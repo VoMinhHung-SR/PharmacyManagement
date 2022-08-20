@@ -5,6 +5,7 @@
 package com.vmh.repository.impl;
 
 
+import com.vmh.pojo.Examination;
 import com.vmh.pojo.ExaminationDetail;
 import com.vmh.pojo.Patient;
 import com.vmh.repository.ExaminationDetailRepository;
@@ -87,6 +88,32 @@ public class ExaminationDetailRepositoryImpl implements ExaminationDetailReposit
             Root<ExaminationDetail> root = query.from(ExaminationDetail.class);
             query.select(root);
             query.where(builder.equal(root.get("id").as(Integer.class), id));
+
+            return session.createQuery(query).getSingleResult();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public ExaminationDetail getExaminationDetailByExaminationId(int examinationId) {
+       Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<ExaminationDetail> query = builder.createQuery(ExaminationDetail.class);
+            Root<ExaminationDetail> root = query.from(ExaminationDetail.class);
+            Root<Examination> examinationRoot = query.from(Examination.class);
+            query.select(root);
+            
+             List<Predicate> predicates = new ArrayList<>();
+
+            Predicate p = builder.equal(examinationRoot.get("id").as(Integer.class), examinationId);
+            Predicate p1 = builder.equal(root.get("examinationId"), examinationRoot.get("id"));
+            predicates.add(p);
+            predicates.add(p1);
+            
+            query = query.where(predicates.toArray(new Predicate[]{}));
 
             return session.createQuery(query).getSingleResult();
         } catch (Exception ex) {

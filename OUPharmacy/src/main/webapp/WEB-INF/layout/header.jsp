@@ -21,23 +21,13 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#hero">Home</a>
-                </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#about">About</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#timeline">Timeline</a>
-                </li>
                 <sec:authorize access="hasRole('ROLE_NURSE')">
                     <li class="nav-item">
-                        <a class="nav-link" href="<c:url value="/booking-list/nur-censored"/>">Duyệt đơn</a>
+                        <a class="nav-link" href="<c:url value="/examinations"/>">Tạo phiếu khám</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<c:url value="/r-2/patients"/>">Thanh toán</a>
+                        <a class="nav-link" href="<c:url value="/booking-list/nur-censored"/>">Duyệt đơn</a>
                     </li>
                 </sec:authorize>
                 <sec:authorize access="hasRole('ROLE_DOCTOR')">
@@ -51,16 +41,12 @@
                     OUPharmacy
                     <strong class="d-block">Health Specialist</strong>
                 </a>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#reviews">Testimonials</a>
-                </li>
-
-
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact">Contact</a>
-                </li>
+                <sec:authorize access="hasRole('ROLE_NURSE')">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<c:url value="/r-2/patients"/>">Thanh toán</a>
+                    </li>
+                </sec:authorize>
+     
                 <c:choose>
                     <c:when test="${pageContext.request.userPrincipal.name == null}">
                         <li class="nav-item">
@@ -99,7 +85,7 @@
                                 </sec:authorize>
                                 <a 
                                    href="<c:url value="/booking-list" />">
-                                    <i class="bi bi-box-arrow-in-right p-0"></i> Danh sách đặt lịch
+                                    <i class="bi bi-info-circle p-0"></i> Danh sách đặt lịch
                                 </a>
 
                                 <hr style="padding: 0;margin: 0"></hr>

@@ -31,5 +31,10 @@ public class ExaminationDetailServiceImpl implements ExaminationDetailService{
     public ExaminationDetail getExaminationDetail(int i) {
         return this.examinationDetailRepository.getExaminationDetail(i);
     }
+
+    @Override
+    public ExaminationDetail getExaminationDetailByExaminationId(int i) {
+        return this.examinationDetailRepository.getExaminationDetailByExaminationId(i);
+    }
     
 }

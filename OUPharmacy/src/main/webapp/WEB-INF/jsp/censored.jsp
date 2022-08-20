@@ -55,7 +55,7 @@
                                 <th class="border-top-0">Mô tả</th>
                                 <th class="border-top-0">Ngày tạo</th>
                                 <th class="border-top-0">Trạng thái</th>
-                                <th class="border-top-0">Chức năng</th>
+                                <th class="border-top-0 text-center">Chức năng</th>
 
                             </tr>
                         </thead>
@@ -80,11 +80,16 @@
                                     <td >${b.description}</td>
                                     <td class="created-date">${b.createdDate}</td>
                                     <td class="text-danger">Chờ xác nhận</td>
-                                    <td>
+                                    <td class="text-center">
                                         <button type="button" class="btn btn-primary" 
                                                 onclick="sendEmailChecker('<c:url value="/api/booking-list/nur-censored/${b.id}"/>')">
-                                           <i class="bi bi-envelope-plus-fill"></i>
+                                            <i class="bi bi-envelope-plus-fill"></i> Gửi email
                                         </button>
+                                        <a href="<c:url value="/booking/${b.id}/examination-detail"/>">
+                                            <button type="button" class="btn btn-primary" >
+                                                <i class="bi bi-clipboard-plus"></i> Tạo phiếu khám
+                                            </button>
+                                        </a>
                                     </td>
 
                                 </tr>

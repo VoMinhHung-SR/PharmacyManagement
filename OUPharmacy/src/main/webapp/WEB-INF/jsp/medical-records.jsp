@@ -51,6 +51,7 @@
                                 <thead>
                                     <tr>
                                         <th class="border-top-0">#</th>
+                                        <th class="border-top-0">Mã đăng kí</th>
                                         <th class="border-top-0">Mô tả</th>
                                         <th class="border-top-0">Ngày tạo</th>
                                         <th class="border-top-0">Tài khoản đăng kí</th>
@@ -72,12 +73,13 @@
                                     <c:forEach var="p" items="${patientExaminationDeatails}">
 
                                         <tr>
-                                            <td class="examinationDetailId">${p.examinationId.id}</td>
+                                            <th class="examinationDetailId">${p.id}</th>
+                                            <td class="border-top-0">${p.examinationId.id}</td>
                                             <td>${p.examinationId.description}</td>
                                             <td class="created-date">${p.examinationId.createdDate}</td>
                                             <td >${p.examinationId.userExaminationId.username}</td>   
-                                            <td id="p_${p.examinationId.id}"></td>
-                                            <td id="btn_${p.examinationId.id}">
+                                            <td id="p_${p.id}"></td>
+                                            <td id="btn_${p.id}">
                                                 <a href="<c:url value="/patients/${p.patientId.id}/booking/${p.examinationId.id}/add-prescription/"/>">
                                                     <button class="btn btn-primary"><i class="bi bi-card-list"></i>Chẩn đoán</button>
                                                 </a>

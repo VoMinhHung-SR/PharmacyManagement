@@ -6,6 +6,7 @@ package com.vmh.service;
 
 import com.vmh.pojo.Examination;
 import com.vmh.pojo.User;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ import java.util.Map;
 public interface ExaminationService {
     List<Examination> getExaminations();
     Examination getExaminationById(int id);
-    Examination addExamination(String description, User creator);
+    Examination addExamination(Examination e);
     List<Examination> getExaminationByUserId(Map<String, String> params,int id);
     boolean deleteExamination(int id);
 }

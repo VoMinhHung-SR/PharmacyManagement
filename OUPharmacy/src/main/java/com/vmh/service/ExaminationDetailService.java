@@ -14,5 +14,6 @@ import java.util.Map;
  */
 public interface ExaminationDetailService {
     ExaminationDetail getExaminationDetail(int examinationDetailId);
+    ExaminationDetail getExaminationDetailByExaminationId(int examinationId);
     List<ExaminationDetail> getExaminationsByPatientId(Map<String, String> params,int patientId);
 }

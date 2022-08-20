@@ -62,6 +62,13 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         </put-list-attribute> 
     </definition>
     
+    <definition name="examination-detail" extends="baseLayout">
+        <put-attribute name="title" value="Tao phieu kham" />
+        <put-attribute name="content" value="/WEB-INF/jsp/examination-detail.jsp" />
+        <put-list-attribute name="javascripts">
+        </put-list-attribute> 
+    </definition>
+    
      <definition name="booking-list-nur-cen" extends="baseLayout">
         <put-attribute name="title" value="Kiem duyet lich kham" />
         <put-attribute name="content" value="/WEB-INF/jsp/censored.jsp" />

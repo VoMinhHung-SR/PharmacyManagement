@@ -20,7 +20,10 @@ const addPrescription = (patientId, examinationDetailId, userId) => {
             "createdDate": date,
             "active": 1,
             "examinationDetailId": examinationDetailId,
-            "userId": userId
+            "userId": {
+                "id":userId,
+                "username":userName
+            }
         }),
         headers: {
             "Content-Type": "application/json"

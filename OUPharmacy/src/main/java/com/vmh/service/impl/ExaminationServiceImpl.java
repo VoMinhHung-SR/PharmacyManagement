@@ -9,6 +9,7 @@ import com.vmh.pojo.User;
 import com.vmh.repository.ExaminationRepository;
 import com.vmh.repository.UserRepository;
 import com.vmh.service.ExaminationService;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +30,7 @@ public class ExaminationServiceImpl implements ExaminationService{
     private UserRepository userRepository;
     
     @Override
-    public Examination addExamination(String description ,User creator) {
-        
-        Examination e = new Examination();
-        e.setDescription(description);
-        e.setUserExaminationId(creator);
-//        Date d = new DateFormat.(createdDate);
-//        e.setCreatedDate(d));
+    public Examination addExamination(Examination e) {
         return this.examinationRepository.addExamination(e);
     }
 

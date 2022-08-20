@@ -37,17 +37,15 @@ public class ApiBookingController {
     
     
     @PostMapping(path="/booking", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Examination> addExamination(@RequestBody Map<String,String> params, 
+    public ResponseEntity<Examination> addExamination(@RequestBody Examination e, 
             HttpSession session){
         
         User creator = (User) session.getAttribute("currentUser");
         
         if(creator != null)
-            try{
-                String description = params.get("description");
-                String createdDate = params.get("createdDate");
-                Examination e = this.examinationService.addExamination(description, creator);
-                return new ResponseEntity<>(e, HttpStatus.CREATED);
+            try{  
+                Examination n = this.examinationService.addExamination(e);
+                return new ResponseEntity<>(n, HttpStatus.CREATED);
             }catch(Exception ex){
                 System.err.println(ex.getMessage());
                 ex.printStackTrace();

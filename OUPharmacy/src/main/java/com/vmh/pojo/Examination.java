@@ -102,7 +102,7 @@ public class Examination implements Serializable {
     }
 
     public void setCreatedDate(Date createdDate) {
-        this.createdDate = new Date();
+        this.createdDate = createdDate;
     }
 
     public Short getActive() {

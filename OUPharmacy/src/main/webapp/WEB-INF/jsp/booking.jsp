@@ -46,7 +46,7 @@
                             <div class="col-lg-3 col-md-4 col-6 mx-auto">
                                 <button type="button" class="form-control" 
                                         id="submit-button" 
-                                        onclick="addExamination()">
+                                        onclick="addExamination(${currentUser.id})">
                                     Đặt lịch
                                 </button>
                             </div>

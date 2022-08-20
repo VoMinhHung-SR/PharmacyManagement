@@ -30,7 +30,7 @@ public class PrescriptionController {
             @PathVariable(value = "patientId") int patientId,
             @PathVariable(value = "bookingId") int examinationDetailId) {
         try {
-            model.addAttribute("examinationDetail", this.examinationDetailService.getExaminationDetail(examinationDetailId));
+            model.addAttribute("examinationDetail", this.examinationDetailService.getExaminationDetailByExaminationId(examinationDetailId));
             model.addAttribute("patient", this.patientService.getPatientById(patientId));
             return "prescription";
         } catch (Exception ex) {

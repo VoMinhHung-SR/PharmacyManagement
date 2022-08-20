@@ -56,9 +56,7 @@
                             <thead>
                                 <tr>
                                     <th class="border-top-0">#</th>
-
                                     <th class="border-top-0">Ten khoan</th>
-
                                     <th class="border-top-0">Mô tả</th>
                                     <th class="border-top-0">Ngày tạo</th>
                                     <th class="border-top-0">Chức năng</th>
@@ -81,9 +79,7 @@
                                     <tr>
 
                                         <td>${b.id}</td>
-
                                         <th class="border-top-0">${b.userExaminationId.username}</th>
-
                                         <td >${b.description}</td>
                                         <td class="created-date">${b.createdDate}</td>
 
@@ -93,6 +89,7 @@
                                                     onclick="deleteExamination('<c:url value="/api/booking/${b.id}"/>')">
                                                 <i class="bi bi-trash"></i>
                                             </button>
+                    
                                         </td>
                                     </tr>
                                 </c:forEach> 

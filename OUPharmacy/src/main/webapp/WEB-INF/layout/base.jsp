@@ -40,6 +40,11 @@
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
+         <!--SweetAlert2-->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" id="theme-styles">
+    
     </head>
 
     <body id="top">
@@ -61,8 +66,15 @@
         <script src="<c:url value="/js/scrollspy.min.js"/>"></script>
         <script src="<c:url value="/js/custom.js"/>"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+       
+        
+        <!--SweetAlert2-->
+        <script src="<c:url value="/admin/js/common-js/alert.js"/>"></script>
+        
         <c:forEach var="js" items="${javascripts}">
             <script src="<c:url value="${js}"/>"></script>
         </c:forEach>
+
+
     </body>
 </html>

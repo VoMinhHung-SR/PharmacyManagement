@@ -105,7 +105,7 @@
                                             <input style="margin-left: auto" 
                                                    class="btn btn-success btn-lg ms-2"
                                                     type="button"
-                                                    onclick="addPrescription(${examinationDetail.patientId.id},${examinationDetail.id},${currentUser.id})" 
+                                                    onclick="addPrescription(${examinationDetail.patientId.id},${examinationDetail.id},${currentUser.id},${currentUser.username})" 
                                                     value="Thêm">  
                                             </input>
                                         </div>
