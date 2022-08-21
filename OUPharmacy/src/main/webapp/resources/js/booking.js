@@ -22,7 +22,7 @@ const addExamination = (currentUserId) => {
         return res.json();
     }).then((data) => {
         console.info(data);
-        alert("them thanh cong");
+        successfulAlert("Đặt lịch thành công", "Ok");
         //CALL BACK
     }).catch(err => {
         console.log("da co loi xay ra");
@@ -38,7 +38,7 @@ const deleteExamination = (endpoint) => {
                 'Content-Type': 'application/json'
             }
         }).then(function (res) {
-            if (res.status === 204) successfulAlert("Xóa khoa thành công", "Ok", () => location.reload());
+            if (res.status === 204) successfulAlert("Xóa thành công", "Ok", () => location.reload());
         }).catch(err => {
             console.log(err);
             errorAlert("Đã có lỗi", "Đã có lỗi xảy ra trong quá trình xóa dữ liệu!", "Ok");

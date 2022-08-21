@@ -14,6 +14,8 @@ import java.util.Map;
  */
 public interface PatientRepository {
     List<Patient> getPatients(Map<String,String> params);
+    List<Patient> getAllPatients();
+    Patient addPatient(Patient patient);
     Patient getPatientById(int id);
     int countPatient();
 }

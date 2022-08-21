@@ -36,5 +36,15 @@ public class ExaminationDetailServiceImpl implements ExaminationDetailService{
     public ExaminationDetail getExaminationDetailByExaminationId(int i) {
         return this.examinationDetailRepository.getExaminationDetailByExaminationId(i);
     }
+
+    @Override
+    public List<ExaminationDetail> getListExaminationDetails() {
+        return this.examinationDetailRepository.getListExaminationDetails();
+    }
+
+    @Override
+    public ExaminationDetail addExaminationDetail(ExaminationDetail ed) {
+        return this.examinationDetailRepository.addExaminationDetail(ed);
+    }
     
 }

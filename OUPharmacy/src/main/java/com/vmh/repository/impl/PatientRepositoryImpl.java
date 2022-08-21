@@ -103,4 +103,30 @@ public class PatientRepositoryImpl implements PatientRepository {
         return Integer.parseInt(q.getSingleResult().toString());
     }
 
+    @Override
+    public Patient addPatient(Patient patient) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            session.save(patient);
+            return patient;
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Patient> getAllPatients() {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Patient> query = builder.createQuery(Patient.class);
+        Root<Patient> root = query.from(Patient.class);
+        query.select(root);
+
+        Query q = session.createQuery(query);
+
+        return q.getResultList();
+    }
+
 }

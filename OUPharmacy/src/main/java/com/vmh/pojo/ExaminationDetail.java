@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,6 +22,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -35,6 +38,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ExaminationDetail.findAll", query = "SELECT e FROM ExaminationDetail e"),
     @NamedQuery(name = "ExaminationDetail.findById", query = "SELECT e FROM ExaminationDetail e WHERE e.id = :id")})
 public class ExaminationDetail implements Serializable {
+
+    @Column(name = "created_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
     
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "examinationDetailId")
@@ -54,7 +61,6 @@ public class ExaminationDetail implements Serializable {
     @JsonIgnoreProperties({"isSuperuser", "username", "firstName", "lastName", "avatar",
         "gender", "dateOfBirth", "phoneNumber", "email", "isActive", "address", "useRole"})
     private Examination examinationId;
-    @JsonIgnoreProperties({"firstName", "lastName", "dateOfBirth", "phoneNumber","address","active", "gender"})
     @JoinColumn(name = "patient_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Patient patientId;
@@ -131,6 +137,14 @@ public class ExaminationDetail implements Serializable {
 
     public void setPrescriptionCollection(Collection<Prescription> prescriptionCollection) {
         this.prescriptionCollection = prescriptionCollection;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
     
 }

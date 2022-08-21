@@ -28,10 +28,10 @@
                             <div class="row g-0">
                                 <div class="col-xl-12">
                                     <div class="card-body p-md-5 text-black">
-                                        <h5 class="mb-4 text-uppercase">
+                                        <div class="text-danger text-center fw-bold" id="dateCounter"></div>
+                                        <h5 class="mb-4 text-uppercase ">
                                             <div>Mã đăng kí 
                                                 <span id="${examination.id}" class="text-danger">${examination.id}</span> 
-                            
                                             </div>
                                         </h5>
 
@@ -88,7 +88,8 @@
                                             <input style="margin-left: auto" 
                                                    class="btn btn-success btn-lg ms-2"
                                                    type="button"
-                                                   onclick="addPrescription(${examinationDetail.patientId.id},${examinationDetail.id},${currentUser.id},${currentUser.username})" 
+                                                   onclick="triggerAddExaminationDetail(${examination.id})"
+                                                   id ="addButton"
                                                    value="Thêm">  
                                             </input>
                                         </div>

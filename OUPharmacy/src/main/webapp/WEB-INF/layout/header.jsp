@@ -21,11 +21,10 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
-
-                <sec:authorize access="hasRole('ROLE_NURSE')">
                     <li class="nav-item">
-                        <a class="nav-link" href="<c:url value="/examinations"/>">Tạo phiếu khám</a>
+                        <a class="nav-link" href="<c:url value="/"/>">Trang chủ</a>
                     </li>
+                <sec:authorize access="hasRole('ROLE_NURSE')">
                     <li class="nav-item">
                         <a class="nav-link" href="<c:url value="/booking-list/nur-censored"/>">Duyệt đơn</a>
                     </li>

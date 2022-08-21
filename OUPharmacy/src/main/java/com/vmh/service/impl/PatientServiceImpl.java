@@ -35,5 +35,15 @@ public class PatientServiceImpl implements PatientService{
     public int countPatient() {
         return this.patientRepository.countPatient();
     }
+
+    @Override
+    public Patient addPatient(Patient ptnt) {
+        return this.patientRepository.addPatient(ptnt);
+    }
+
+    @Override
+    public List<Patient> getAllPatients() {
+        return this.patientRepository.getAllPatients();
+    }
     
 }

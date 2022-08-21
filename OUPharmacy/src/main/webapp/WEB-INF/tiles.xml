@@ -66,6 +66,7 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="title" value="Tao phieu kham" />
         <put-attribute name="content" value="/WEB-INF/jsp/examination-detail.jsp" />
         <put-list-attribute name="javascripts">
+            <add-attribute value="/js/add-examination-detail.js"/>
         </put-list-attribute> 
     </definition>
     
