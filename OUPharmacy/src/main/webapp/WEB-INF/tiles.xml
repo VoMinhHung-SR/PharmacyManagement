@@ -146,6 +146,17 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         </put-list-attribute>
     </definition>
     
+     <definition name="patient-stats" extends="adminBaseLayout">
+        <put-attribute name="title" value="Thong ke benh nhan kham" />
+        <put-attribute name="pageName" value="DashBoard" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/patient-stats.jsp"/>
+        <put-list-attribute name="javascripts">
+            <add-attribute value="/admin/js/patient-stats.js"/>
+            <add-attribute value="/admin/plugins/bower_components/chartist/dist/chartist.min.js"/>
+            <add-attribute value="/admin/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"/>
+        </put-list-attribute>
+    </definition>
+    
     <definition name="medicines" extends="adminBaseLayout">    
         <put-attribute name="title" value="Quan ly thuoc" />
         <put-attribute name="pageName" value="Quan ly thuoc" />

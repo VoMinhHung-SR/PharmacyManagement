@@ -153,10 +153,10 @@ const onloadPrescriptionDetail = (prescriptionDetailId) => {
 $(document).ready(function () {
     let bookingId = document.querySelectorAll(".booking");
     // load prescription Examination-Detail-Id 
-   
+
     for (var item of bookingId) {
-        if(isLoading){
-            document.querySelector(`.p_${item.innerText}`).innerText=
+        if (isLoading) {
+            document.querySelector(`.p_${item.innerText}`).innerText =
                     `LOADING...`;
             document.querySelector(`.p_${item.innerText}`).classList.add("h5");
             document.querySelector(`.p_${item.innerText}`).classList.add("text-danger");
@@ -164,7 +164,7 @@ $(document).ready(function () {
         // LOAD-AREA
         onloadPrescriptionByExaminationDetailId(parseInt(item.innerText));
     }
-    
+
     isLoading = false;
 });
 
@@ -177,11 +177,11 @@ window.onload = () => {
     }
 
     let bookingId = document.querySelectorAll(".booking");
- 
+
     setTimeout(() => {
         for (var item of bookingId) {
-            
-            document.querySelector(`.p_${item.innerText}`).innerText="";
+
+            document.querySelector(`.p_${item.innerText}`).innerText = "";
             document.querySelector(`.p_${item.innerText}`).classList.remove("h5");
             document.querySelector(`.p_${item.innerText}`).classList.remove("text-danger");
             // FUNCTION SHOW
@@ -266,25 +266,29 @@ const showData = (id) => {
 
 const pay = (examinationDetailId, pId) => {
     let money = parseFloat(document.querySelector(`.pay_${examinationDetailId}`).innerText) * 1000;
-    fetch(`/OUPharmacy/api/prescriptions/${pId}/pay/`, {
-        method: "POST",
-        body: JSON.stringify({
-            "pay": money,
-            "prescriptionBillId": pId
-        }),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).then(res => {
-        console.log(res);
-        if (res.status === 201)
-            alert('Thanh toan thanh cong');
-        return res.json();
-    }).then(data => {
-        console.info(data);
-    }).catch(err => {
-        console.log(err);
+
+    confirmAlert("Xác nhận thanh toán!", "", "Đồng ý", "Hủy", () => {
+        fetch(`/OUPharmacy/api/prescriptions/${pId}/pay/`, {
+            method: "POST",
+            body: JSON.stringify({
+                "pay": money,
+                "prescriptionBillId": pId
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(res => {
+            console.log(res);
+            return res.json();
+        }).then(data => {
+            console.info(data);
+            successfulAlert("Thanh toán thành công!!", "Ok", () => location.reload());
+        }).catch(err => {
+            console.log(err);
+        });
     });
+
+
 };
 
 

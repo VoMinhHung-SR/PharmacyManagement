@@ -5,6 +5,7 @@
 package com.vmh.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -32,6 +35,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Bill.findByPay", query = "SELECT b FROM Bill b WHERE b.pay = :pay")})
 public class Bill implements Serializable {
 
+    @Column(name = "created_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,6 +54,7 @@ public class Bill implements Serializable {
     private Prescription prescriptionBillId;
 
     public Bill() {
+        createdDate = new Date();
     }
 
     public Bill(Integer id) {
@@ -105,6 +113,14 @@ public class Bill implements Serializable {
     @Override
     public String toString() {
         return "com.vmh.pojo.Bill[ id=" + id + " ]";
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
     
 }

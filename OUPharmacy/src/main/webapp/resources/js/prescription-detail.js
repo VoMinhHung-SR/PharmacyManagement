@@ -173,13 +173,15 @@ const exportPrescriptionDetail = () => {
                 headers: {
                     "Content-Type": "application/json"
                 }
-            }).then(res => res.json()).then(data => {
+            }).then(res => {
+                successfulAlert("Kê toa thành công", "Ok");
+                return res.json();
+            }).then(data => {
                 console.info(data);
             }).catch(err => {
                 console.log(err);
             });
         });
-        alert("them thanh cong!!")
     }
 };
 

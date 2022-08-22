@@ -23,6 +23,20 @@
                         <span class="hide-menu">Thong Ke</span>
                     </a>
                 </li>
+                <li class="sidebar-item pt-2">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<c:url value="/admin/patient-stats"/>"
+                       aria-expanded="false">
+                        <i class="far fa-clock" aria-hidden="true"></i>
+                        <span class="hide-menu">Thong ke ben nhan</span>
+                    </a>
+                </li>
+                <li class="sidebar-item pt-2">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<c:url value="/admin/revenue-stats"/>"
+                       aria-expanded="false">
+                        <i class="far fa-clock" aria-hidden="true"></i>
+                        <span class="hide-menu">Thong ke doanh thu</span>
+                    </a>
+                </li>
                  <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" 
                        href="<c:url value="/admin/categories" />"

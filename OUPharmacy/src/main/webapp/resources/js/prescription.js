@@ -4,7 +4,7 @@
  */
 
 
-const addPrescription = (patientId, examinationDetailId, userId) => {
+const addPrescription = (patientId, examinationDetailId, userId, username) => {
     let form = $("#addPrescription");
     let formData = {};
 
@@ -22,13 +22,17 @@ const addPrescription = (patientId, examinationDetailId, userId) => {
             "examinationDetailId": examinationDetailId,
             "userId": {
                 "id":userId,
-                "username":userName
+                "username":username
             }
         }),
         headers: {
             "Content-Type": "application/json"
         }
-    }).then(res => res.json()).then(data => {
+    }).then(res => {
+        if(res.status === 201)
+            successfulAlert("Chấn đoán thành công", "Ok");
+        return res.json();
+    }).then(data => {
         console.info(data);
         
         

@@ -5,8 +5,33 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <div class="container-fluid">
+    <div class="white-box analytics-info">
+        <h3 class="box-title">Thống kê bệnh nhân</h3>
+        <table class="table">
+            <tr>
+                <th>Mã bệnh nhân</th>
+                <th>Họ bệnh nhân</th>
+                <th>Tên bệnh nhân</th>
+                <th>Số lần khám</th>
+            </tr>
+            <c:if test="${patientStats == null}">
+                <h5 class="text-danger text-center">Hiện tại chưa có bênh nhân có phiếu khám!!</h5>
+            </c:if>
+            <c:forEach items="${patientStats}" var="p">
+                <tr>
+                    <td>${p[0]}</td>
+                    <td>${p[1]}</th>
+                    <td>${p[2]}</td>
+                    <td>${p[3]}</th>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
+
+
     <!-- ============================================================== -->
     <!-- Three charts -->
     <!-- ============================================================== -->
@@ -42,8 +67,11 @@
                 <h3 class="box-title">Unique Visitor</h3>
                 <ul class="list-inline two-part d-flex align-items-center mb-0">
                     <li>
-                        <div id="sparklinedash3"><canvas width="67" height="30"
-                                                         style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                        <div id="sparklinedash3">
+                            <canvas width="67" height="30"
+                                style="display: inline-block; width: 67px; height: 30px; vertical-align: top;">
+                                    
+                            </canvas>
                         </div>
                     </li>
                     <li class="ms-auto"><span class="counter text-info">911</span>
