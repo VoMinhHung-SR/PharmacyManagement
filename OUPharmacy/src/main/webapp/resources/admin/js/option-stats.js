@@ -3,13 +3,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
 
-const patientChart = (ctx, data, labels, chartType = "bar") => {
+const patientChart = (ctx, data, labels, chartType = "bar", option) => {
+    let title = '';
+    if(option === 1){
+        title = 'Thống kê số lượng bệnh nhân đến khám';
+    }else if(option === 2){
+        title = 'Thống kê doanh thu';
+    }else
+        title = 'Thống kê tần suất sử dụng thuốc';
+    
     const myChart = new Chart(ctx, {
         type: chartType,
         data: {
             labels: labels,
             datasets: [{
-                    label: 'Thống kê số lượng bệnh nhân đến khám',
+                    label: title,
                     data: data,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',

@@ -4,19 +4,57 @@ Author: Wrappixel
 Email: niravjoshi87@gmail.com
 File: js
 */
-$(function () {
+
+// MY CUSTOME
+
+const patientChart = (ctx, data, labels, chartType = "bar") => {
+    let title = 'Thống kê tần suất sử dụng thuốc';
+    
+    const myChart = new Chart(ctx, {
+        type: chartType,
+        data: {
+            labels: labels,
+            datasets: [{
+                    label: title,
+                    data: data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+const drawFunction = (data, labels) => {
     "use strict";
     // ============================================================== 
     // Newsletter
     // ============================================================== 
 
-    //ct-visits
-    new Chartist.Line('#ct-visits', {
-        labels: ['2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015'],
-        series: [
-            [5, 2, 7, 4, 5, 3, 5, 4]
-            , [2, 5, 2, 6, 2, 5, 2, 4]
-        ]
+    var chart = new Chartist.Line('#ct-visits', {
+        labels: labels,
+        series: [data]
     }, {
         top: 0,
         low: 1,
@@ -27,7 +65,7 @@ $(function () {
         ],
         axisY: {
             labelInterpolationFnc: function (value) {
-                return (value / 1) + 'k';
+                return value;
             }
         },
         showArea: true
@@ -36,46 +74,6 @@ $(function () {
 
     var chart = [chart];
 
-    var sparklineLogin = function () {
-        $('#sparklinedash').sparkline([0, 5, 6, 10, 9, 12, 4, 9], {
-            type: 'bar',
-            height: '30',
-            barWidth: '4',
-            resize: true,
-            barSpacing: '5',
-            barColor: '#7ace4c'
-        });
-        $('#sparklinedash2').sparkline([0, 5, 6, 10, 9, 12, 4, 9], {
-            type: 'bar',
-            height: '30',
-            barWidth: '4',
-            resize: true,
-            barSpacing: '5',
-            barColor: '#7460ee'
-        });
-        $('#sparklinedash3').sparkline([0, 5, 6, 10, 9, 12, 4, 9], {
-            type: 'bar',
-            height: '30',
-            barWidth: '4',
-            resize: true,
-            barSpacing: '5',
-            barColor: '#11a0f8'
-        });
-        $('#sparklinedash4').sparkline([0, 5, 6, 10, 9, 12, 4, 9], {
-            type: 'bar',
-            height: '30',
-            barWidth: '4',
-            resize: true,
-            barSpacing: '5',
-            barColor: '#f33155'
-        });
-    }
-    var sparkResize;
-    $(window).on("resize", function (e) {
-        clearTimeout(sparkResize);
-        sparkResize = setTimeout(sparklineLogin, 500);
-    });
-    sparklineLogin();
-});
-
+}
+    
 

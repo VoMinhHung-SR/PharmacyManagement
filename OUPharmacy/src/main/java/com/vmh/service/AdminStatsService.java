@@ -15,4 +15,5 @@ public interface AdminStatsService {
      List<Object[]> getPatientStats();
      List<Object[]> getPatientDateStats(String kw, Date fromDate, Date toDate);
      List<Object[]> getRevenueByMonth(Date fromDate, Date toDate);
+     List<Object[]> getMedicineFrequencyStats(String kw);
 }

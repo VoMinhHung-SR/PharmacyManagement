@@ -137,7 +137,7 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
     
     <definition name="dashboard" extends="adminBaseLayout">
         <put-attribute name="title" value="Bang dieu khien" />
-        <put-attribute name="pageName" value="DashBoard" />
+        <put-attribute name="pageName" value="Thong ke" />
         <put-attribute name="content" value="/WEB-INF/jsp/admin/dashboard.jsp" />
         <put-list-attribute name="javascripts">
             <add-attribute value="/admin/plugins/bower_components/chartist/dist/chartist.min.js"/>
@@ -146,12 +146,12 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         </put-list-attribute>
     </definition>
     
-     <definition name="patient-stats" extends="adminBaseLayout">
-        <put-attribute name="title" value="Thong ke benh nhan kham" />
-        <put-attribute name="pageName" value="DashBoard" />
-        <put-attribute name="content" value="/WEB-INF/jsp/admin/patient-stats.jsp"/>
+     <definition name="option-stats" extends="adminBaseLayout">
+        <put-attribute name="title" value="Bang dieu khien" />
+        <put-attribute name="pageName" value="Thong ke" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/option-stats.jsp"/>
         <put-list-attribute name="javascripts">
-            <add-attribute value="/admin/js/patient-stats.js"/>
+            <add-attribute value="/admin/js/option-stats.js"/>
             <add-attribute value="/admin/plugins/bower_components/chartist/dist/chartist.min.js"/>
             <add-attribute value="/admin/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"/>
         </put-list-attribute>
@@ -192,11 +192,21 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         </put-list-attribute>
     </definition>
     
+    
     <definition name="users" extends="adminBaseLayout">
         <put-attribute name="title" value="Quan ly thong tin nguoi dung" />
         <put-attribute name="pageName" value="Quan ly thong tin nguoi dung" />
         <put-attribute name="content" value="/WEB-INF/jsp/admin/users.jsp" />
         <put-list-attribute name="javascripts">
+        </put-list-attribute>
+    </definition>
+    
+     <definition name="user-role" extends="adminBaseLayout">
+        <put-attribute name="title" value="Thiet lap quyen quan tri" />
+        <put-attribute name="pageName" value="Thiet lap quyen quan tri" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/user-role.jsp" />
+        <put-list-attribute name="javascripts">
+            <add-attribute value="/admin/js/api-script/user-role.js"/>
         </put-list-attribute>
     </definition>
     

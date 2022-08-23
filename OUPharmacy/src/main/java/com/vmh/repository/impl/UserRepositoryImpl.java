@@ -101,11 +101,11 @@ public class UserRepositoryImpl implements UserRepository {
                         String.format("%%%s%%", params.get("ln")));
                 predicates.add(p3);
             }
-            
+
             Predicate p = builder.equal(root.get("userRole")
                     .as(String.class), userRole.trim());
             predicates.add(p);
-            
+
             q = q.where(predicates.toArray(new Predicate[]{}));
         }
 
@@ -139,5 +139,100 @@ public class UserRepositoryImpl implements UserRepository {
         Query q = session.createQuery("SELECT COUNT(*) FROM User Where userRole = '" + userRole + "'");
 
         return Integer.parseInt(q.getSingleResult().toString());
+    }
+
+    @Override
+    public int countUser() {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        Query q = session.createQuery("SELECT COUNT(*) FROM User");
+
+        return Integer.parseInt(q.getSingleResult().toString());
+    }
+
+    @Override
+    public List<User> getUserNotAdmin(Map<String, String> params) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<User> q = builder.createQuery(User.class);
+        Root root = q.from(User.class);
+        // +Lay tat ca dong du lieu
+        q = q.select(root);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (params != null) {
+
+            if (params.containsKey("kw") == true) {
+                String kw = params.get("kw");
+                Predicate predicate1 = builder.like(root.get("firstName").as(String.class), String.format("%%%s%%", kw));
+                Predicate predicate2 = builder.like(root.get("lastName").as(String.class), String.format("%%%s%%", kw));
+
+                predicates.add(builder.or(predicate1, predicate2));
+            }
+
+        }
+        Predicate predicate = builder.notEqual(root.get("userRole").as(String.class), "ROLE_ADMIN");
+
+        predicates.add(builder.or(predicate));
+
+        q.where(predicates.toArray(new Predicate[]{}));
+
+        Query query = session.createQuery(q);
+
+        int page = 1;
+        int pageSize = Integer.parseInt(env.getProperty("page.size").toString());;
+        if (params.containsKey("page") && !params.get("page").isEmpty()) {
+            page = Integer.parseInt(params.get("page"));
+        }
+
+        int startPage = (page - 1) * pageSize;
+        query.setMaxResults(pageSize);
+        query.setFirstResult(startPage);
+
+        return query.getResultList();
+
+    }
+
+    @Override
+    public int countUserWithoutAdmin() {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try{
+            Query q = session.createQuery("SELECT COUNT(*) FROM User Where userRole != 'ROLE_ADMIN'");
+            return Integer.parseInt(q.getSingleResult().toString());
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return -1;
+
+    }
+
+    @Override
+    public boolean editAdminUser(int i) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            User u = getUserById(i);
+            u.setUserRole("ROLE_ADMIN");
+            session.save(u);
+            return true;
+        } catch (HibernateException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public User getUserById(int i) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<User> query = builder.createQuery(User.class);
+            Root<User> root = query.from(User.class);
+            query.select(root);
+            query.where(builder.equal(root.get("id").as(Integer.class), i));
+            return session.createQuery(query).getSingleResult();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 }

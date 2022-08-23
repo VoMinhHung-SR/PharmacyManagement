@@ -5,6 +5,9 @@
 package com.vmh.controller;
 
 import com.vmh.service.AdminStatsService;
+import com.vmh.service.MedicineUnitService;
+import com.vmh.service.PatientService;
+import com.vmh.service.UserService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -27,10 +31,29 @@ public class AdminController {
 
     @Autowired
     private AdminStatsService adminStatsService;
-
+    
+    @Autowired
+    private UserService userService;
+    
+    @Autowired
+    private MedicineUnitService medicineUnitService;
+    
+    @Autowired
+    private PatientService patientService;
+    
+    
+    @ModelAttribute
+    public void commonStats(Model model){
+        model.addAttribute("countUser", this.userService.countUser());
+        model.addAttribute("countMedicineUnit", this.medicineUnitService.countMedicines());
+        model.addAttribute("countPatient", this.patientService.countPatient());
+    }
+    
     @GetMapping("/dashboard")
-    public String dashboardView(Model model) {
+    public String dashboardView(Model model, 
+           @RequestParam(name = "kw", defaultValue = "") String kw) {
         model.addAttribute("patientStats", this.adminStatsService.getPatientStats());
+         model.addAttribute("medicineDateStats", this.adminStatsService.getMedicineFrequencyStats(kw));
         return "dashboard";
     }
 
@@ -39,7 +62,7 @@ public class AdminController {
         model.addAttribute("option", 1);
         model.addAttribute("patientStats", this.adminStatsService.getPatientStats());
         model.addAttribute("patientDateStats", this.adminStatsService.getPatientDateStats(null, null, null));
-        return "patient-stats";
+        return "option-stats";
     }
 
     @GetMapping("/revenue-stats")
@@ -62,6 +85,6 @@ public class AdminController {
         
         model.addAttribute("option", 2);
         model.addAttribute("revenueDateStats", this.adminStatsService.getRevenueByMonth(fd, td));
-        return "patient-stats";
+        return "option-stats";
     }
 }

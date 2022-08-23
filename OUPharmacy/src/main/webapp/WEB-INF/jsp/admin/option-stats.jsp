@@ -15,40 +15,43 @@
     <div class="row justify-content-center">
         <div class="col-lg-4 col-md-12">
             <div class="white-box analytics-info">
-                <h3 class="box-title">Total Visit</h3>
+                <h3 class="box-title">Người dùng hệ thống</h3>
                 <ul class="list-inline two-part d-flex align-items-center mb-0">
                     <li>
                         <div id="sparklinedash"><canvas width="67" height="30"
                                                         style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                         </div>
                     </li>
-                    <li class="ms-auto"><span class="counter text-success">659</span></li>
+                    <li class="ms-auto"><span class="counter text-success">${countUser}</span></li>
                 </ul>
             </div>
         </div>
         <div class="col-lg-4 col-md-12">
             <div class="white-box analytics-info">
-                <h3 class="box-title">Total Page Views</h3>
+                <h3 class="box-title">Tổng số lượng thuốc</h3>
                 <ul class="list-inline two-part d-flex align-items-center mb-0">
                     <li>
                         <div id="sparklinedash2"><canvas width="67" height="30"
                                                          style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                         </div>
                     </li>
-                    <li class="ms-auto"><span class="counter text-purple">869</span></li>
+                    <li class="ms-auto"><span class="counter text-purple">${countMedicineUnit}</span></li>
                 </ul>
             </div>
         </div>
         <div class="col-lg-4 col-md-12">
             <div class="white-box analytics-info">
-                <h3 class="box-title">Unique Visitor</h3>
+                <h3 class="box-title">Tổng số bệnh nhân</h3>
                 <ul class="list-inline two-part d-flex align-items-center mb-0">
                     <li>
-                        <div id="sparklinedash3"><canvas width="67" height="30"
-                                                         style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                        <div id="sparklinedash3">
+                            <canvas width="67" height="30"
+                                    style="display: inline-block; width: 67px; height: 30px; vertical-align: top;">
+
+                            </canvas>
                         </div>
                     </li>
-                    <li class="ms-auto"><span class="counter text-info">911</span>
+                    <li class="ms-auto"><span class="counter text-info">${countPatient}</span>
                     </li>
                 </ul>
             </div>
@@ -84,18 +87,33 @@
 
     <div class="white-box analytics-info">
         <form>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Nhap tu khoa..." name="kw" />
+            <c:if test="${option == 1}">
+                <div class="form-group">
+                    <label for="kw">Nhap ten benh nhan</label>
+                    <input id="kw" type="text" class="form-control" placeholder="Nhap tu khoa..." name="kw" />
+                </div>
+            </c:if>
+            <c:if test="${option == 1 || option == 2}">
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="fromDate">Tu ngay</label>
+                         <input id="fromDate" type="date" 
+                               class="form-control" name="fromDate" />
+                    </div>
+                    <div class="form-group col-6">
+                         <label for="toDate">Den ngay</label>
+                         <input id="toDate" type="date" 
+                               class="form-control" name="toDate" />
+                    </div>
+                    
+                </div>
+            </c:if>
+            <div>
+                <button class="btn btn-success" type="submit"><i class="far fa-chart-bar"></i>Thong ke</button>
             </div>
-            <div class="form-group">
-                <input type="date" class="form-control" name="fromDate" />
-            </div>
-            <div class="form-group">
-                <input type="date" class="form-control" name="toDate" />
-            </div>
-            <input type="submit" value="Loc du lieu" class="btn btn-info" />
         </form>
     </div>
+
     <c:if test="${option == 1}">
         <div class="white-box analytics-info">
             <h3 class="box-title">Thống kê bệnh nhân theo tháng</h3>
@@ -127,16 +145,6 @@
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <div class="white-box">
                     <h3 class="box-title">Thống kê số lượt bệnh nhân đến khám</h3>
-                    <div class="d-md-flex">
-                        <ul class="list-inline d-flex ms-auto">
-                            <li class="ps-3">
-                                <h5><i class="fa fa-circle me-1 text-info"></i>Mac</h5>
-                            </li>
-                            <li class="ps-3">
-                                <h5><i class="fa fa-circle me-1 text-inverse"></i>Windows</h5>
-                            </li>
-                        </ul>
-                    </div>
                     <div id="ct-visits" style="height: 405px;">
                         <div class="chartist-tooltip" style="top: -17px; left: -12px;"><span
                                 class="chartist-tooltip-value">6</span>
@@ -188,6 +196,7 @@
     </c:if>
 
 
+
 </div>
 <script>
     window.onload = () => {
@@ -199,7 +208,7 @@
         patientLable.push('${p[0]}/${p[1]}');
         </c:forEach>
                 let ctx = document.getElementById("patientChart").getContext("2d");
-                patientChart(ctx, patientData, patientLable, "bar");
+                patientChart(ctx, patientData, patientLable, "bar", ${option});
                 drawFunction(patientData, patientLable);
     </c:if>
     <c:if test="${option == 2}">
@@ -209,8 +218,8 @@
                 revenueLable.push('${r[0]}/${r[1]}');
         </c:forEach>
                         let ctx = document.getElementById("revenueChart").getContext("2d");
-                        patientChart(ctx, revenueData, revenueLable, "bar");
+                        patientChart(ctx, revenueData, revenueLable, "bar",${option});
                         drawFunction(revenueData, revenueLable);
     </c:if>
-                    };
+                    }
 </script>

@@ -36,5 +36,10 @@ public class AdminStatsServiceImpl implements AdminStatsService{
     public List<Object[]> getRevenueByMonth(Date fromDate, Date toDate) {
         return this.adminStatsReposioty.getRevenueByMonth(toDate, toDate);
     }
+
+    @Override
+    public List<Object[]> getMedicineFrequencyStats(String string) {
+        return this.adminStatsReposioty.getMedicineFrequencyStats(string);
+    }
     
 }

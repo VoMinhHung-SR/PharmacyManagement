@@ -49,10 +49,10 @@
                 <c:choose>
                     <c:when test="${pageContext.request.userPrincipal.name == null}">
                         <li class="nav-item">
-                            <a class="nav-link" href="<c:url value="/login"/>">Login</a>
+                            <a class="nav-link" href="<c:url value="/login"/>">Ðăng nhập</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<c:url value="/register" />">Registry</a>
+                            <a class="nav-link" href="<c:url value="/register" />">Ðăng ký</a>
                         </li>
                     </c:when>
                     <c:when test="${pageContext.request.userPrincipal.name != null}">

@@ -8,29 +8,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <div class="container-fluid">
-    <div class="white-box analytics-info">
-        <h3 class="box-title">Thống kê bệnh nhân</h3>
-        <table class="table">
-            <tr>
-                <th>Mã bệnh nhân</th>
-                <th>Họ bệnh nhân</th>
-                <th>Tên bệnh nhân</th>
-                <th>Số lần khám</th>
-            </tr>
-            <c:if test="${patientStats == null}">
-                <h5 class="text-danger text-center">Hiện tại chưa có bênh nhân có phiếu khám!!</h5>
-            </c:if>
-            <c:forEach items="${patientStats}" var="p">
-                <tr>
-                    <td>${p[0]}</td>
-                    <td>${p[1]}</th>
-                    <td>${p[2]}</td>
-                    <td>${p[3]}</th>
-                </tr>
-            </c:forEach>
-        </table>
-    </div>
-
 
     <!-- ============================================================== -->
     <!-- Three charts -->
@@ -38,65 +15,90 @@
     <div class="row justify-content-center">
         <div class="col-lg-4 col-md-12">
             <div class="white-box analytics-info">
-                <h3 class="box-title">Total Visit</h3>
+                <h3 class="box-title">Người dùng hệ thống</h3>
                 <ul class="list-inline two-part d-flex align-items-center mb-0">
                     <li>
                         <div id="sparklinedash"><canvas width="67" height="30"
                                                         style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                         </div>
                     </li>
-                    <li class="ms-auto"><span class="counter text-success">659</span></li>
+                    <li class="ms-auto"><span class="counter text-success">${countUser}</span></li>
                 </ul>
             </div>
         </div>
         <div class="col-lg-4 col-md-12">
             <div class="white-box analytics-info">
-                <h3 class="box-title">Total Page Views</h3>
+                <h3 class="box-title">Tổng số lượng thuốc</h3>
                 <ul class="list-inline two-part d-flex align-items-center mb-0">
                     <li>
                         <div id="sparklinedash2"><canvas width="67" height="30"
                                                          style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                         </div>
                     </li>
-                    <li class="ms-auto"><span class="counter text-purple">869</span></li>
+                    <li class="ms-auto"><span class="counter text-purple">${countMedicineUnit}</span></li>
                 </ul>
             </div>
         </div>
         <div class="col-lg-4 col-md-12">
             <div class="white-box analytics-info">
-                <h3 class="box-title">Unique Visitor</h3>
+                <h3 class="box-title">Tổng số bệnh nhân</h3>
                 <ul class="list-inline two-part d-flex align-items-center mb-0">
                     <li>
                         <div id="sparklinedash3">
                             <canvas width="67" height="30"
-                                style="display: inline-block; width: 67px; height: 30px; vertical-align: top;">
-                                    
+                                    style="display: inline-block; width: 67px; height: 30px; vertical-align: top;">
+
                             </canvas>
                         </div>
                     </li>
-                    <li class="ms-auto"><span class="counter text-info">911</span>
+                    <li class="ms-auto"><span class="counter text-info">${countPatient}</span>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
-    <!-- ============================================================== -->
-    <!-- PRODUCTS YEARLY SALES -->
-    <!-- ============================================================== -->
+
+    <div class="white-box analytics-info">
+        <h3 class="box-title">Thống kê tần suất sử dụng thuốc</h3>
+        <table class="table">
+            <tr>
+                <th>Tên thuốc</th>
+                <th>Tần suất sử dụng</th>
+            </tr>
+            <c:forEach items="${medicineDateStats}" var="m">
+                <tr>
+                    <td>${m[0]}</td>
+                    <td>${m[1]}</th>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
+    <div class="white-box analytics-info">
+        <form>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Nhap tu khoa..." name="kw" />
+            </div>
+            <div>
+                <button class="btn btn-success" type="submit"><i class="far fa-chart-bar"></i>Thong ke</button>
+            </div>
+
+        </form>
+    </div>
     <div class="row">
         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
             <div class="white-box">
-                <h3 class="box-title">Products Yearly Sales</h3>
-                <div class="d-md-flex">
-                    <ul class="list-inline d-flex ms-auto">
-                        <li class="ps-3">
-                            <h5><i class="fa fa-circle me-1 text-info"></i>Mac</h5>
-                        </li>
-                        <li class="ps-3">
-                            <h5><i class="fa fa-circle me-1 text-inverse"></i>Windows</h5>
-                        </li>
-                    </ul>
+                <h3 class="box-title">Thống kê tần suất sử dụng thuốc</h3>
+                <div class="w-50 m-auto">
+                    <canvas id="medicineChart" width="100" height="100"></canvas>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <div class="white-box">
+                <h3 class="box-title">Thống kê tần suất sử dụng thuốc</h3>
                 <div id="ct-visits" style="height: 405px;">
                     <div class="chartist-tooltip" style="top: -17px; left: -12px;"><span
                             class="chartist-tooltip-value">6</span>
@@ -105,6 +107,7 @@
             </div>
         </div>
     </div>
+
     <!-- ============================================================== -->
     <!-- RECENT SALES -->
     <!-- ============================================================== -->
@@ -362,3 +365,19 @@
         <!-- /.col -->
     </div>
 </div>
+<script>
+    window.onload = () => {
+
+
+
+        let medicineData = [], medicineLable = [];
+    <c:forEach items="${medicineDateStats}" var="m">
+        medicineData.push(${m[1]});
+        medicineLable.push('${m[0]}');
+    </c:forEach>
+        let ctx = document.getElementById("medicineChart").getContext("2d");
+        patientChart(ctx, medicineData, medicineLable, "bar");
+        drawFunction(medicineData, medicineLable);
+
+    };
+</script>

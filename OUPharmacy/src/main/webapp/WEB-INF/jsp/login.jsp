@@ -7,29 +7,46 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<div class="container">
-    <h1 class="text-center text-danger"> Dang nhap </h1>
-    <c:url var="action" value="/login"/>
-    <c:if test="${param.error != null}">
-        <div class="alert alert-danger">
-            Da co loi xay ra!!!
+<head>
+    <link rel="stylesheet" href="<c:url value="/css/login-style.css"/>"/>
+</head>
+
+
+<div class="form-bg mt-5"  >
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-8 col-lg-4  col-md-offset-4 m-auto">
+                <div class="form-container mt-3 mb-3">
+                    <div class="form-icon"><i class="bi bi-person-fill"></i></div>
+                    <h3 class="title">Ðăng nhập</h3>
+                    <c:url var="action" value="/login"/>
+                    <form class="form-horizontal" action="${action}" method="post">
+                        <c:if test="${param.error != null}">
+                            <div class="alert alert-danger">
+                                Da co loi xay ra!!!
+                            </div>
+                        </c:if>
+                        <div class="form-group">
+                            <label for="username">Tên tài khoản</label>
+                            <input class="form-control" type="text"
+                                   id="username" name="username" placeholder="nhập tài khoản..">
+                        </div>
+                        <div class="form-group">
+                            <label>Mật khẩu</label>
+                            <input class="form-control" name="password" type="password" placeholder="nhập mật khẩu..">
+                        </div>
+                        <button type="submit" class="btn btn-default">Ðăng nhập</button>
+
+                        <div class="text-center mt-3">
+                            <a href="<c:url value="/register"/>">
+                                <i class="bi bi-person-plus-fill"></i> Ðăng ký
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    </c:if>
-    <form  action="${action}" method="post">
-
-        <div class="form-group">
-            <label for="username">Nhap Username</label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="nhap username"/>
-        </div>
-
-        <div class="form-group">
-            <label for="password">Nhap Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="nhap password"/>
-        </div>
-
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    </div>
 </div>
 
 

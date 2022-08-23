@@ -15,8 +15,12 @@ import java.util.Map;
 public interface UserRepository {
     boolean addUser(User user);
     boolean addUserWithUserRole(User user, String userRole);
+    boolean editAdminUser(int userId);
+    User getUserById(int id);
     List<User> getUser(String username);
+    List<User> getUserNotAdmin(Map<String, String> params);
     List<User> getUserByUserRole(Map<String, String> params,String userRole, int page);
     int countUsersByUserRole(String userRole);
-    
+    int countUser();
+    int countUserWithoutAdmin();
 }

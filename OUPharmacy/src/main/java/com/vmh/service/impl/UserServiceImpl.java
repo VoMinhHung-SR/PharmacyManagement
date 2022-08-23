@@ -106,6 +106,29 @@ public class UserServiceImpl implements UserService{
         return this.userRepository.countUsersByUserRole(string);
     }
 
+    @Override
+    public int countUser() {
+        return this.userRepository.countUser();
+    }
 
-    
+    @Override
+    public List<User> getUserNotAdmin(Map<String, String> map) {
+        return this.userRepository.getUserNotAdmin(map);
+    }
+
+    @Override
+    public int countUserWithoutAdmin() {
+        return this.userRepository.countUserWithoutAdmin();
+    }
+
+    @Override
+    public boolean editAdminUser(int i) {
+        return this.userRepository.editAdminUser(i);
+    }
+
+    @Override
+    public User getUserById(int i) {
+        return this.userRepository.getUserById(i);
+    }
+
 }

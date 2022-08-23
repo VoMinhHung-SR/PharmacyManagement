@@ -106,4 +106,17 @@ public class UserController {
         
         return "add-user";
     }
+    @GetMapping(path="/admin/edit-user-role")
+    public String getUserRoleView(Model model,@RequestParam(required = false) Map<String,String> params){
+
+        try{
+            model.addAttribute("usersCounter", this.userDetailsService.countUserWithoutAdmin());
+            model.addAttribute("users", this.userDetailsService.getUserNotAdmin(params));
+            return "user-role";
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return "user-role";
+    }
+    
 }

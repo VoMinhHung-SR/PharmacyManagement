@@ -6,8 +6,11 @@ package com.vmh.repository.impl;
 
 import com.vmh.pojo.Bill;
 import com.vmh.pojo.ExaminationDetail;
+import com.vmh.pojo.Medicine;
+import com.vmh.pojo.MedicineUnit;
 import com.vmh.pojo.Patient;
 import com.vmh.pojo.Prescription;
+import com.vmh.pojo.PrescriptionDetail;
 import com.vmh.repository.AdminStatsReposioty;
 import java.util.ArrayList;
 import java.util.Date;
@@ -147,8 +150,40 @@ public class AdminStatsRepositoryImpl implements AdminStatsReposioty {
     }
 
     @Override
-    public List<Object[]> getMedicineFrequencyStats(String string, Date date, Date date1) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Object[]> getMedicineFrequencyStats(String kw) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            CriteriaBuilder b = session.getCriteriaBuilder();
+            CriteriaQuery<Object[]> q = b.createQuery(Object[].class);
+
+            Root<Medicine> medicineRoot = q.from(Medicine.class);
+            Root<MedicineUnit> medicineUniRoot = q.from(MedicineUnit.class);
+            Root<PrescriptionDetail> prescriptionDetailRoot = q.from(PrescriptionDetail.class);
+
+            List<Predicate> pre = new ArrayList<>();
+            if (kw != null && !kw.isEmpty()) {
+                pre.add(b.like(medicineRoot.get("name").as(String.class), String.format("%%%s%%", kw)));
+            }
+            
+            //JOIN
+            pre.add(b.equal(prescriptionDetailRoot.get("medicineUnitId"), medicineUniRoot.get("id")));
+            pre.add(b.equal(medicineUniRoot.get("medicineId"), medicineRoot.get("id")));
+            q.where(pre.toArray(new Predicate[]{}));
+
+            q.multiselect(medicineRoot.get("name"), 
+                    b.sum(prescriptionDetailRoot.get("quantity").as(Integer.class)));
+
+            q.groupBy(prescriptionDetailRoot.get("medicineUnitId"));
+            
+            q = q.orderBy();
+            
+            Query query = session.createQuery(q);
+
+            return query.getResultList();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        }
+        return null;
     }
 
 }
