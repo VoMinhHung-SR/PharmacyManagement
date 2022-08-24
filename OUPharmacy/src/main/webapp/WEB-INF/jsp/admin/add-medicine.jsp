@@ -29,11 +29,13 @@
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="name">Ten thuoc</label>
                                         <form:input type="text" path="name" id="name" class="form-control form-control-lg" />
+                                        <form:errors path="name" element="div" cssClass="text-danger" />
                                     </div>
 
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="effect">Cong dung</label>
                                         <form:input type="textarea" path="effect" id="effect"  class="form-control form-control-lg" />
+                                        <form:errors path="effect" element="div" cssClass="text-danger" />
                                     </div>
 
                                     <div class="d-flex justify-content-end pt-3">

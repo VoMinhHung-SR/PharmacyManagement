@@ -85,4 +85,17 @@ public class MedicineRepositoryImpl implements MedicineRepository {
         return session.createQuery(q).getSingleResult();
     }
 
+    @Override
+    public boolean getMedicineNameUnique(String medicineName) {
+
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        
+        String sql = "SELECT COUNT(id) FROM Medicine WHERE name=:name";
+        Query query = session.createQuery(sql);
+        query.setParameter("name", medicineName.trim());
+
+        return (long)query.getSingleResult() > 0;
+    
+    }
+
 }

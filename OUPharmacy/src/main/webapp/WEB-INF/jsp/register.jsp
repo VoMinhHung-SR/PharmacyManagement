@@ -35,12 +35,14 @@
                                             <div class="form-outline">
                                                 <label class="form-label" for="firstName">Họ</label>
                                                 <form:input type="text" path="firstName" id="firstName" class="form-control form-control-lg" />
+                                                <form:errors path="firstName" element="div" cssClass="text-danger" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-4">
                                             <div class="form-outline">
                                                 <label class="form-label" for="lastName">Tên</label>
                                                 <form:input type="text" path="lastName" id="lastName"  class="form-control form-control-lg" />
+                                                <form:errors path="lastName" element="div" cssClass="text-danger" />
                                             </div>
                                         </div>
                                     </div>
@@ -50,13 +52,14 @@
                                             <div class="form-outline">
                                                 <label class="form-label" for="username">Tên tài khoản</label>
                                                 <form:input type="text" path="username" id="username" class="form-control form-control-lg" />
-
+                                                <form:errors path="username" element="div" cssClass="text-danger" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-4">
                                             <div class="form-outline">
                                                 <label class="form-label" for="password">Mật khẩu</label>
                                                 <form:input type="password" path="password" id="password" class="form-control form-control-lg" />
+                                                <form:errors path="password" element="div" cssClass="text-danger" />
                                             </div>
                                         </div>
                                     </div>
@@ -81,6 +84,7 @@
                                             <div class="form-outline">
                                                 <label class="form-label" for="email">Email</label>
                                                 <form:input type="email" id="email" path="email" class="form-control form-control-lg" />   
+                                                <form:errors path="email" element="div" cssClass="text-danger" />
                                             </div>
 
                                         </div>

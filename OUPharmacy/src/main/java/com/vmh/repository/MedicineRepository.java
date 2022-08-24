@@ -16,4 +16,5 @@ public interface MedicineRepository {
    Medicine getMedicineDetail(int id);
    boolean getMedicineByName(String name);
    boolean addMedicine(Medicine medicine);
+   boolean getMedicineNameUnique(String medicineName);
 }

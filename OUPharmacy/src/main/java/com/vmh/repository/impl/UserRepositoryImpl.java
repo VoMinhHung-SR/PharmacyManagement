@@ -235,4 +235,26 @@ public class UserRepositoryImpl implements UserRepository {
         }
         return null;
     }
+
+    @Override
+    public boolean getUniqueUserName(String username) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        
+        String sql = "SELECT COUNT(id) FROM User WHERE username=:username";
+        Query query = session.createQuery(sql);
+        query.setParameter("username", username.trim());
+
+        return (long)query.getSingleResult() > 0;
+    }
+
+    @Override
+    public boolean getUnitqueEmail(String email) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        
+        String sql = "SELECT COUNT(id) FROM User WHERE email=:email";
+        Query query = session.createQuery(sql);
+        query.setParameter("email", email.trim());
+
+        return (long)query.getSingleResult() > 0;
+    }
 }

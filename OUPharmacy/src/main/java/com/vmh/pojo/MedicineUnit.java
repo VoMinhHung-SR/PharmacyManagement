@@ -21,6 +21,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -57,9 +58,9 @@ public class MedicineUnit implements Serializable {
     @Column(name = "price")
     private double price;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "image")
+    @NotNull
     private String image;
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -71,7 +72,7 @@ public class MedicineUnit implements Serializable {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "medicineUnitId")
     private Collection<PrescriptionDetail> prescriptionDetailCollection;
-
+    
     @Transient
     @JsonIgnore
     private MultipartFile file;

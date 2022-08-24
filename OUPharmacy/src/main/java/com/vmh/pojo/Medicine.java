@@ -45,12 +45,12 @@ public class Medicine implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "{medicine.name.nullErr}")
     @Size(min = 1, max = 100, message = "{medicine.name.lenErr}")
     @Column(name = "name")
     private String name;
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "{medicine.effect.nullErr}")
     @Size(min = 1, max = 255, message = "{medicine.effect.lenErr}")
     @Column(name = "effect")
     private String effect;

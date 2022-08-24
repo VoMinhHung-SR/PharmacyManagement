@@ -39,4 +39,9 @@ public class MedicineServiceImpl implements MedicineService{
     public Medicine getMedicineDetail(int i) {
         return this.medicineRepository.getMedicineDetail(i);
     }
+
+    @Override
+    public boolean getMedicineNameUnique(String string) {
+        return this.medicineRepository.getMedicineNameUnique(string);
+    }
 }

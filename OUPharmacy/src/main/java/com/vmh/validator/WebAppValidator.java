@@ -4,7 +4,9 @@
  */
 package com.vmh.validator;
 
+import com.vmh.pojo.Medicine;
 import com.vmh.pojo.MedicineUnit;
+import com.vmh.pojo.User;
 import java.util.HashSet;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
@@ -22,28 +24,30 @@ public class WebAppValidator implements Validator {
 
     @Autowired
     private javax.validation.Validator beanValidator;
-    private Set<Validator> springValidators = new HashSet<>();
+    private Set<Validator> validators;
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return MedicineUnit.class.isAssignableFrom(clazz);
+        return Medicine.class.isAssignableFrom(clazz)
+                || MedicineUnit.class.isAssignableFrom(clazz)
+                || User.class.isAssignableFrom(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        Set<ConstraintViolation<Object>> constraintViolations
+        Set<ConstraintViolation<Object>> constraintViolations 
                 = beanValidator.validate(target);
         for (ConstraintViolation<Object> obj : constraintViolations) {
             errors.rejectValue(obj.getPropertyPath().toString(),
                     obj.getMessageTemplate(), obj.getMessage());
         }
-        for (Validator obj : springValidators) {
-            obj.validate(target, errors);
+        for (Validator validator : this.validators) {
+            validator.validate(target, errors);
         }
     }
 
     public void setSpringValidators(Set<Validator> springValidators) {
-        this.springValidators = springValidators;
+         this.validators = springValidators;
     }
 
 }

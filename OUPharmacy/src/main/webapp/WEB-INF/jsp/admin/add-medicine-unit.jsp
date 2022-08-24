@@ -17,8 +17,6 @@
 <form:form method="post" action="${action}" 
            enctype="multipart/form-data" modelAttribute="medicineUnit">
 
-    <form:errors path="*" element="div" cssClass="alert alert-danger" />
-
     <section class="h-100">
         <div class="container py-2 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -45,14 +43,16 @@
                                         <div class="col-md-3 mb-4">
                                             <div class="form-outline">
                                                 <label class="form-label" for="quantity">So luong</label>
-                                                <form:input type="text" path="inStock" id="quantity" class="form-control form-control-lg" />
+                                                <form:input type="number" path="inStock" id="quantity" class="form-control form-control-lg" />
+     
                                             </div>
                                         </div>
 
                                         <div class="col-md-3 mb-4">
                                             <div class="form-outline">
                                                 <label class="form-label" for="price">Gia <small>(VNÐ)</small></label>
-                                                <form:input type="text" path="price" id="price" class="form-control form-control-lg" />
+                                                <form:input type="number" path="price" id="price" class="form-control form-control-lg" />
+                                                 
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-4">
@@ -72,6 +72,7 @@
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="file">Anh san pham</label>
                                         <form:input type="file" path="file" id="file" class="form-control form-control-lg" />
+                                        
                                     </div>
 
 

@@ -131,4 +131,14 @@ public class UserServiceImpl implements UserService{
         return this.userRepository.getUserById(i);
     }
 
+    @Override
+    public boolean getUniqueUserName(String string) {
+        return this.userRepository.getUniqueUserName(string);
+    }
+
+    @Override
+    public boolean getUnitqueEmail(String string) {
+        return this.userRepository.getUnitqueEmail(string);
+    }
+
 }

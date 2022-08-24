@@ -7,10 +7,16 @@ package com.vmh.config;
 import com.vmh.converter.DateConverter;
 import com.vmh.formatter.CategoryFormatter;
 import com.vmh.formatter.MedicineFormatter;
+import com.vmh.service.MedicineService;
+import com.vmh.service.UserService;
+import com.vmh.validator.MedicineNameUniqueValidator;
 import com.vmh.validator.MedicineUnitValidator;
+import com.vmh.validator.UserEmailValidator;
+import com.vmh.validator.UsernameValidator;
 import com.vmh.validator.WebAppValidator;
 import java.util.HashSet;
 import java.util.Set;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -39,7 +45,14 @@ import org.springframework.web.servlet.view.JstlView;
     "com.vmh.service", "com.vmh.api", "com.vmh.validator", "com.vmh.handler"})
 public class WebApplicationContextConfig implements WebMvcConfigurer {
 
-     @Override
+    @Autowired
+    private MedicineService medicineService;
+    
+    @Autowired
+    private UserService userService;
+    
+    
+    @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
@@ -72,17 +85,28 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
     public MessageSource messageSource() {
         ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
         resource.setBasename("messages");
+        resource.setDefaultEncoding("UTF-8");
         return resource;
 
     }
     //====Validator====
     @Bean(name = "validator")
     public LocalValidatorFactoryBean validator() {
-        LocalValidatorFactoryBean bean
-                = new LocalValidatorFactoryBean();
+        LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
         bean.setValidationMessageSource(messageSource());
         return bean;
     }
+    
+    @Bean
+    public WebAppValidator medicineValidator(){
+        Set<Validator> springValidators = new HashSet<>();
+        springValidators.add(new MedicineNameUniqueValidator(medicineService));
+        
+        WebAppValidator webAppValidator = new WebAppValidator();
+        webAppValidator.setSpringValidators(springValidators);
+        return webAppValidator;
+    }
+    
     @Bean
     public WebAppValidator medicineUnitValidator(){
         Set<Validator> springValidators = new HashSet<>();
@@ -92,7 +116,18 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
         webAppValidator.setSpringValidators(springValidators);
         return webAppValidator;
     }
-
+       
+    @Bean
+    public WebAppValidator userValidator(){
+        Set<Validator> springValidators = new HashSet<>();
+        springValidators.add(new UsernameValidator(userService));
+        springValidators.add(new UserEmailValidator(userService));
+        
+        WebAppValidator webAppValidator = new WebAppValidator();
+        webAppValidator.setSpringValidators(springValidators);
+        return webAppValidator;
+    }
+    
     @Override
     public Validator getValidator() {
         return validator();

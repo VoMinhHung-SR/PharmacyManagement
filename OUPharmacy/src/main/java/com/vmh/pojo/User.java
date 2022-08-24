@@ -66,23 +66,23 @@ public class User implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "{user.username.nullErr}")
     @Size(min = 1, max = 100)
     @Column(name = "username")
     private String username;
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "{user.username.nullErr}")
     @JsonIgnore
     @Size(min = 1, max = 255)
     @Column(name = "password")
     private String password;
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "{user.firstName.nullErr}")
     @Size(min = 1, max = 50)
     @Column(name = "first_name")
     private String firstName;
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "{user.lastName.nullErr}")
     @Size(min = 1, max = 50)
     @Column(name = "last_name")
     private String lastName;
