@@ -17,6 +17,7 @@ public class DispatcherSerletInitializer extends AbstractAnnotationConfigDispatc
         return new Class[]{
             HibernateConfig.class,
             TilesConfig.class,
+            EmailConfig.class,
             SpringSecurityConfig.class
         };
     }
