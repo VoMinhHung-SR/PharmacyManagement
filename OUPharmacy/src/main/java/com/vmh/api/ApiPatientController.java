@@ -5,10 +5,8 @@
 package com.vmh.api;
 
 import com.vmh.pojo.Patient;
-import com.vmh.service.EmailService;
 import com.vmh.service.PatientService;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,8 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class ApiPatientController {
 
-    @Autowired
-    private EmailService emailService;
 
     @Autowired
     private PatientService patientService;
@@ -57,22 +53,5 @@ public class ApiPatientController {
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @PostMapping(path = "/patients/{patientId}/send-email", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Patient> sendEmailPatient(Model model,
-            @RequestBody Map<String, String> params) {
-        try {
-            if (params != null) {
-                String to = params.get("toUser");
-                String subject = params.get("subject");
-                String content = params.get("content");
-                if (this.emailService.sendMail( to, subject, content)) {
-                    return new ResponseEntity<>(HttpStatus.CREATED);
-                }
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+   
 }

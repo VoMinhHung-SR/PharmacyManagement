@@ -79,10 +79,11 @@
 
                                     <td >${b.description}</td>
                                     <td class="created-date">${b.createdDate}</td>
-                                    <td class="text-danger">Chờ xác nhận</td>
+                                    <td class="text-danger" id="e_${b.id}">Chờ xác nhận</td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-primary" 
-                                                onclick="sendEmailChecker('<c:url value="/api/booking-list/nur-censored/${b.id}"/>')">
+                                        <button type="button" class="btn btn-info"
+                                                onclick="sendEmailTrigger(${b.userExaminationId.id},
+                                                            ${b.id})">
                                             <i class="bi bi-envelope-plus-fill"></i> Gửi email
                                         </button>
                                         <a href="<c:url value="/booking/${b.id}/examination-detail"/>">
@@ -108,10 +109,12 @@
 <script>
     window.onload = () => {
 
-        let dates = document.querySelectorAll(".created-date")
+        let dates = document.querySelectorAll(".created-date");
         for (let i = 0; i < dates.length; i++) {
             let d = dates[i];
             d.innerText = moment(d.innerText).fromNow();
         }
-    }
+       onloadUserBooking();
+       onloadExaminationDetail();
+    };
 </script>

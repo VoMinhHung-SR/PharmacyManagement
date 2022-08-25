@@ -34,26 +34,22 @@ const showUpdateModal = (endpoint, medicineUnitId) => {
 }
 //Delete /api/medicines/{medicineUnitId}
 const deleteMedicineUnit = (endpoint) => {
-    if (confirm('Ban co muon xoa khong?')) {
-        const d = fetch(endpoint, {
+    confirmAlert("Bạn có chắc chắn xóa?", "Bạn sẽ không thể khôi phục sau khi xóa!", "Có", "Không", () => {
+       const d = fetch(endpoint, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json'
             }
         }).then(function (res) {
-            if (res.status === 204) {
-                alert("xoa thanh cong");
-                location.reload();
-            }
+            if (res.status === 204)
+                successfulAlert("Xóa thành công", "Ok", () => location.reload());
         }).catch(err => {
-            console.log("Error!!");
             console.log(err);
-        })
-
-    } else {
-        console.log('BAN DA HUY!');
-    }
-}
+            errorAlert("Đã có lỗi", "Đã có lỗi xảy ra trong quá trình xóa dữ liệu!", "Ok");
+        });
+    });
+    
+};
 
 
 const saveChange = (endpoint, medicineUnitId) => {

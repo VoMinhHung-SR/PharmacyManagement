@@ -13,6 +13,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 
 /**
  *
@@ -48,13 +49,21 @@ public class EmailConfig {
         javaMailProperties.put("mail.smtp.auth", environment.getProperty("mail.smtp.auth"));
         javaMailProperties.put("mail.transport.protocol", environment.getProperty("mail.transport.protocol"));
         javaMailProperties.put("mail.debug", environment.getProperty("mail.debug"));
-        javaMailProperties.put("mail.mime.charset", environment.getProperty("mail.mime.charset"));
+//        javaMailProperties.put("mail.mime.charset", environment.getProperty("mail.mime.charset"));
         javaMailProperties.put("mail.smtp.allow8bitmime", environment.getProperty("mail.smtp.allow8bitmime"));
         javaMailProperties.put("mail.smtps.allow8bitmime", environment.getProperty("mail.smtps.allow8bitmime"));
 
-        
+        mailSender.setDefaultEncoding("UTF-8");
         mailSender.setJavaMailProperties(javaMailProperties);
         return mailSender;
     }
 
+    @Bean
+    public FreeMarkerConfigurationFactoryBean getFreeMarkerConfiguration()
+    {
+        FreeMarkerConfigurationFactoryBean bean = new FreeMarkerConfigurationFactoryBean();
+        bean.setDefaultEncoding("UTF-8");
+        bean.setTemplateLoaderPaths("classpath:/mailtemplate/");
+        return bean;
+    }
 }

@@ -2,8 +2,31 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
-
-
+let userBooking = [];
+const onloadUserBooking = () => {
+    fetch('/OUPharmacy/api/examinations', {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(res => res.json()).then(data => {
+        if (data.length === 0) {
+            userBooking.push({
+                "id": -1,
+                "bookingListContent": []
+            });
+        }
+        data.forEach(d => {
+            let temp = [];
+            temp.push(d);
+            userBooking.push({
+                "id": d.id,
+                "bookingListContent": temp
+            });
+        })
+        console.info(userBooking);
+    });
+}
 const addExamination = (currentUserId) => {
     let date = new Date(document.getElementById("createdDate").value);
     fetch("/OUPharmacy/api/booking", {
@@ -12,7 +35,7 @@ const addExamination = (currentUserId) => {
             "description": document.getElementById("description").value,
             "createdDate": date,
             "active": 1,
-            "userExaminationId":currentUserId,
+            "userExaminationId": currentUserId,
         }),
         headers: {
             "Content-Type": "application/json"
@@ -38,52 +61,93 @@ const deleteExamination = (endpoint) => {
                 'Content-Type': 'application/json'
             }
         }).then(function (res) {
-            if (res.status === 204) successfulAlert("Xóa thành công", "Ok", () => location.reload());
+            if (res.status === 204)
+                successfulAlert("Xóa thành công", "Ok", () => location.reload());
         }).catch(err => {
             console.log(err);
             errorAlert("Đã có lỗi", "Đã có lỗi xảy ra trong quá trình xóa dữ liệu!", "Ok");
         });
     });
-//    if (confirm('Ban co muon xoa khong?')) {
-//        const d = fetch(endpoint, {
-//            method: "DELETE",
-//            headers: {
-//                'Content-Type': 'application/json'
-//            }
-//        }).then(function (res) {
-//            if (res.status === 204) {
-//                alert("xoa thanh cong");
-//                location.reload();
-//            }
-//        }).catch(err => {
-//            console.log("Error!!");
-//            console.log(err);
-//        })
-//
-//    } else {
-//        console.log('BAN DA HUY!');
-//    }
-}
+};
+let examinationDetail = [];
+const onloadExaminationDetail = () =>{
+    fetch('/OUPharmacy/api/examination-detail', {
+        method:"GET",
+        headers:{
+           "Content-Type":"application/json"
+        }
+    }).then(res => res.json()).then(data=>{
+        if(data.length === 0){
+            examinationDetail.push({
+                "id":-1,
+                "examinationDetailContent":[]
+            });
+        }
+        data.forEach(d =>{
+            let temp = [];
+            temp.push({
+                "examinationId":d.examinationId.id
+            });
+            examinationDetail.push({
+                "id": d.id,
+                "examinationDetailContent": temp
+            });
+        });
+        console.info(examinationDetail);
+    }).catch(err =>{
+        console.err(err);
+    }).then(()=>{
+        updateStatus();
+    });
+    
+};
 
-//POST : /api/booking-list/nur-censored/{bookingId}
-const sendEmailChecker = (endpoint) => {
-    if (confirm('Ban co muon gui xac nhan chu?')) {
-        const d = fetch(endpoint, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(function (res) {
-            if (res.status === 200) {
-                alert("gui thanh thanh cong");
-                location.reload();
-            }
-        }).catch(err => {
-            console.log("Error!!");
-            console.log(err);
-        })
-
-    } else {
-        console.log('BAN DA HUY!');
+const sendEmailTrigger = (userId, examinationId) => {
+    if (userBooking.length !== 0) {
+        userBooking.forEach(b => {
+            if (b.bookingListContent[0].userExaminationId.id === userId
+                    && b.id === examinationId)
+//                console.log(b.bookingListContent[0].userExaminationId.email);
+                sendEmail(b.bookingListContent[0].userExaminationId.email);
+        });
     }
-}
+};
+// POST: /api/send-email
+const sendEmail = (userId) => {
+    let date = moment(new Date()).format('L');
+    console.log(date);
+    confirmAlert("Xác nhận gửi?", "", "Đồng ý", "Hủy", () => {
+        fetch('/OUPharmacy/api/send-email', {
+            method: "POST",
+            body: JSON.stringify({
+                "userId": userId
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(res => {
+            if (res.status === 200) {
+                successfulAlert("Gửi thành công", "Ok");
+            }
+            res.json();
+        }).catch(err => {
+            console.err(err);
+            errorAlert("Đã có lỗi", "Đã có lỗi xảy ra trong quá trình gửi mail!", "Ok");
+        });
+    });
+
+};
+
+const updateStatus = () =>{
+    if(examinationDetail.length !== 0 && userBooking !== 0){
+         userBooking.forEach(u =>{
+             examinationDetail.forEach(e =>{
+                 if(u.id === e.examinationDetailContent[0].examinationId){
+                     let statusArea = document.querySelector(`#e_${u.id}`);
+                     statusArea.innerText='Đã tạo phiếu khám';
+                     statusArea.classList.add('text-success');
+                     statusArea.classList.remove('text-danger');
+             }});
+         });
+    }
+};

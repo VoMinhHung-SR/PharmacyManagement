@@ -9,6 +9,8 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="content" value="" />
         <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
         <put-list-attribute name="javascripts">
+            <add-attribute value="/js/bootstrap.bundle.min.js"/>
+            <add-attribute value="/js/custome.js"/>
         </put-list-attribute> 
     </definition>
     

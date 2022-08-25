@@ -66,7 +66,7 @@ public class Examination implements Serializable {
     @JoinColumn(name = "user_examination_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     @JsonIgnoreProperties({"isSuperuser", "username", "firstName", "lastName", "avatar",
-        "gender", "dateOfBirth", "phoneNumber", "email", "isActive", "address", "userRole"})
+        "gender", "dateOfBirth", "phoneNumber", "isActive", "address", "userRole"})
     private User userExaminationId;
 
     public Examination() {

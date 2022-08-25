@@ -176,7 +176,6 @@ public class MedicineUnit implements Serializable {
     /**
      * @return the file
      */
-    @JsonIgnore
     public MultipartFile getFile() {
         return file;
     }

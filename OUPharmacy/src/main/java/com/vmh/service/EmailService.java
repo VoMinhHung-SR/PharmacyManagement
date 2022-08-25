@@ -11,5 +11,5 @@ import java.util.Map;
  * @author ASUS
  */
 public interface EmailService {
-    public boolean sendMail(String to, String subject, String content);
+    boolean sendMail(String subject, String[] toUser,Object model);
 }
