@@ -12,7 +12,7 @@
 </c:if>
 
 <div id="loading" class="text-center" style="position: fixed;width: 100%;
-     height: 100%;
+     height: 100%;z-index: 99;
      background-color: rgba(0,0,0,0.3);">
     <div class="spinner-border" style="position: absolute;top: 40%" role="status">
         <span class="sr-only"></span>
@@ -106,9 +106,8 @@
                         </tbody>
                     </table>
                 </div>
-
+                
                 <p class="text-center">(<span class="text-danger">Lưu ý:</span> Hệ thống chỉ nhận tối đa 40 đơn khám / 1 ngày!!)</p>
-            </div>
                 <nav aria-label="Page navigation example">
                     <ul class="pagination" style="justify-content: center">
                         <c:forEach begin="1" end="${Math.ceil(countExamination/6)}" var="i">
@@ -119,6 +118,8 @@
                             </c:forEach>
                     </ul>
                 </nav>
+            </div>
+
         </div>
     </div>
 </div>

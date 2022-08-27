@@ -38,7 +38,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ApiUserController {
 
     @Autowired
-    private UserService userService;
+    private UserService userDetailService;
 
     @Autowired
     private WebAppValidator userValidator;
@@ -51,7 +51,7 @@ public class ApiUserController {
     @PostMapping(path = "/users/{userId}/edit-user-role")
     public ResponseEntity<User> editUserRole(@PathVariable(value = "userId") int userId) {
         try {
-            if (this.userService.editAdminUser(userId)) {
+            if (this.userDetailService.editAdminUser(userId)) {
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -65,7 +65,7 @@ public class ApiUserController {
     @GetMapping(path = "/users/{userId}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<User> getUserDetail(@PathVariable(value = "userId") int userId) {
         try {
-            return new ResponseEntity<>(this.userService.getUserById(userId), HttpStatus.OK);
+            return new ResponseEntity<>(this.userDetailService.getUserById(userId), HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -75,7 +75,7 @@ public class ApiUserController {
     @PatchMapping(path = "/users/{userId}/update-active", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<User> updateActiveUser(@PathVariable(value = "userId") int userId) {
         try {
-            if (this.userService.setActiveUser(userId)) {
+            if (this.userDetailService.setActiveUser(userId)) {
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -89,7 +89,7 @@ public class ApiUserController {
     @PostMapping(path = "/users/{userId}",
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Map<String, String>> updateStudent(@PathVariable("userId") int userId,
+    public ResponseEntity<Map<String, String>> updateUser(@PathVariable("userId") int userId,
             @RequestPart(value = "avatarFile", required = false) MultipartFile file,
             @RequestPart("user") @Valid User u,
             BindingResult result) throws IOException {
@@ -97,8 +97,14 @@ public class ApiUserController {
         HttpStatus status = null;
         System.out.println(u.getPassword());
         System.out.println(u.getUsername());
+        System.out.println(u.getGender());
+        System.out.println(u.getEmail());
+        System.out.println(u.getFirstName());
+        System.out.println(u.getLastName());
+        System.out.println(u.getAddress());
+        System.out.println(u.getDateOfBirth());
         if (!result.hasErrors()) {
-            if (this.userService.updateUser(u, userId, file)) {
+            if (this.userDetailService.updateUser(u, userId, file)) {
                 status = HttpStatus.OK;
             } else {
                 status = HttpStatus.INTERNAL_SERVER_ERROR;

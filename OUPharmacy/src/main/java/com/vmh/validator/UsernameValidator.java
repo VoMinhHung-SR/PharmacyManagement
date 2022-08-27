@@ -29,7 +29,7 @@ public class UsernameValidator implements Validator{
     public void validate(Object target, Errors errors) {
         User u = (User) target;
 
-        if(u.getId() == null && this.userService.getUniqueUserName(u.getUsername())){
+        if(this.userService.getUniqueUserName(u.getUsername())){
             errors.rejectValue("username", 
                     "user.username.uniqueErr",
                     "Tài khoản đã tồn tại");

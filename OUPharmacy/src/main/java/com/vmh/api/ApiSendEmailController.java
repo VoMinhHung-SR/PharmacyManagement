@@ -4,9 +4,13 @@
  */
 package com.vmh.api;
 
+import com.vmh.pojo.Examination;
 import com.vmh.pojo.User;
 import com.vmh.service.EmailService;
+import com.vmh.service.ExaminationService;
 import com.vmh.service.UserService;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -32,31 +36,40 @@ public class ApiSendEmailController {
     
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private ExaminationService examinationService;
      
     @PostMapping(path = "/send-email", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Map<String, String>> sendEmailPatient(Model model,
+    public ResponseEntity<Map<String, String>> sendEmailPatient(
             @RequestBody Map<String,String> params) {
         try {
-            if (params != null && !params.get("userId").isEmpty()) {
+            if (params != null && !params.get("userId").isEmpty()
+                    && !params.get("examinationId").isEmpty()) {
   
+                Date date = new Date();
+                SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
+                
+                
                 Integer uId = Integer.parseInt(params.get("userId"));
-
-//                Locale lcl = Locale.VIE;  
-//
-//                // creating an object of the class Date  
-//                Date d = new Date();  
-//
-//                // getting the instance by invoking the getDateInstance(int, Locale) method  
-//                DateFormat dFormat = DateFormat.getDateInstance(DateFormat.SHORT, lcl);  
-//
-//                String str = dFormat.format(d);  
-//                System.out.println(str);  
-                User u = this.userService.getUserById(uId);
+                Integer eId = Integer.parseInt(params.get("examinationId"));
+                
+                User user = this.userService.getUserById(uId);
+                Examination examination = this.examinationService.getExaminationById(eId);
+                
                 String subject = "Thư xác nhận lịch đăng ký khám";
-                Map<String, Object> map = new HashMap<>();
-                map.put("user", u);
+                String stringDate= DateFor.format(date);
+                String stringDate2 = DateFor.format(examination.getCreatedDate());
+                
+                Map<String, Object> model = new HashMap<>();
+                model.put("user", user);
+                model.put("examination", examination);
+                model.put("date", stringDate);
+                model.put("createdDate", stringDate2);
+                
+                
                 if(this.emailService.sendMail(subject,
-                        new String[]{u.getEmail()}, map)){
+                        new String[]{user.getEmail()}, model)){
                     return new ResponseEntity<>(HttpStatus.OK);
                 };
             }

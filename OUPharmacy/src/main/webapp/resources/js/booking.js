@@ -109,12 +109,12 @@ const sendEmailTrigger = (userId, examinationId) => {
             if (b.bookingListContent[0].userExaminationId.id === userId
                     && b.id === examinationId)
 //                console.log(b.bookingListContent[0].userExaminationId.email);
-                sendEmail(b.bookingListContent[0].userExaminationId.id);
+                sendEmail(b.bookingListContent[0].userExaminationId.id, b.id);
         });
     }
 };
 // POST: /api/send-email
-const sendEmail = (userId) => {
+const sendEmail = (userId, examinationId) => {
     let date = moment(new Date()).format('L');
     console.log(date);
     confirmAlert("Xác nhận gửi?", "", "Đồng ý", "Hủy", () => {
@@ -122,7 +122,8 @@ const sendEmail = (userId) => {
         fetch('/OUPharmacy/api/send-email', {
             method: "POST",
             body: JSON.stringify({
-                "userId": userId
+                "userId": userId,
+                "examinationId":examinationId
             }),
             headers: {
                 "Content-Type": "application/json"

@@ -219,7 +219,7 @@
                                                         </div>
                                                         <div class="col-md-2 mb-4">
                                                             <label class="form-label" for="gender">Giới tính</label>
-                                                            <select id="gender" path="gender" class="form-control">
+                                                            <select id="gender" name="gender" class="form-control">
                                                                 <option value="0">Nam</option>
                                                                 <option value="1">Nữ</option>
                                                                 <option value="2">Khác</option>

@@ -58,11 +58,22 @@ const saveChange = (userId) => {
     let form = $("#form-update-user");
     let formData = {};
     var formDataSubmit = new FormData();
-  
+
     form.serializeArray().forEach(item => {
         formData[item.name] = item.value;
     });
-    
+    var jsonSubmit = {
+        username: formData.username,
+        password: formData.password,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phoneNumber: formData.phoneNumber,
+        dateOfBirth: formData.dateOfBirth,
+        gender: formData.gender,
+        address: formData.address
+    }
+    console.log(jsonSubmit);
     var file = document.forms['form-update-user']['file'].files[0];
     formDataSubmit.append("avatarFile", file);
 
@@ -72,20 +83,8 @@ const saveChange = (userId) => {
     if (formData.password !== formData.confirmPassword) {
         $('input[name=' + "confirmPassword" + ']').after('<span class="text-danger">' + "Mật khẩu xác nhận không chính xác" + '</span>');
     } else {
-        formDataSubmit.append("user", new Blob([JSON.stringify({
-                username: formData.username,
-                password: formData.password,
-                firstName: formData.firstName,
-                lastName: formData.lastName,
-                email: formData.email,
-                phoneNumber: formData.phoneNumber,
-                dateOfBirth: formData.dateOfBirth,
-                gender: formData.gender,
-                address: formData.address
-            })], {
-            type: "application/json"
-        }));
-        console.info(formDataSubmit);
+        formDataSubmit.append("user", new Blob([JSON.stringify(jsonSubmit)], 
+        {type: "application/json"}));
         fetch(`/OUPharmacy/api/users/${userId}`, {
             method: "POST",
             body: formDataSubmit

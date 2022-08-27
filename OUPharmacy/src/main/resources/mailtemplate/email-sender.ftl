@@ -385,11 +385,15 @@
                                                                 <tr>
                                                                     <td align="center" style="Margin:0;padding-top:10px;padding-bottom:20px;padding-left:40px;padding-right:40px">
                                                                         <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#666666;font-size:14px">
-                                                                            Xin chào!
-                                                                            <#if (user.username)??>
-                                                                                <strong> ${user.username}</strong>                                                        
-                                                                            </#if>
+                                                                            Xin chào <#if (user.username)??><strong> ${user.username}!</strong></#if>
+                                    
                                                                             Đây là thư thông báo tự động, cảm ơn bạn vì đã sử dụng dịch vụ của chúng tôi. Bạn có một lịch khám với OUPharmacy, thời gian và địa điểm cụ thể ở bên dưới. Chúc bạn một ngày tốt lành và nhiều sức khỏe.&nbsp;
+                                                                        </p>
+                                                                        <br>
+                                                                        <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#666666;font-size:14px">
+                                                                            <strong>Mô tả:</strong> <#if (examination.description)??> ${examination.description}</#if>
+                                                                            - <strong>Ngày tạo:</strong> <#if (createdDate)??> ${createdDate}</#if>
+                                                                            
                                                                         </p>
                                                                     </td>
                                                                 </tr>
@@ -404,7 +408,7 @@
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td align="center" class="es-m-txt-c" style="padding:0;Margin:0;padding-top:5px;padding-bottom:5px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:40px;color:#666666;font-size:20px">Ngày: <strong id="date">26 August&nbsp;at 1:00 PM</strong><br>Duration: <strong>90 min</strong></p></td>
+                                                                    <td align="center" class="es-m-txt-c" style="padding:0;Margin:0;padding-top:5px;padding-bottom:5px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:40px;color:#666666;font-size:20px">Ngày: <#if (date)??><strong>${date}</strong> </#if></p></td>
                                                                 </tr>
                                                             </table>
                                                         </td>

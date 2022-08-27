@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
 import javax.mail.internet.MimeMessage;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -82,7 +81,7 @@ public class EmailServiceImpl implements EmailService {
     public String geFreeMarkerTemplateContent(Map<String,Object> model) {
         StringBuffer content = new StringBuffer();
         try {
-            content.append(FreeMarkerTemplateUtils.processTemplateIntoString(freemarkerConfiguration.getTemplate("email-sender.ftl"), new Object()));
+            content.append(FreeMarkerTemplateUtils.processTemplateIntoString(freemarkerConfiguration.getTemplate("email-sender.ftl"), model));
 
             return content.toString();
         } catch (Exception e) {
