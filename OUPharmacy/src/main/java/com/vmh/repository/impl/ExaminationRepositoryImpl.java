@@ -19,6 +19,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,8 @@ public class ExaminationRepositoryImpl implements ExaminationRepository {
 
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
+    @Autowired
+    private Environment env;
 
     @Override
     public Examination addExamination(Examination e) {
@@ -89,28 +92,57 @@ public class ExaminationRepositoryImpl implements ExaminationRepository {
             Examination e = session.get(Examination.class, i);
             session.delete(e);
             return true;
-        }catch(HibernateException ex){
+        } catch (HibernateException ex) {
             ex.printStackTrace();
         }
         return false;
     }
 
     @Override
-    public List<Examination> getExaminations() {
+    public List<Examination> getExaminations(Map<String, String> params) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Examination> q = builder.createQuery(Examination.class);
-        Root root = q.from(Examination.class);
-        
-        q = q.select(root);
-        q = q.orderBy(builder.asc(root.get("createdDate")));
+        try {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Examination> q = builder.createQuery(Examination.class);
+            Root root = q.from(Examination.class);
+            Root userRoot = q.from(User.class);
+            q = q.select(root);
+            
+            List<Predicate> predicates = new ArrayList<>();
+            Predicate p1 = builder.equal(root.get("userExaminationId"), userRoot.get("id"));
+            predicates.add(p1);
+            
+            if (params != null) {
+                if (params.containsKey("kw") == true) {
+                    Predicate p2 = builder.like(userRoot.get("username").as(String.class),
+                            String.format("%%%s%%", params.get("kw")));
+                    predicates.add(p2);
+                }
+            }
 
-        Query query = session.createQuery(q);
-        
-        return query.getResultList();
+            q.where(predicates.toArray(new Predicate[]{}));
+            q = q.orderBy(builder.asc(root.get("createdDate")));
+
+            Query query = session.createQuery(q);
+
+            int page = 1;
+            int pageSize = Integer.parseInt(env.getProperty("page.size").toString());;
+            if (params.containsKey("page") && !params.get("page").isEmpty()) {
+                page = Integer.parseInt(params.get("page"));
+            }
+            int startPage = (page - 1) * pageSize;
+
+            query.setMaxResults(pageSize);
+            query.setFirstResult(startPage);
+
+            return query.getResultList();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        }
+        return null;
+
     }
 
-    
     @Override
     public Examination getExaminationById(int examinationId) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
@@ -128,4 +160,11 @@ public class ExaminationRepositoryImpl implements ExaminationRepository {
         return null;
     }
 
+    @Override
+    public int countExamination() {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        Query q = session.createQuery("SELECT COUNT(*) FROM Examination");
+
+        return Integer.parseInt(q.getSingleResult().toString());
+    }
 }

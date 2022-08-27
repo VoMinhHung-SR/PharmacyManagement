@@ -41,7 +41,7 @@ public class EmailServiceImpl implements EmailService {
     private Environment environment;
 
     @Override
-    public boolean sendMail(String subject, String[] to, Object model) {
+    public boolean sendMail(String subject, String[] to, Map<String,Object> model) {
         MimeMessagePreparator preparator = getMessagePreparator(subject, to, model);
 
         try {
@@ -54,7 +54,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     private MimeMessagePreparator getMessagePreparator(final String subject, 
-            final String[] to,final Object model) {
+            final String[] to,final Map<String,Object> model) {
 
         return new MimeMessagePreparator() {
 
@@ -79,7 +79,7 @@ public class EmailServiceImpl implements EmailService {
         };
     }
 
-    public String geFreeMarkerTemplateContent(Object model) {
+    public String geFreeMarkerTemplateContent(Map<String,Object> model) {
         StringBuffer content = new StringBuffer();
         try {
             content.append(FreeMarkerTemplateUtils.processTemplateIntoString(freemarkerConfiguration.getTemplate("email-sender.ftl"), new Object()));

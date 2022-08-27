@@ -11,6 +11,14 @@
     <h1 class="text-center text-danger">${errMgs}</h1>
 </c:if>
 
+<div id="loading" class="text-center" style="position: fixed;width: 100%;
+     height: 100%;
+     background-color: rgba(0,0,0,0.3);">
+    <div class="spinner-border" style="position: absolute;top: 40%" role="status">
+        <span class="sr-only"></span>
+    </div>
+</div>
+
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
@@ -20,7 +28,7 @@
                 </h3>
 
                 <div class="col-md-12 m-auto">
-                    <c:url var="filter" value="/admin/medicines/">
+                    <c:url var="filter" value="/booking-list/nur-censored/">
                         <c:param name="kw" value="${kw}" />
                     </c:url>
                     <form id="form-filter" action="${filter}">
@@ -83,7 +91,7 @@
                                     <td class="text-center">
                                         <button type="button" class="btn btn-info"
                                                 onclick="sendEmailTrigger(${b.userExaminationId.id},
-                                                            ${b.id})">
+                                                ${b.id})">
                                             <i class="bi bi-envelope-plus-fill"></i> Gửi email
                                         </button>
                                         <a href="<c:url value="/booking/${b.id}/examination-detail"/>">
@@ -101,7 +109,16 @@
 
                 <p class="text-center">(<span class="text-danger">Lưu ý:</span> Hệ thống chỉ nhận tối đa 40 đơn khám / 1 ngày!!)</p>
             </div>
-
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination" style="justify-content: center">
+                        <c:forEach begin="1" end="${Math.ceil(countExamination/6)}" var="i">
+                            <c:url value="/booking-list/nur-censored/" var="m">
+                                <c:param value="${i}" name="page" />
+                            </c:url>
+                            <li class="page-item"><a class="page-link" href="${m}">${i}</a></li>
+                            </c:forEach>
+                    </ul>
+                </nav>
         </div>
     </div>
 </div>
@@ -114,7 +131,7 @@
             let d = dates[i];
             d.innerText = moment(d.innerText).fromNow();
         }
-       onloadUserBooking();
-       onloadExaminationDetail();
+        onloadUserBooking();
+        onloadExaminationDetail();
     };
 </script>

@@ -345,7 +345,7 @@
                                                         <td class="es-m-p0r" valign="top" align="center" style="padding:0;Margin:0;width:560px">
                                                             <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;border-radius:1px" role="presentation">
                                                                 <tr>
-                                                                    <td align="center" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:27px;color:#f6ebeb;font-size:18px">Hệ thống quản lý phòng mạch OUPharmacy</p></td>
+                                                                    <td align="center" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:27px;color:#f6ebeb;font-size:18px">Hệ thống quản lý phòng mạch tư OUPharmacy</p></td>
                                                                 </tr>
                                                             </table>
                                                         </td>
@@ -383,7 +383,15 @@
                                                                     <td align="center" class="es-m-txt-c" style="padding:0;Margin:0;padding-bottom:5px;padding-top:30px"><h1 style="Margin:0;line-height:36px;mso-line-height-rule:exactly;font-family:georgia, times, 'times new roman', serif;font-size:30px;font-style:normal;font-weight:normal;color:#023047">Thông báo lịch khám!</h1></td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td align="center" style="Margin:0;padding-top:10px;padding-bottom:20px;padding-left:40px;padding-right:40px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#666666;font-size:14px">Xin chào! Neque gravida in fermentum et sollicitudin ac. Felis eget velit aliquet sagittis id consectetur purus ut. Aliquet nec ullamcorper sit amet risus nullam eget felis eget. Gravida cum sociis natoque penatibus et magnis dis parturient montes. Arcu bibendum at varius vel.&nbsp;</p></td>
+                                                                    <td align="center" style="Margin:0;padding-top:10px;padding-bottom:20px;padding-left:40px;padding-right:40px">
+                                                                        <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#666666;font-size:14px">
+                                                                            Xin chào!
+                                                                            <#if (user.username)??>
+                                                                                <strong> ${user.username}</strong>                                                        
+                                                                            </#if>
+                                                                            Đây là thư thông báo tự động, cảm ơn bạn vì đã sử dụng dịch vụ của chúng tôi. Bạn có một lịch khám với OUPharmacy, thời gian và địa điểm cụ thể ở bên dưới. Chúc bạn một ngày tốt lành và nhiều sức khỏe.&nbsp;
+                                                                        </p>
+                                                                    </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="center" class="es-m-txt-c" style="padding:0;Margin:0;padding-top:5px;padding-bottom:5px;font-size:0">
@@ -396,7 +404,7 @@
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td align="center" class="es-m-txt-c" style="padding:0;Margin:0;padding-top:5px;padding-bottom:5px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:40px;color:#666666;font-size:20px">Date: <strong>26 August&nbsp;at 1:00 PM</strong><br>Duration: <strong>90 min</strong></p></td>
+                                                                    <td align="center" class="es-m-txt-c" style="padding:0;Margin:0;padding-top:5px;padding-bottom:5px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:40px;color:#666666;font-size:20px">Ngày: <strong id="date">26 August&nbsp;at 1:00 PM</strong><br>Duration: <strong>90 min</strong></p></td>
                                                                 </tr>
                                                             </table>
                                                         </td>
@@ -410,7 +418,7 @@
                                                         <td align="center" valign="top" style="padding:0;Margin:0;width:518px">
                                                             <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                                 <tr>
-                                                                    <td align="center" class="es-m-txt-c" style="padding:0;Margin:0"><span class="es-button-border-4 es-button-border" style="border-style:solid;border-color:#2CB543;background:#fb8500;border-width:0px;display:inline-block;border-radius:30px;width:auto"><a href="https://viewstripo.email" class="es-button es-button-3" target="_blank" style="mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;color:#FFFFFF;font-size:18px;border-style:solid;border-color:#FB8500;border-width:10px 25px 10px 15px;display:inline-block;background:#FB8500;border-radius:30px;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-weight:normal;font-style:normal;line-height:22px;width:auto;text-align:center"><!--[if !mso]><!-- --><img src="https://jwtxra.stripocdn.email/content/guids/CABINET_2e7b5e7c419fb67c255cca2bf344a8df/images/41781618489806584.png" alt="icon" width="26" style="display:inline-block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;vertical-align:middle;margin-right:10px" align="absmiddle"><!--<![endif]-->Join Webinar </a></span></td>
+                                                                    <td align="center" class="es-m-txt-c" style="padding:0;Margin:0"><span class="es-button-border-4 es-button-border" style="border-style:solid;border-color:#2CB543;background:#fb8500;border-width:0px;display:inline-block;border-radius:30px;width:auto"><a href="https://viewstripo.email" class="es-button es-button-3" target="_blank" style="mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;color:#FFFFFF;font-size:18px;border-style:solid;border-color:#FB8500;border-width:10px 25px 10px 15px;display:inline-block;background:#FB8500;border-radius:30px;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-weight:normal;font-style:normal;line-height:22px;width:auto;text-align:center"><!--[if !mso]><!-- --><img src="https://jwtxra.stripocdn.email/content/guids/CABINET_2e7b5e7c419fb67c255cca2bf344a8df/images/41781618489806584.png" alt="icon" width="26" style="display:inline-block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;vertical-align:middle;margin-right:10px" align="absmiddle"><!--<![endif]-->Địa Điểm </a></span></td>
                                                                 </tr>
                                                             </table>
                                                         </td>
@@ -453,77 +461,7 @@
                                     </table>
                                 </td>
                             </tr>
-                        </table>
-                        <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%">
-                            <tr>
-                                <td class="es-info-area" align="center" style="padding:0;Margin:0">
-                                    <table class="es-content-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px">
-                                        <tr>
-                                            <td align="left" style="padding:20px;Margin:0">
-                                                <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                                                    <tr>
-                                                        <td align="center" valign="top" style="padding:0;Margin:0;width:560px">
-                                                            <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                                                                <tr>
-                                                                    <td align="center" class="es-infoblock" style="padding:0;Margin:0;line-height:14px;font-size:12px;color:#CCCCCC">
-                                                                        <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;
-                                                                           font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:14px;color:#999999;font-size:12px">
-                                                                            We have sent you this email because you provided us with your email address as part of 
-                                                                            the purchasing process on 
-                                                                            <a target="_blank" href="https://viewstripo.email" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;
-                                                                               mso-line-height-rule:exactly;text-decoration:underline;color:#CCCCCC;font-size:12px">
-                                                                                reliability.com
-                                                                            </a>&nbsp;Your email address will not be used for any other purpose, unless you have previously opted in to receive emails from us.
-                                                                            <br>
-                                                                            <br>
-                                                                                    Reliability&nbsp;Inc., 5675 Silver Wharf, Chicago Creek, Connecticut, 06331-6807, US
-                                                                        </p>
-                                                                        <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;
-                                                                           mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, 
-                                                                           sans-serif;line-height:14px;color:#999999;font-size:12px">
-                                                                            <br>
-                                                                            <br>
-                                                                                    To ensure Reliability&nbsp;emails reach your inbox, please add&nbsp;
-                                                                                    <a target="_blank" href="" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;
-                                                                                       mso-line-height-rule:exactly;text-decoration:underline;color:#CCCCCC;font-size:12px">
-                                                                                        email@reliability
-                                                                                    </a> &nbsp;to your address book
-                                                                        </p>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
-                        <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%">
-                            <tr>
-                                <td align="center" style="padding:0;Margin:0">
-                                    <table class="es-content-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px">
-                                        <tr>
-                                            <td align="left" style="padding:20px;Margin:0">
-                                                <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                                                    <tr>
-                                                        <td align="center" valign="top" style="padding:0;Margin:0;width:560px">
-                                                            <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                                                                <tr>
-                                                                    <td align="center" class="es-infoblock made_with" style="padding:0;Margin:0;line-height:120%;font-size:0;color:#CCCCCC"><a target="_blank" href="https://viewstripo.email/?utm_source=templates&utm_medium=email&utm_campaign=company_1&utm_content=reminder_for_an_hour" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#CCCCCC;font-size:12px"><img src="https://jwtxra.stripocdn.email/content/guids/CABINET_09023af45624943febfa123c229a060b/images/7911561025989373.png" alt width="125" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td>
-                                                                </tr>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
+                        </table>                   
                     </td>
                 </tr>
             </table>

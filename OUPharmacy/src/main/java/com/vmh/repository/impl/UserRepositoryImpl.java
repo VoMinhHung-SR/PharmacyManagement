@@ -83,31 +83,22 @@ public class UserRepositoryImpl implements UserRepository {
             q = q.where(p);
         }
 
+        List<Predicate> predicates = new ArrayList<>();
+
         if (params != null) {
-            List<Predicate> predicates = new ArrayList<>();
-
-            if (params.containsKey("name") == true) {
-                Predicate p1 = builder.like(root.get("username").as(String.class),
-                        String.format("%%%s%%", params.get("name")));
-                predicates.add(p1);
+            if (params.containsKey("kw") == true) {
+                String kw = params.get("kw");
+                Predicate predicate1 = builder.like(root.get("firstName").as(String.class), String.format("%%%s%%", kw));
+                Predicate predicate2 = builder.like(root.get("lastName").as(String.class), String.format("%%%s%%", kw));
+                Predicate p1 = builder.like(root.get("username").as(String.class), String.format("%%%s%%", params.get("name")));
+                predicates.add(builder.or(predicate1, predicate2, p1));
             }
-            if (params.containsKey("fn") == true) {
-                Predicate p2 = builder.like(root.get("firstName").as(String.class),
-                        String.format("%%%s%%", params.get("fn")));
-                predicates.add(p2);
-            }
-            if (params.containsKey("ln") == true) {
-                Predicate p3 = builder.like(root.get("lastName").as(String.class),
-                        String.format("%%%s%%", params.get("ln")));
-                predicates.add(p3);
-            }
-
-            Predicate p = builder.equal(root.get("userRole")
-                    .as(String.class), userRole.trim());
-            predicates.add(p);
-
-            q = q.where(predicates.toArray(new Predicate[]{}));
         }
+
+        Predicate p = builder.equal(root.get("userRole").as(String.class), userRole.trim());
+        predicates.add(p);
+
+        q = q.where(predicates.toArray(new Predicate[]{}));
 
         Query query = session.createQuery(q);
 
@@ -196,10 +187,10 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public int countUserWithoutAdmin() {
         Session session = this.sessionFactory.getObject().getCurrentSession();
-        try{
+        try {
             Query q = session.createQuery("SELECT COUNT(*) FROM User Where userRole != 'ROLE_ADMIN'");
             return Integer.parseInt(q.getSingleResult().toString());
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return -1;
@@ -239,22 +230,70 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public boolean getUniqueUserName(String username) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
-        
+
         String sql = "SELECT COUNT(id) FROM User WHERE username=:username";
         Query query = session.createQuery(sql);
         query.setParameter("username", username.trim());
 
-        return (long)query.getSingleResult() > 0;
+        return (long) query.getSingleResult() > 0;
     }
 
     @Override
     public boolean getUnitqueEmail(String email) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
-        
+
         String sql = "SELECT COUNT(id) FROM User WHERE email=:email";
         Query query = session.createQuery(sql);
         query.setParameter("email", email.trim());
 
-        return (long)query.getSingleResult() > 0;
+        return (long) query.getSingleResult() > 0;
+    }
+
+    @Override
+    public boolean setActiveUser(int userId) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+
+            User u = getUserById(userId);
+            Short i = u.getIsActive();
+            if (u.getIsActive() == 0) {
+                i = 1;
+                u.setIsActive(i);
+            } else if (u.getIsActive() == 1) {
+                i = 0;
+                u.setIsActive(i);
+            }
+            session.save(u);
+            return true;
+        } catch (HibernateException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateUser(User u, int userId) {
+        Session session = sessionFactory.getObject().getCurrentSession();
+        try {
+            User user = session.get(User.class, userId);
+            user.setFirstName(u.getFirstName());
+            user.setLastName(u.getLastName());
+            user.setUsername(u.getUsername());
+            user.setPassword(u.getPassword());
+            user.setEmail(u.getEmail());
+            user.setDateOfBirth(u.getDateOfBirth());
+            user.setPhoneNumber(u.getPhoneNumber());
+            user.setGender(u.getGender());
+            user.setAddress(u.getAddress());
+           
+            if (u.getAvatar() != null)
+                user.setAvatar(u.getAvatar());
+            
+            session.update(user);
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 }

@@ -24,10 +24,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import net.bytebuddy.implementation.bind.annotation.Empty;
 
 /**
  *
@@ -54,12 +56,14 @@ public class Prescription implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "{prescription.sign.nullErr}")
+    @NotEmpty(message = "{prescription.sign.nullErr}")
     @Size(min = 1, max = 255)
     @Column(name = "sign")
     private String sign;
     @Basic(optional = false)
-    @NotNull
+    @NotNull(message = "{prescription.diagnosed.nullErr}")
+    @NotEmpty(message = "{prescription.diagnosed.nullErr}")
     @Size(min = 1, max = 255)
     @Column(name = "diagnosed")
     private String diagnosed;

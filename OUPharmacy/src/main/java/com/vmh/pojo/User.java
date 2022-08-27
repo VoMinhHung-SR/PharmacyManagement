@@ -5,6 +5,7 @@
 package com.vmh.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -22,6 +23,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -67,28 +69,30 @@ public class User implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull(message = "{user.username.nullErr}")
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 100, message = "{user.username.lenErr}")
     @Column(name = "username")
     private String username;
     @Basic(optional = false)
-    @NotNull(message = "{user.username.nullErr}")
+    @NotNull(message = "{user.password.nullErr}")
     @JsonIgnore
-    @Size(min = 1, max = 255)
+    @NotEmpty(message = "{user.password.nullErr}")
+    @Size(min = 1, max = 255 , message = "{user.password.lenErr}")
     @Column(name = "password")
     private String password;
     @Basic(optional = false)
     @NotNull(message = "{user.firstName.nullErr}")
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 50, message = "{user.firstName.lenErr}")
     @Column(name = "first_name")
     private String firstName;
     @Basic(optional = false)
     @NotNull(message = "{user.lastName.nullErr}")
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 50, message = "{user.lastName.lenErr}")
     @Column(name = "last_name")
     private String lastName;
     @Column(name = "gender")
     private Integer gender;
     @Size(max = 255)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Column(name = "avatar")
     private String avatar;
     @Column(name = "date_of_birth")
@@ -107,7 +111,6 @@ public class User implements Serializable {
     @Column(name = "address")
     private String address;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "user_role")
     private String userRole;
@@ -126,6 +129,8 @@ public class User implements Serializable {
     private String confirmPassword;
 
     public User() {
+        this.isActive = 1;
+        this.isSuperuser = 0;
     }
 
     public User(Integer id) {

@@ -50,12 +50,15 @@ public class BookingController {
     }
     
     @GetMapping("/booking-list/nur-censored")
-    public String bookingListNurseCensoredView(Model model, HttpSession session){
+    public String bookingListNurseCensoredView(Model model, 
+            @RequestParam Map<String, String> params, 
+            HttpSession session){
         User u = (User) session.getAttribute("currentUser");
         if(u != null){
             try{
+                model.addAttribute("countExamination", this.examinationService.countExamination());
                 model.addAttribute("bookingList", 
-                        this.examinationService.getExaminations());
+                        this.examinationService.getExaminations(params));
                 return "booking-list-nur-cen";
             }catch(Exception ex){
                 System.err.println(ex.getMessage());

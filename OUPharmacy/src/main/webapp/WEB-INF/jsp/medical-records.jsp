@@ -71,7 +71,6 @@
                                         </tr>
                                     </c:if>
                                     <c:forEach var="p" items="${patientExaminationDeatails}">
-
                                         <tr>
                                             <th class="examinationDetailId">${p.id}</th>
                                             <td class="border-top-0">${p.examinationId.id}</td>

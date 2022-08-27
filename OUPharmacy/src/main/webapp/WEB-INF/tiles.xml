@@ -200,6 +200,7 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="pageName" value="Quan ly thong tin nguoi dung" />
         <put-attribute name="content" value="/WEB-INF/jsp/admin/users.jsp" />
         <put-list-attribute name="javascripts">
+            <add-attribute value="/admin/js/api-script/user.js"/>
         </put-list-attribute>
     </definition>
     
@@ -217,6 +218,7 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="pageName" value="Them nguoi dung" />
         <put-attribute name="content" value="/WEB-INF/jsp/admin/add-user.jsp" />
         <put-list-attribute name="javascripts">
+            
         </put-list-attribute>
     </definition>
     

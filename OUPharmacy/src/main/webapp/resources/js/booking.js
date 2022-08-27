@@ -23,10 +23,11 @@ const onloadUserBooking = () => {
                 "id": d.id,
                 "bookingListContent": temp
             });
-        })
+        });
         console.info(userBooking);
+        hideLoading();
     });
-}
+};
 const addExamination = (currentUserId) => {
     let date = new Date(document.getElementById("createdDate").value);
     fetch("/OUPharmacy/api/booking", {
@@ -108,7 +109,7 @@ const sendEmailTrigger = (userId, examinationId) => {
             if (b.bookingListContent[0].userExaminationId.id === userId
                     && b.id === examinationId)
 //                console.log(b.bookingListContent[0].userExaminationId.email);
-                sendEmail(b.bookingListContent[0].userExaminationId.email);
+                sendEmail(b.bookingListContent[0].userExaminationId.id);
         });
     }
 };
@@ -117,6 +118,7 @@ const sendEmail = (userId) => {
     let date = moment(new Date()).format('L');
     console.log(date);
     confirmAlert("Xác nhận gửi?", "", "Đồng ý", "Hủy", () => {
+        showLoading();
         fetch('/OUPharmacy/api/send-email', {
             method: "POST",
             body: JSON.stringify({
@@ -127,9 +129,9 @@ const sendEmail = (userId) => {
             }
         }).then(res => {
             if (res.status === 200) {
+                hideLoading();
                 successfulAlert("Gửi thành công", "Ok");
             }
-            res.json();
         }).catch(err => {
             console.err(err);
             errorAlert("Đã có lỗi", "Đã có lỗi xảy ra trong quá trình gửi mail!", "Ok");

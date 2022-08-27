@@ -8,6 +8,7 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.vmh.pojo.User;
 import com.vmh.repository.UserRepository;
+import com.vmh.service.CloudinaryService;
 import com.vmh.service.UserService;
 import java.io.IOException;
 import java.util.HashSet;
@@ -21,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -37,6 +39,9 @@ public class UserServiceImpl implements UserService{
     
     @Autowired
     private Cloudinary cloudinary;
+    // Custome
+    @Autowired
+    private CloudinaryService cloudinaryService;
     
     @Override
     public boolean addUser(User user) {
@@ -139,6 +144,21 @@ public class UserServiceImpl implements UserService{
     @Override
     public boolean getUnitqueEmail(String string) {
         return this.userRepository.getUnitqueEmail(string);
+    }
+
+    @Override
+    public boolean setActiveUser(int i) {
+        return this.userRepository.setActiveUser(i);
+    }
+
+    @Override
+    public boolean updateUser(User u, int userId, MultipartFile file) {
+        u.setPassword(this.passwordEncoder.encode(u.getPassword()));
+        if(file != null){
+            String avatarStr = this.cloudinaryService.uploadAvatar(file);
+            u.setAvatar(avatarStr);
+        }
+        return this.userRepository.updateUser(u, userId);
     }
 
 }

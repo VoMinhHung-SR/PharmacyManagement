@@ -28,8 +28,8 @@ public class UsernameValidator implements Validator{
     @Override
     public void validate(Object target, Errors errors) {
         User u = (User) target;
-              
-        if(this.userService.getUniqueUserName(u.getUsername())){
+
+        if(u.getId() == null && this.userService.getUniqueUserName(u.getUsername())){
             errors.rejectValue("username", 
                     "user.username.uniqueErr",
                     "Tài khoản đã tồn tại");

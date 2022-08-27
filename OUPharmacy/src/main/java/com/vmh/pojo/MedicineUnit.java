@@ -5,6 +5,7 @@
 package com.vmh.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -62,9 +63,9 @@ public class MedicineUnit implements Serializable {
     @Column(name = "image")
     @NotNull
     private String image;
+    @JsonIgnore
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    @JsonIgnore
     private Category categoryId;
     @JoinColumn(name = "medicine_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -74,7 +75,6 @@ public class MedicineUnit implements Serializable {
     private Collection<PrescriptionDetail> prescriptionDetailCollection;
     
     @Transient
-    @JsonIgnore
     private MultipartFile file;
     
     public MedicineUnit() {

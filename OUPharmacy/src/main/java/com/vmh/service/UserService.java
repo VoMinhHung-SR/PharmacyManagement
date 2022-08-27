@@ -8,6 +8,7 @@ import com.vmh.pojo.User;
 import java.util.List;
 import java.util.Map;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -19,12 +20,12 @@ public interface UserService extends UserDetailsService {
     boolean addUser(User user);
     boolean addUserWithUserRole(User user, String userRole);
     boolean editAdminUser(int userId);
-    
+    boolean setActiveUser(int userId); 
+    boolean updateUser(User u, int userId, MultipartFile file);
     User getUserById(int id);
     List<User> getUser(String username);
     List<User> getUserNotAdmin(Map<String, String> params);
     List<User> getUserByUserRole(Map<String, String> params,String userRole, int page);
-
     int countUsersByUserRole(String userRole);
     int countUserWithoutAdmin();
     int countUser();

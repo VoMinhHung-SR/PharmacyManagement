@@ -64,7 +64,7 @@
         <script src="<c:url value="/js/owl.carousel.min.js"/>"></script>
         <script src="<c:url value="/js/scrollspy.min.js"/>"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-       
+        <script src="<c:url value="/js/common-js.js"/>"></script>
         
         <!--SweetAlert2-->
         <script src="<c:url value="/js/alert.js"/>"></script>

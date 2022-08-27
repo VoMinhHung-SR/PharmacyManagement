@@ -63,7 +63,7 @@
                                             </button>
                                         </a>
                                     </div>
-                                    
+
                                 </td>
 
                             </tr>
@@ -77,11 +77,11 @@
 
         </div>
     </div>
-                                        
+
     <!--AFTER ADD-->  
     <div id="areaPrescription"></div>          
     <!--AFTER ADD--> 
-    
+
     <form id="addPrescription">
         <section class="h-100">
             <div class="container py-2 h-100">
@@ -100,16 +100,18 @@
                                             <label class="form-label" for="diagnosed">Chẩn đoán<span class="text-danger">(*)</span></label>
                                             <input type="textarea"  id="diagnosed"  name="diagnosed" class="form-control form-control-lg" />
                                         </div>
-              
+
                                         <div style="text-align: end" >
                                             <input style="margin-left: auto" 
                                                    class="btn btn-success btn-lg ms-2"
-                                                    type="button"
-                                                    onclick="addPrescription(${examinationDetail.patientId.id},${examinationDetail.id},${currentUser.id},${currentUser.username})" 
-                                                    value="Thêm">  
+                                                   type="button"
+                                                   onclick="addPrescription(
+                                                   ${examinationDetail.patientId.id},${examinationDetail.id},
+                                                   ${currentUser.id},'${currentUser.username}')"
+                                                   value="Thêm">  
                                             </input>
                                         </div>
-                                        
+
 
                                     </div>
                                 </div>

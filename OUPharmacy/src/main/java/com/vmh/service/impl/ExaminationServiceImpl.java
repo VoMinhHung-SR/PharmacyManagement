@@ -45,13 +45,18 @@ public class ExaminationServiceImpl implements ExaminationService{
     }
 
     @Override
-    public List<Examination> getExaminations() {
-        return this.examinationRepository.getExaminations();
+    public List<Examination> getExaminations(Map<String, String> params) {
+        return this.examinationRepository.getExaminations(params);
     }
 
     @Override
     public Examination getExaminationById(int i) {
         return this.examinationRepository.getExaminationById(i);
+    }
+
+    @Override
+    public int countExamination() {
+        return this.examinationRepository.countExamination();
     }
     
 }

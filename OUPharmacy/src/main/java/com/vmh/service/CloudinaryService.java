@@ -4,12 +4,12 @@
  */
 package com.vmh.service;
 
-import java.util.Map;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
  * @author ASUS
  */
-public interface EmailService {
-    boolean sendMail(String subject, String[] toUser,Map<String,Object> model);
+public interface CloudinaryService {
+    public String uploadAvatar(MultipartFile file);
 }

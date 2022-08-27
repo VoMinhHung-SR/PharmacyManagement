@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +42,7 @@ public class ApiPatientController {
         }
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
+    
     @PostMapping(path = "/patient", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Patient> addPatient(Model model, @RequestBody Patient p) {
         try {
@@ -52,6 +53,15 @@ public class ApiPatientController {
         }
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
+    
+    @GetMapping(path = "/patients/{patientId}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<Patient> getPatientDetail(@PathVariable(value="patientId") int patientId){
+        try {
+            return new ResponseEntity<>(this.patientService.getPatientById(patientId), HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
    
 }

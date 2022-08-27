@@ -19,7 +19,7 @@
 <form:form method="post" action="${action}" 
            enctype="multipart/form-data" modelAttribute="user">
 
-    <form:errors path="*" element="div" cssClass="alert alert-danger" />
+    
 
     <section class="h-100 bg-dark">
         <div class="container py-5 h-100">

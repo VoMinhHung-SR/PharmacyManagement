@@ -18,6 +18,8 @@ public interface UserRepository {
     boolean addUser(User user);
     boolean addUserWithUserRole(User user, String userRole);
     boolean editAdminUser(int userId);
+    boolean setActiveUser(int userId);
+    boolean updateUser(User u, int userId);
     User getUserById(int id);
     List<User> getUser(String username);
     List<User> getUserNotAdmin(Map<String, String> params);

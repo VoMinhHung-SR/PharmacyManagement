@@ -8,6 +8,7 @@ import com.vmh.pojo.User;
 import com.vmh.service.EmailService;
 import com.vmh.service.UserService;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,18 +38,25 @@ public class ApiSendEmailController {
             @RequestBody Map<String,String> params) {
         try {
             if (params != null && !params.get("userId").isEmpty()) {
-                  Integer uId = Integer.parseInt(params.get("userId"));
-//                String to = params.get("toUser");
-//                String subject = params.get("subject");
-//                String content = params.get("content");
-//                if (this.emailService.sendMail(to, subject, content)) {
-//                    return new ResponseEntity<>(HttpStatus.OK);
-//                }
+  
+                Integer uId = Integer.parseInt(params.get("userId"));
+
+//                Locale lcl = Locale.VIE;  
+//
+//                // creating an object of the class Date  
+//                Date d = new Date();  
+//
+//                // getting the instance by invoking the getDateInstance(int, Locale) method  
+//                DateFormat dFormat = DateFormat.getDateInstance(DateFormat.SHORT, lcl);  
+//
+//                String str = dFormat.format(d);  
+//                System.out.println(str);  
                 User u = this.userService.getUserById(uId);
                 String subject = "Thư xác nhận lịch đăng ký khám";
-                
+                Map<String, Object> map = new HashMap<>();
+                map.put("user", u);
                 if(this.emailService.sendMail(subject,
-                        new String[]{u.getEmail()}, u)){
+                        new String[]{u.getEmail()}, map)){
                     return new ResponseEntity<>(HttpStatus.OK);
                 };
             }
