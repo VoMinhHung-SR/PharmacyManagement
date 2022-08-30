@@ -12,6 +12,7 @@ import com.vmh.pojo.Patient;
 import com.vmh.pojo.Prescription;
 import com.vmh.pojo.PrescriptionDetail;
 import com.vmh.repository.AdminStatsReposioty;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -97,9 +98,9 @@ public class AdminStatsRepositoryImpl implements AdminStatsReposioty {
 
             q.groupBy(b.function("MONTH", Integer.class, examinationDetailRoot.get("createdDate")),
                     b.function("YEAR", Integer.class, examinationDetailRoot.get("createdDate")));
-            
+
             q = q.orderBy(b.asc(examinationDetailRoot.get("createdDate")));
-            
+
             Query query = session.createQuery(q);
 
             return query.getResultList();
@@ -137,9 +138,9 @@ public class AdminStatsRepositoryImpl implements AdminStatsReposioty {
 
             q.groupBy(b.function("MONTH", Integer.class, billRoot.get("createdDate")),
                     b.function("YEAR", Integer.class, billRoot.get("createdDate")));
-            
+
             q = q.orderBy(b.asc(billRoot.get("createdDate")));
-            
+
             Query query = session.createQuery(q);
 
             return query.getResultList();
@@ -164,19 +165,65 @@ public class AdminStatsRepositoryImpl implements AdminStatsReposioty {
             if (kw != null && !kw.isEmpty()) {
                 pre.add(b.like(medicineRoot.get("name").as(String.class), String.format("%%%s%%", kw)));
             }
-            
+
             //JOIN
             pre.add(b.equal(prescriptionDetailRoot.get("medicineUnitId"), medicineUniRoot.get("id")));
             pre.add(b.equal(medicineUniRoot.get("medicineId"), medicineRoot.get("id")));
             q.where(pre.toArray(new Predicate[]{}));
 
-            q.multiselect(medicineRoot.get("name"), 
+            q.multiselect(medicineRoot.get("name"),
                     b.sum(prescriptionDetailRoot.get("quantity").as(Integer.class)));
 
             q.groupBy(prescriptionDetailRoot.get("medicineUnitId"));
-            
+
             q = q.orderBy();
+
+            Query query = session.createQuery(q);
+
+            return query.getResultList();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Object[]> getRevenueByMonthOption(int month, int quarter, int year) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+            CriteriaBuilder b = session.getCriteriaBuilder();
+            CriteriaQuery<Object[]> q = b.createQuery(Object[].class);
+
+            Root<Prescription> prescriptionRoot = q.from(Prescription.class);
+            Root<Bill> billRoot = q.from(Bill.class);
+
+            List<Predicate> pre = new ArrayList<>();
             
+            if (quarter > 0 && quarter <= 4) {
+                Predicate p = b.equal(b.function("QUARTER", Integer.class, billRoot.get("createdDate")), quarter);
+                pre.add(p);
+            } else if (month > 0 && month <= 12) {
+                Predicate p = b.equal(b.function("MONTH", Integer.class, billRoot.get("createdDate")), month);
+                pre.add(p);
+            }
+
+            if (year > 1900 && year <= Year.now().getValue()) {
+                Predicate p = b.equal(b.function("YEAR", Integer.class, billRoot.get("createdDate")), year);
+                pre.add(p);
+            }
+            //JOIN
+            pre.add(b.equal(billRoot.get("prescriptionBillId"), prescriptionRoot.get("id")));
+            q.where(pre.toArray(new Predicate[]{}));
+
+            q.multiselect(b.function("MONTH", Integer.class, billRoot.get("createdDate")),
+                    b.function("YEAR", Integer.class, billRoot.get("createdDate")),
+                    b.sum(billRoot.get("pay").as(Double.class)));
+
+            q.groupBy(b.function("MONTH", Integer.class, billRoot.get("createdDate")),
+                    b.function("YEAR", Integer.class, billRoot.get("createdDate")));
+
+            q = q.orderBy(b.asc(billRoot.get("createdDate")));
+
             Query query = session.createQuery(q);
 
             return query.getResultList();

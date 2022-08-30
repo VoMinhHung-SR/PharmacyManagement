@@ -48,8 +48,10 @@ public class ApiMedicineUnitController {
         binder.setValidator(medicineUnitValidator);
     }
     
-    @GetMapping(path = "/medicines/medicine-unit/{medicineUnitId}")
-    public ResponseEntity<MedicineUnit> loadMedicineUnit(@PathVariable(value = "medicineUnitId") int medicineUnitId) {
+    @GetMapping(path = "/medicines/medicine-unit/{medicineUnitId}",
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<MedicineUnit> loadMedicineUnit(
+            @PathVariable(value = "medicineUnitId") int medicineUnitId) {
         try {
             MedicineUnit medicineUnit = this.medicineUnitService.getMedicineUnitDetail(medicineUnitId);
             return new ResponseEntity<>(medicineUnit, HttpStatus.OK);

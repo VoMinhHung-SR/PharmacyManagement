@@ -4,6 +4,7 @@
  */
 package com.vmh.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -46,6 +47,7 @@ public class Category implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId")
     private Collection<MedicineUnit> medicineUnitCollection;
 

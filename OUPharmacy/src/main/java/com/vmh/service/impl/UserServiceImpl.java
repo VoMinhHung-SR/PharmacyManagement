@@ -153,7 +153,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean updateUser(User u, int userId, MultipartFile file) {
-        u.setPassword(this.passwordEncoder.encode(u.getPassword()));
         if(file != null){
             String avatarStr = this.cloudinaryService.uploadAvatar(file);
             u.setAvatar(avatarStr);

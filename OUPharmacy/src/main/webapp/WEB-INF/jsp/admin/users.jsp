@@ -158,47 +158,23 @@
                                             <div class="col-xl-12">
                                                 <div class="card-body p-md-5 text-black">   
                                                     <div class="row">
-                                                        <div class="col-md-6 mb-4">
+                                                        <div class="col-md-4 mb-4">
                                                             <div class="form-outline">
                                                                 <label class="form-label" for="firstName">Họ</label>
                                                                 <input type="text" name="firstName" id="firstName" class="form-control form-control-lg" />
                                                                 
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6 mb-4">
+                                                        <div class="col-md-4 mb-4">
                                                             <div class="form-outline">
                                                                 <label class="form-label" for="lastName">Tên</label>
                                                                 <input type="text" name="lastName" id="lastName"  class="form-control form-control-lg" />
                                                             </div>
                                                         </div>
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="col-md-6 mb-4">
-                                                            <div class="form-outline">
-                                                                <label class="form-label" for="username">Tên tài khoản</label>
-                                                                <input type="text" name="username" id="username" class="form-control form-control-lg" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6 mb-4">
-                                                            <div class="form-outline">
-                                                                <label class="form-label" for="password">Mật khẩu</label>
-                                                                <input type="password" name="password" id="password" class="form-control form-control-lg" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="col-md-6 mb-4">
+                                                        <div class="col-md-4 mb-4">
                                                             <div class="form-outline">
                                                                 <label class="form-label" for="dateOfBirth">Ngày sinh</label>
                                                                 <input type="date" name="dateOfBirth" id="dateOfBirth" class="form-control form-control-lg" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6 mb-4">
-                                                            <div class="form-outline mb-4">
-                                                                <label class="form-label" for="confirmPassword">Xác nhận mật khẩu</label>
-                                                                <input type="password" name="confirmPassword" id="confirmPassword" class="form-control form-control-lg" />
                                                             </div>
                                                         </div>
                                                     </div>

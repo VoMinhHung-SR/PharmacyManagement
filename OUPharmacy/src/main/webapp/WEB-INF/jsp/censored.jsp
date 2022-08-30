@@ -64,7 +64,6 @@
                                 <th class="border-top-0">Ngày tạo</th>
                                 <th class="border-top-0">Trạng thái</th>
                                 <th class="border-top-0 text-center">Chức năng</th>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -87,11 +86,15 @@
 
                                     <td >${b.description}</td>
                                     <td class="created-date">${b.createdDate}</td>
-                                    <td class="text-danger" id="e_${b.id}">Chờ xác nhận</td>
+                                    <c:if test= "${b.examinationDetailCollection.size() == 0}">
+                                        <td class="text-danger">Chờ xác nhận</td>
+                                    </c:if>
+                                    <c:if test= "${b.examinationDetailCollection.size() != 0}">
+                                        <td class="text-success">Đã tạo phiếu khám</td>
+                                    </c:if>
                                     <td class="text-center">
                                         <button type="button" class="btn btn-info"
-                                                onclick="sendEmailTrigger(${b.userExaminationId.id},
-                                                ${b.id})">
+                                                onclick="sendEmail(${b.userExaminationId.id},${b.id})">
                                             <i class="bi bi-envelope-plus-fill"></i> Gửi email
                                         </button>
                                         <a href="<c:url value="/booking/${b.id}/examination-detail"/>">
@@ -106,7 +109,7 @@
                         </tbody>
                     </table>
                 </div>
-                
+
                 <p class="text-center">(<span class="text-danger">Lưu ý:</span> Hệ thống chỉ nhận tối đa 40 đơn khám / 1 ngày!!)</p>
                 <nav aria-label="Page navigation example">
                     <ul class="pagination" style="justify-content: center">
@@ -114,7 +117,7 @@
                             <c:url value="/booking-list/nur-censored/" var="m">
                                 <c:param value="${i}" name="page" />
                             </c:url>
-                            <li class="page-item"><a class="page-link" href="${m}">${i}</a></li>
+                            <li class="page-item" onclick="onloadUserBooking(i)"><a class="page-link" href="${m}">${i}</a></li>
                             </c:forEach>
                     </ul>
                 </nav>
@@ -123,16 +126,14 @@
         </div>
     </div>
 </div>
-
 <script>
-    window.onload = () => {
-
+    document.addEventListener("DOMContentLoaded", () => {
         let dates = document.querySelectorAll(".created-date");
         for (let i = 0; i < dates.length; i++) {
             let d = dates[i];
             d.innerText = moment(d.innerText).fromNow();
         }
-        onloadUserBooking();
         onloadExaminationDetail();
-    };
+        hideLoading();
+    });
 </script>

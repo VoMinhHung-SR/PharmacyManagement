@@ -11,6 +11,7 @@ import com.vmh.service.UserService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,42 +32,33 @@ public class AdminController {
 
     @Autowired
     private AdminStatsService adminStatsService;
-    
+
     @Autowired
     private UserService userService;
-    
+
     @Autowired
     private MedicineUnitService medicineUnitService;
-    
+
     @Autowired
     private PatientService patientService;
-    
-    
+
     @ModelAttribute
-    public void commonStats(Model model){
+    public void commonStats(Model model) {
         model.addAttribute("countUser", this.userService.countUser());
         model.addAttribute("countMedicineUnit", this.medicineUnitService.countMedicines());
         model.addAttribute("countPatient", this.patientService.countPatient());
     }
-    
+
     @GetMapping("/dashboard")
-    public String dashboardView(Model model, 
-           @RequestParam(name = "kw", defaultValue = "") String kw) {
+    public String dashboardView(Model model,
+            @RequestParam(name = "kw", defaultValue = "") String kw) {
         model.addAttribute("patientStats", this.adminStatsService.getPatientStats());
-         model.addAttribute("medicineDateStats", this.adminStatsService.getMedicineFrequencyStats(kw));
+        model.addAttribute("medicineDateStats", this.adminStatsService.getMedicineFrequencyStats(kw));
         return "dashboard";
     }
 
     @GetMapping("/patient-stats")
-    public String patientStatsView(Model model) {
-        model.addAttribute("option", 1);
-        model.addAttribute("patientStats", this.adminStatsService.getPatientStats());
-        model.addAttribute("patientDateStats", this.adminStatsService.getPatientDateStats(null, null, null));
-        return "option-stats";
-    }
-
-    @GetMapping("/revenue-stats")
-    public String revenueStatsView(Model model, 
+    public String patientStatsView(Model model,
             @RequestParam(name = "kw", defaultValue = "") String kw,
             @RequestParam(name = "fromDate", defaultValue = "") String fromDate,
             @RequestParam(name = "toDate", defaultValue = "") String toDate) {
@@ -82,9 +74,27 @@ public class AdminController {
         } catch (ParseException ex) {
             Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        model.addAttribute("option", 1);
+        model.addAttribute("patientStats", this.adminStatsService.getPatientStats());
+        model.addAttribute("patientDateStats", this.adminStatsService.getPatientDateStats(kw, fd, td));
+        return "option-stats";
+    }
+
+    @GetMapping("/revenue-stats")
+    public String revenueStatsView(Model model,
+            @RequestParam(name = "year", defaultValue = "0") String yearStr,
+            @RequestParam(required = false) Map<String, String> params) {
+
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
         
+        int month, year, quater;
+
+        month = Integer.parseInt(params.getOrDefault("month", "0"));
+        quater = Integer.parseInt(params.getOrDefault("quater", "0"));
+        year = Integer.parseInt(yearStr);
         model.addAttribute("option", 2);
-        model.addAttribute("revenueDateStats", this.adminStatsService.getRevenueByMonth(fd, td));
+        model.addAttribute("revenueDateStats", 
+                this.adminStatsService.getRevenueByMonthOption(month, quater, year));
         return "option-stats";
     }
 }

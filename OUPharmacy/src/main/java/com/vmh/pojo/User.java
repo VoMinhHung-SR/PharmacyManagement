@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import javax.persistence.Access;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,6 +29,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.eclipse.persistence.annotations.Property;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -74,7 +76,7 @@ public class User implements Serializable {
     private String username;
     @Basic(optional = false)
     @NotNull(message = "{user.password.nullErr}")
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotEmpty(message = "{user.password.nullErr}")
     @Size(min = 1, max = 255 , message = "{user.password.lenErr}")
     @Column(name = "password")

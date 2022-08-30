@@ -10,6 +10,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
+<div id="loading" class="text-center" style="position: fixed;width: 100%;
+     height: 100%;z-index: 99;
+     background-color: rgba(0,0,0,0.3);">
+    <div class="spinner-border" style="position: absolute;top: 40%;left: 45%" role="status">
+        <span class="sr-only"></span>
+    </div>
+</div>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
@@ -68,7 +76,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <c:if test="${medicines.size() == 0}">
+                            <c:if test="${medicines.size() == 0}">
                             <h1 class="text-center text-danger">
                                 KHONG CO SAN PHAM PHU HOP!!!
                             </h1>
@@ -91,9 +99,9 @@
 
                                 <td>
                                     <button type="button" class="btn btn-success" 
-                                            onclick="showUpdateModal('<c:url
-                                                value="/api/medicines/medicine-unit/${m.id}"/>',
-                                            ${m.id})">
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#update-medicine-modal"
+                                            onclick="showUpdateModal(${m.id})">
                                         <i class="fas fa-pencil-alt"></i>
                                     </button>
                                     <button type="button" class="btn btn-danger" 
@@ -120,7 +128,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade bs-example-modal-lg " id="modalEditMedicineUnit" tabindex="-1" role="dialog"
+<!--<div class="modal fade bs-example-modal-lg " id="modalEditMedicineUnit" tabindex="-1" role="dialog"
      aria-labelledby="modalUpdateMU" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -135,52 +143,131 @@
                     <div class="form-outline mb-4">
                         <label class="form-label" for="medicine">San pham</label>
                         <select id="medicine" name="medicineId" class="form-control">
-                            <c:forEach items="${medicines}" var="m">
-                                <option value="${m.medicineId.id}">${m.medicineId.name}</option>
-                            </c:forEach>
-                        </select>
+<c:forEach items="${medicines}" var="m">
+    <option value="${m.medicineId.id}">${m.medicineId.name}</option>
+</c:forEach>
+</select>
+</div>
+
+<div class="row">
+<div class="col-md-3 mb-4">
+<div class="form-outline">
+    <label class="form-label" for="inStock">So luong</label>
+    <input type="text" id="inStock" name="inStock" class="form-control form-control-lg" />
+</div>
+</div>
+
+<div class="col-md-3 mb-4">
+<div class="form-outline">
+    <label class="form-label" for="price">Gia <small>(VNÐ)</small></label>
+    <input type="text" name="price" id="price" class="form-control form-control-lg" />
+</div>
+</div>
+<div class="col-md-6 mb-4">
+<div class="form-outline">
+    <label class="form-label" for="cate">Danh muc</label>
+    <select id="cate" name="categoryId" class="form-control">
+<c:forEach items="${categories}" var="c">
+    <option value="${c.id}">${c.name}</option>
+</c:forEach>
+</select>
+</div>
+</div>
+
+</div>
+
+
+<div class="form-outline mb-4">
+<label class="form-label" for="file">Anh san pham</label>
+<input type="file" id="file" name="image"class="form-control form-control-lg" />
+</div>
+</form>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+<button type="button" class="btn btn-success" id="btn-submit-form">
+<i class="micon fa fa-save"> </i> Lưu dữ liệu
+</button>
+</div>
+</div>
+</div>
+</div>
+-->
+
+<div id="update-medicine-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 60% !important">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form id="form-medicine-unit" class="ps-3 pe-3 text-start" action="#">
+                    <div class="text-center mt-2 mb-4">  
+                        <h3 class="text-danger">Cập nhật thông tin thuốc</h3>
                     </div>
+                    <section class="h-100 bg-info">
+                        <div class="container h-100">
+                            <div class="row d-flex justify-content-center align-items-center h-100">
+                                <div class="col">
+                                    <div class="card card-registration my-4">
+                                        <div class="row g-0">
+                                            <div class="col-xl-12">
+                                                <div class="card-body p-md-5 text-black">   
+                                                    <div class="row">
+                                                        <div class="form-outline mb-4">
+                                                            <label class="form-label" for="medicine">San pham</label>
+                                                            <select id="medicine" name="medicineId" class="form-control">
+                                                                <c:forEach items="${medicines}" var="m">
+                                                                    <option value="${m.medicineId.id}">${m.medicineId.name}</option>
+                                                                </c:forEach>
+                                                            </select>
+                                                        </div>
 
-                    <div class="row">
-                        <div class="col-md-3 mb-4">
-                            <div class="form-outline">
-                                <label class="form-label" for="inStock">So luong</label>
-                                <input type="text" id="inStock" name="inStock" class="form-control form-control-lg" />
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-3 mb-4">
+                                                            <div class="form-outline">
+                                                                <label class="form-label" for="inStock">So luong</label>
+                                                                <input type="text" id="inStock" name="inStock" class="form-control form-control-lg" />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-3 mb-4">
+                                                            <div class="form-outline">
+                                                                <label class="form-label" for="price">Gia <small>(VNÐ)</small></label>
+                                                                <input type="text" name="price" id="price" class="form-control form-control-lg" />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6 mb-4">
+                                                            <div class="form-outline">
+                                                                <label class="form-label" for="cate">Danh muc</label>
+                                                                <select id="cate" name="categoryId" class="form-control">
+                                                                    <c:forEach items="${categories}" var="c">
+                                                                        <option value="${c.id}">${c.name}</option>
+                                                                    </c:forEach>
+                                                                </select> 
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="d-flex justify-content-end pt-3">
+                                                            <button type="button" id="update-button" class="btn btn-success btn-lg ms-2">Cap nhat</button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="col-md-3 mb-4">
-                            <div class="form-outline">
-                                <label class="form-label" for="price">Gia <small>(VNÐ)</small></label>
-                                <input type="text" name="price" id="price" class="form-control form-control-lg" />
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="form-outline">
-                                <label class="form-label" for="cate">Danh muc</label>
-                                <select id="cate" name="categoryId" class="form-control">
-                                    <c:forEach items="${categories}" var="c">
-                                        <option value="${c.id}">${c.name}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-outline mb-4">
-                        <label class="form-label" for="file">Anh san pham</label>
-                        <input type="file" id="file" name="image"class="form-control form-control-lg" />
-                    </div>
+                    </section>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
-                <button type="button" class="btn btn-success" id="btn-submit-form">
-                    <i class="micon fa fa-save"> </i> Lưu dữ liệu
-                </button>
-            </div>
         </div>
+        <!-- /.modal-content -->
     </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 </div>

@@ -2,10 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
-
+window.onload = () =>{
+    hideLoading();
+}
 //Get /api/medicines/{medicineUnitId}
-const getDetailMedicineUnitById = (endpoint, callback) => {
-    fetch(endpoint, {
+const getDetailMedicineUnitById = (medicineUnitId, callback) => {
+    fetch(`/OUPharmacy/api/medicines/medicine-unit/${medicineUnitId}`, {
         method: "GET",
         headers: {
             'Content-Type': 'application/json'
@@ -16,20 +18,18 @@ const getDetailMedicineUnitById = (endpoint, callback) => {
         Console.log(err);
     })
 }
-const showUpdateModal = (endpoint, medicineUnitId) => {
-    getDetailMedicineUnitById(endpoint, (data) => {
+const showUpdateModal = (medicineUnitId) => {
+    getDetailMedicineUnitById(medicineUnitId, (data) => {
   
-        $('#modalEditMedicineUnit').modal()
-        
-        let form = document.forms['formUpdateMedicineUnit']
-        form["medicineId"].value = data.medicineId;
+     
+        let form = document.forms['form-medicine-unit'];
+        form["medicineId"].value = data.medicineId.id;
         form["inStock"].value = data.inStock;
-        form["price"].value = data.inStock;
-        form["inStock"].value = data.inStock;
-        form["categoryId"].value = data.categoryId;
-        form["image"].value = data.image;
+        form["price"].value = data.price;
+        form["categoryId"].value = data.categoryId.id;
+//        form["image"].value = data.image;
         
-        document.getElementById("btn-submit-form").onclick = () => saveChange(endpoint, medicineUnitId)
+        document.getElementById("update-button").onclick = () => saveChange(medicineUnitId)
     })
 }
 //Delete /api/medicines/{medicineUnitId}
@@ -52,7 +52,7 @@ const deleteMedicineUnit = (endpoint) => {
 };
 
 
-const saveChange = (endpoint, medicineUnitId) => {
+const saveChange = (medicineUnitId) => {
     let form = $("#formUpdateMedicineUnit")
     let formData = {}
 

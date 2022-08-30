@@ -93,19 +93,47 @@
                     <input id="kw" type="text" class="form-control" placeholder="Nhap tu khoa..." name="kw" />
                 </div>
             </c:if>
-            <c:if test="${option == 1 || option == 2}">
+            <c:if test="${option == 1}">
                 <div class="row">
                     <div class="form-group col-6">
                         <label for="fromDate">Tu ngay</label>
-                         <input id="fromDate" type="date" 
+                        <input id="fromDate" type="date" 
                                class="form-control" name="fromDate" />
                     </div>
                     <div class="form-group col-6">
-                         <label for="toDate">Den ngay</label>
-                         <input id="toDate" type="date" 
+                        <label for="toDate">Den ngay</label>
+                        <input id="toDate" type="date" 
                                class="form-control" name="toDate" />
                     </div>
-                    
+                </div>
+
+            </c:if>
+            <c:if test="${option == 2}">
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label for="monthRevenue">Tháng</label>
+                        <select class="form-control" name="month" id="monthRevenue">
+                            <option value="0"></option>
+                            <c:forEach begin="1" end="12" var="i">
+                                <option value="${i}">${i}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="quaterRevenue">Qúy</label>
+                        <select class="form-control" name="quater" id="quaterRevenue">
+                            <option value="0"></option>
+                            <c:forEach begin="1" end="4" var="i">
+                                <option value="${i}">${i}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="yearRevenue">Năm</label>
+
+                        <input type="text" name="year" id="yearRevenue" class="form-control"
+                               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" />
+                    </div>
                 </div>
             </c:if>
             <div>
@@ -202,24 +230,45 @@
     window.onload = () => {
 
     <c:if test="${option == 1}">
-        let patientData = [], patientLable = [];
+    let patientData = [], patientLable = [];
         <c:forEach items="${patientDateStats}" var="p">
-        patientData.push(${p[2]});
-        patientLable.push('${p[0]}/${p[1]}');
+    patientData.push(${p[2]});
+    patientLable.push('${p[0]}/${p[1]}');
         </c:forEach>
-                let ctx = document.getElementById("patientChart").getContext("2d");
-                patientChart(ctx, patientData, patientLable, "bar", ${option});
-                drawFunction(patientData, patientLable);
+        let ctx = document.getElementById("patientChart").getContext("2d");
+        patientChart(ctx, patientData, patientLable, "bar", ${option});
+        drawFunction(patientData, patientLable);
     </c:if>
     <c:if test="${option == 2}">
-                let revenueData = [], revenueLable = [];
+        let revenueData = [], revenueLable = [], revenueYear = [];
         <c:forEach items="${revenueDateStats}" var="r">
-                revenueData.push(${r[2]});
-                revenueLable.push('${r[0]}/${r[1]}');
+            revenueData.push(${r[2]});
+            revenueLable.push('${r[0]}/${r[1]}');
+            revenueYear.push(${r[1]});
         </c:forEach>
-                        let ctx = document.getElementById("revenueChart").getContext("2d");
-                        patientChart(ctx, revenueData, revenueLable, "bar",${option});
-                        drawFunction(revenueData, revenueLable);
+            let ctx = document.getElementById("revenueChart").getContext("2d");
+            patientChart(ctx, revenueData, revenueLable, "bar",${option});
+            drawFunction(revenueData, revenueLable);
+//            function sort_unique(arr) {
+//                if (arr.length === 0) return arr;
+//                arr = arr.sort(function (a, b) { return a*1 - b*1; });
+//                var ret = [arr[0]];
+//                for (var i = 1; i < arr.length; i++) {
+//                  if (arr[i-1] !== arr[i]) {
+//                    ret.push(arr[i]);
+//                  }
+//                }
+//            
+//                return ret;
+//            }
+//            let temp = sort_unique(revenueYear);
+//            let selectYearArea = document.getElementById("yearRevenue");
+//            for(let t of temp){
+//                console.log(t)
+//                selectYearArea.innerHTML = '<option value="${t}">${t}</option>' 
+//                + selectYearArea.innerHTML
+//            }
     </c:if>
-                    }
+
+}
 </script>

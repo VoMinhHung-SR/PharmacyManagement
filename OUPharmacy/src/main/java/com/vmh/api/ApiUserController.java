@@ -93,16 +93,20 @@ public class ApiUserController {
             @RequestPart(value = "avatarFile", required = false) MultipartFile file,
             @RequestPart("user") @Valid User u,
             BindingResult result) throws IOException {
+
         Map<String, String> errorMessages = new HashMap<>();
         HttpStatus status = null;
-        System.out.println(u.getPassword());
+
         System.out.println(u.getUsername());
+        System.out.println(u.getPassword());
         System.out.println(u.getGender());
         System.out.println(u.getEmail());
         System.out.println(u.getFirstName());
         System.out.println(u.getLastName());
         System.out.println(u.getAddress());
         System.out.println(u.getDateOfBirth());
+
+        
         if (!result.hasErrors()) {
             if (this.userDetailService.updateUser(u, userId, file)) {
                 status = HttpStatus.OK;
@@ -111,7 +115,7 @@ public class ApiUserController {
             }
             return new ResponseEntity<>(errorMessages, status);
         }
-        
+
         List<FieldError> errors = result.getFieldErrors();
         for (FieldError error : errors) {
             errorMessages.put(error.getField(), error.getDefaultMessage());

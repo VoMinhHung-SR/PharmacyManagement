@@ -43,7 +43,6 @@ const showEditUserModal = (userId) => {
         document.getElementById("update-button").onclick = () => saveChange(userId);
 
         let form = document.forms['form-update-user'];
-        form["username"].value = data.username;
         form["firstName"].value = data.firstName;
         form["lastName"].value = data.lastName;
         form["gender"].value = data.gender;
@@ -63,8 +62,9 @@ const saveChange = (userId) => {
         formData[item.name] = item.value;
     });
     var jsonSubmit = {
-        username: formData.username,
-        password: formData.password,
+        id: userId,
+        username: "jsonIgnore",
+        password: "jsonIgnore",
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email,

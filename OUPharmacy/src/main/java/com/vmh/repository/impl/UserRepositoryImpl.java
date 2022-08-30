@@ -278,8 +278,6 @@ public class UserRepositoryImpl implements UserRepository {
             User user = session.get(User.class, userId);
             user.setFirstName(u.getFirstName());
             user.setLastName(u.getLastName());
-            user.setUsername(u.getUsername());
-            user.setPassword(u.getPassword());
             user.setEmail(u.getEmail());
             user.setDateOfBirth(u.getDateOfBirth());
             user.setPhoneNumber(u.getPhoneNumber());

@@ -29,7 +29,8 @@ public class UserEmailValidator implements Validator{
     public void validate(Object target, Errors errors) {
         User u = (User) target;
         
-        if(this.userService.getUnitqueEmail(u.getEmail())){
+        if(u.getId() == null &&
+                this.userService.getUnitqueEmail(u.getEmail())){
             errors.rejectValue("email", 
                     "user.email.uniqueErr",
                     "Email đã tồn tại");

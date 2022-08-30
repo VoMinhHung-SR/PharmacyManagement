@@ -6,6 +6,7 @@ package com.vmh.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -13,6 +14,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -60,8 +62,8 @@ public class Examination implements Serializable {
     private Date createdDate;
     @Column(name = "active")
     private Short active;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "examinationId")
+    @JsonIncludeProperties({"id"})
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "examinationId", fetch = FetchType.EAGER)
     private Collection<ExaminationDetail> examinationDetailCollection;
     @JoinColumn(name = "user_examination_id", referencedColumnName = "id")
     @ManyToOne(optional = false)

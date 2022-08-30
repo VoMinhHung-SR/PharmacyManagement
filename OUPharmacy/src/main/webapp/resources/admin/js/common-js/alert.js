@@ -47,3 +47,12 @@ const confirmAlert = (title, text, confirmButtonText, cancelButtonText, callback
             callback();
     });
 };
+
+const showLoading = () =>{
+    document.getElementById("loading").style.display = "block";
+};
+
+const hideLoading = () =>{
+    document.getElementById("loading").style.display = "none";
+};
+     

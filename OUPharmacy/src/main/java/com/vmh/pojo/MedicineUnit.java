@@ -63,7 +63,6 @@ public class MedicineUnit implements Serializable {
     @Column(name = "image")
     @NotNull
     private String image;
-    @JsonIgnore
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Category categoryId;
@@ -75,6 +74,7 @@ public class MedicineUnit implements Serializable {
     private Collection<PrescriptionDetail> prescriptionDetailCollection;
     
     @Transient
+    @JsonIgnore
     private MultipartFile file;
     
     public MedicineUnit() {
