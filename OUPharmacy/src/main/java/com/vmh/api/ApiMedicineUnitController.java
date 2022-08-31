@@ -5,8 +5,10 @@
 package com.vmh.api;
 
 import com.vmh.pojo.MedicineUnit;
+import com.vmh.pojo.User;
 import com.vmh.service.MedicineUnitService;
 import com.vmh.validator.WebAppValidator;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,10 +26,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -48,6 +54,18 @@ public class ApiMedicineUnitController {
         binder.setValidator(medicineUnitValidator);
     }
     
+    @GetMapping(path = "/medicines/medicine-unit/",
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<List<MedicineUnit>> loadMedicineUnit(
+            @RequestParam Map<String, String> params) {
+        try {
+            return new ResponseEntity<>(this.medicineUnitService.getMedicineUnits(params, 0)
+                    , HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
     @GetMapping(path = "/medicines/medicine-unit/{medicineUnitId}",
             produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<MedicineUnit> loadMedicineUnit(
@@ -66,30 +84,34 @@ public class ApiMedicineUnitController {
         this.medicineUnitService.deleteMedicine(id);
     }
 
-    @PatchMapping(path = "/medicines/medicine-unit/{medicineId}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(path = "/medicines/medicine-unit/{medicineUnitId}",
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Map<String, String>> updateMedicineUnit(
-            @PathVariable("medicineId") int medicineUnitId,
-            @Valid @RequestBody MedicineUnit medicineUnit,
-            BindingResult result) {
-        
-        Map<String, String> mapError = new HashMap<>();
+            @PathVariable("medicineUnitId") int medicineUnitId,
+            @RequestPart(value = "imgFile", required = false) MultipartFile file,
+            @RequestPart("medicineUnit") @Valid MedicineUnit medicineUnit,
+            BindingResult result) throws IOException {
+
+        Map<String, String> errorMessages = new HashMap<>();
         HttpStatus status = null;
-        if (result.hasErrors()) {
-            List<FieldError> errors = result.getFieldErrors();
-            for (FieldError error : errors) {
-                mapError.put("field", error.getField());
-                mapError.put("message", error.getDefaultMessage());
-            }
-            status = HttpStatus.BAD_REQUEST;
-        } else {
-            if (this.medicineUnitService.updateMedicineUnit(medicineUnit, medicineUnitId)) {
+        
+        if (!result.hasErrors()) {
+            if (this.medicineUnitService.updateMedicineUnit(medicineUnit, medicineUnitId, file)) {
                 status = HttpStatus.OK;
             } else {
                 status = HttpStatus.INTERNAL_SERVER_ERROR;
             }
+            return new ResponseEntity<>(errorMessages, status);
         }
 
-        return new ResponseEntity<>(mapError, status);
+        List<FieldError> errors = result.getFieldErrors();
+        for (FieldError error : errors) {
+            errorMessages.put(error.getField(), error.getDefaultMessage());
+        }
+        status = HttpStatus.BAD_REQUEST;
+
+        return new ResponseEntity<>(errorMessages, status);
     }
 
 }

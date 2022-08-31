@@ -7,6 +7,7 @@ package com.vmh.service;
 import com.vmh.pojo.MedicineUnit;
 import java.util.List;
 import java.util.Map;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -16,7 +17,7 @@ public interface MedicineUnitService {
     List<MedicineUnit> getMedicineUnits(Map<String, String> params, int page);
     MedicineUnit getMedicineUnitDetail(int id);
     boolean addMedicineUnit (MedicineUnit medicineUnit);
-    boolean updateMedicineUnit (MedicineUnit medicineUnit, int medicineUnitId);
+    boolean updateMedicineUnit (MedicineUnit medicineUnit, int medicineUnitId, MultipartFile file);
     boolean deleteMedicine(int id);
     int countMedicines();
 }

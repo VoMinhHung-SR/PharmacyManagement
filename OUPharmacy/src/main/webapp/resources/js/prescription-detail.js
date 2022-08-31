@@ -40,7 +40,8 @@ const medicinesOnLoad = () => {
     }).then(res => res.json()).then(data => {
         //  Autocompltete Suggestion
         console.info(data);
-        data.forEach(d => medicinesName.push({"id": d.id, "name": d.name}));
+        data.forEach(d => medicinesName.push({"id": d.id, "name": d.name, 
+            "medicineUnitId": d.medicineUnitCollection[0].id}));
         console.info(medicinesName);
     });
 };
@@ -128,12 +129,13 @@ input.addEventListener("keyup", (e) => {
         if (medicinesName[i].name.toLowerCase().startsWith(input.value.toLowerCase())
                 && input.value !== "") {
             let listItem = document.createElement("li");
+            let j = 0;
             //One common class name
             listItem.classList.add("list-items");
-            listItem.classList.add(`medicine-${medicinesName[i].id}`);
+            listItem.classList.add(`medicine-${medicinesName[i].medicineUnitId}`);
             listItem.style.cursor = "pointer";
             listItem.onclick = () => {
-                currentMedicineIdTarget = medicinesName[i].id;
+                currentMedicineIdTarget = medicinesName[i].medicineUnitId;
                 console.log(currentMedicineIdTarget);
                 currentMedicineTarget = medicinesName[i];
                 displayNames(medicinesName[i].name);
@@ -165,7 +167,7 @@ const exportPrescriptionDetail = () => {
             fetch('/OUPharmacy/api/prescription-detail', {
                 method: "POST",
                 body: JSON.stringify({
-                    "quantity": p.quantity,
+                    "quantity": parseInt(p.quantity),
                     "uses": p.uses,
                     "medicineUnitId": p.medicineUnitId,
                     "prescriptionId": p.prescriptionId
@@ -174,12 +176,8 @@ const exportPrescriptionDetail = () => {
                     "Content-Type": "application/json"
                 }
             }).then(res => {
-                successfulAlert("Kê toa thành công", "Ok");
-                return res.json();
-            }).then(data => {
-                console.info(data);
-            }).catch(err => {
-                console.log(err);
+                if(res.status === 201)
+                    successfulAlert("Kê toa thành công", "Ok");
             });
         });
     }

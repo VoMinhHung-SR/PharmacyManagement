@@ -5,13 +5,13 @@
 
 const patientChart = (ctx, data, labels, chartType = "bar", option) => {
     let title = '';
-    if(option === 1){
+    if (option === 1) {
         title = 'Thống kê số lượng bệnh nhân đến khám';
-    }else if(option === 2){
+    } else if (option === 2) {
         title = 'Thống kê doanh thu';
-    }else
+    } else
         title = 'Thống kê tần suất sử dụng thuốc';
-    
+
     const myChart = new Chart(ctx, {
         type: chartType,
         data: {
@@ -77,4 +77,33 @@ const drawFunction = (data, labels) => {
     var chart = [chart];
 
 }
-    
+
+const drawFunction2 = (data, labels) => {
+    "use strict";
+    // ============================================================== 
+    // Newsletter
+    // ============================================================== 
+
+    var chart = new Chartist.Line('#ct-visits', {
+        labels: labels,
+        series: data
+    }, {
+        top: 0,
+        low: 1,
+        showPoint: true,
+        fullWidth: true,
+        plugins: [
+            Chartist.plugins.tooltip()
+        ],
+        axisY: {
+            labelInterpolationFnc: function (value) {
+                return value;
+            }
+        },
+        showArea: true
+    });
+
+
+    var chart = [chart];
+
+}

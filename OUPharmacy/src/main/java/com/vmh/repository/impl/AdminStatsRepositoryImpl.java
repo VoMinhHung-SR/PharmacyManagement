@@ -194,6 +194,7 @@ public class AdminStatsRepositoryImpl implements AdminStatsReposioty {
             CriteriaBuilder b = session.getCriteriaBuilder();
             CriteriaQuery<Object[]> q = b.createQuery(Object[].class);
 
+            Root<ExaminationDetail> examinationDetailRoot = q.from(ExaminationDetail.class);
             Root<Prescription> prescriptionRoot = q.from(Prescription.class);
             Root<Bill> billRoot = q.from(Bill.class);
 
@@ -213,11 +214,14 @@ public class AdminStatsRepositoryImpl implements AdminStatsReposioty {
             }
             //JOIN
             pre.add(b.equal(billRoot.get("prescriptionBillId"), prescriptionRoot.get("id")));
+            pre.add(b.equal(prescriptionRoot.get("examinationDetailId"), examinationDetailRoot.get("id")));
+            
             q.where(pre.toArray(new Predicate[]{}));
 
             q.multiselect(b.function("MONTH", Integer.class, billRoot.get("createdDate")),
                     b.function("YEAR", Integer.class, billRoot.get("createdDate")),
-                    b.sum(billRoot.get("pay").as(Double.class)));
+                    b.sum(billRoot.get("pay").as(Double.class)),
+                    b.sum(examinationDetailRoot.get("wage").as(Integer.class)));
 
             q.groupBy(b.function("MONTH", Integer.class, billRoot.get("createdDate")),
                     b.function("YEAR", Integer.class, billRoot.get("createdDate")));

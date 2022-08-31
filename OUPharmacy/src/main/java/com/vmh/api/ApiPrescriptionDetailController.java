@@ -88,7 +88,8 @@ public class ApiPrescriptionDetailController {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return new ResponseEntity<>(status);
+        
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

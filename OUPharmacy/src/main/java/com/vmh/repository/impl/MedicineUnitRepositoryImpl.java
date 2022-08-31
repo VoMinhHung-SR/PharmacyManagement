@@ -91,7 +91,7 @@ public class MedicineUnitRepositoryImpl implements MedicineUnitRepository {
             q = q.where(predicates.toArray(new Predicate[]{}));
         }
 
-//      q = q.orderBy(builder.desc(root.get("id")));
+        q = q.orderBy(builder.asc(medicineRoot.get("name")));
         Query query = session.createQuery(q);
 
         if (page > 0) {
@@ -138,10 +138,13 @@ public class MedicineUnitRepositoryImpl implements MedicineUnitRepository {
             MedicineUnit m = session.get(MedicineUnit.class, medicineUnitId);
             m.setInStock(medicineUnit.getInStock());
             m.setPrice(medicineUnit.getPrice());
-            m.setImage(medicineUnit.getImage());
             m.setCategoryId(medicineUnit.getCategoryId());
             m.setMedicineId(medicineUnit.getMedicineId());
 
+            if (medicineUnit.getImage()!= null)
+                m.setImage(medicineUnit.getImage());
+            
+            
             session.update(m);
             return true;
         } catch (Exception ex) {

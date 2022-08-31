@@ -5,6 +5,7 @@
 package com.vmh.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -54,8 +55,8 @@ public class Medicine implements Serializable {
     @Size(min = 1, max = 255, message = "{medicine.effect.lenErr}")
     @Column(name = "effect")
     private String effect;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "medicineId")
+    @JsonIncludeProperties({"id"})
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "medicineId", fetch = FetchType.EAGER)
     private Collection<MedicineUnit> medicineUnitCollection;
 
     public Medicine() {

@@ -189,11 +189,13 @@
                 <tr>
                     <th>Tháng</th>
                     <th>Doanh thu</th>
+                    <th>Phí dịch vụ</th>
                 </tr>
                 <c:forEach items="${revenueDateStats}" var="r">
                     <tr>
                         <td>${r[0]}/${r[1]}</td>
                         <td>${r[2]}</th>
+                        <td>${r[3]}</th>
                     </tr>
                 </c:forEach>
             </table>
@@ -202,6 +204,7 @@
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <div class="white-box">
                     <h3 class="box-title">Thống kê doanh thu theo tháng</h3>
+
                     <div class="w-50 m-auto">
                         <canvas id="revenueChart" width="100" height="100"></canvas>
                     </div>
@@ -213,6 +216,16 @@
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <div class="white-box">
                     <h3 class="box-title">Thống kê doanh thu theo tháng</h3>
+                    <div class="d-md-flex">
+                        <ul class="list-inline d-flex ms-auto">
+                            <li class="ps-3">
+                                <h5><i class="fa fa-circle me-1 text-info"></i>Phí dịch vụ</h5>
+                            </li>
+                            <li class="ps-3">
+                                <h5><i class="fa fa-circle me-1 text-inverse"></i>Doanh thu</h5>
+                            </li>
+                        </ul>
+                    </div>
                     <div id="ct-visits" style="height: 405px;">
                         <div class="chartist-tooltip" style="top: -17px; left: -12px;"><span
                                 class="chartist-tooltip-value">6</span>
@@ -230,25 +243,29 @@
     window.onload = () => {
 
     <c:if test="${option == 1}">
-    let patientData = [], patientLable = [];
+        let patientData = [], patientLable = [];
         <c:forEach items="${patientDateStats}" var="p">
-    patientData.push(${p[2]});
-    patientLable.push('${p[0]}/${p[1]}');
+        patientData.push(${p[2]});
+        patientLable.push('${p[0]}/${p[1]}');
         </c:forEach>
-        let ctx = document.getElementById("patientChart").getContext("2d");
-        patientChart(ctx, patientData, patientLable, "bar", ${option});
-        drawFunction(patientData, patientLable);
+                let ctx = document.getElementById("patientChart").getContext("2d");
+                patientChart(ctx, patientData, patientLable, "bar", ${option});
+                drawFunction(patientData, patientLable);
     </c:if>
     <c:if test="${option == 2}">
-        let revenueData = [], revenueLable = [], revenueYear = [];
+                let revenueData1 = [], revenueData2 = [], revenueLable = [], revenueMonth = [], wageMonth = [];
         <c:forEach items="${revenueDateStats}" var="r">
-            revenueData.push(${r[2]});
-            revenueLable.push('${r[0]}/${r[1]}');
-            revenueYear.push(${r[1]});
+                revenueMonth.push(${r[2]});
+                revenueData1.push(${r[2]});
+                wageMonth.push(${r[3]});
+                revenueLable.push('${r[0]}/${r[1]}');
         </c:forEach>
-            let ctx = document.getElementById("revenueChart").getContext("2d");
-            patientChart(ctx, revenueData, revenueLable, "bar",${option});
-            drawFunction(revenueData, revenueLable);
+
+                        revenueData2.push(revenueMonth, wageMonth);
+                        console.log(revenueData2);
+                        let ctx = document.getElementById("revenueChart").getContext("2d");
+                        patientChart(ctx, revenueData1, revenueLable, "bar",${option});
+                        drawFunction2(revenueData2, revenueLable);
 //            function sort_unique(arr) {
 //                if (arr.length === 0) return arr;
 //                arr = arr.sort(function (a, b) { return a*1 - b*1; });
@@ -270,5 +287,5 @@
 //            }
     </c:if>
 
-}
+                    }
 </script>

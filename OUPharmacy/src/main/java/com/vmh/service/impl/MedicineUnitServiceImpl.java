@@ -8,12 +8,14 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.vmh.pojo.MedicineUnit;
 import com.vmh.repository.MedicineUnitRepository;
+import com.vmh.service.CloudinaryService;
 import com.vmh.service.MedicineUnitService;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -24,7 +26,9 @@ public class MedicineUnitServiceImpl implements MedicineUnitService{
 
     @Autowired
     private MedicineUnitRepository medicineUnitRepository;
-    
+    // Custome
+    @Autowired
+    private CloudinaryService cloudinaryService;
     
     @Autowired
     private Cloudinary cloudinary;
@@ -66,7 +70,11 @@ public class MedicineUnitServiceImpl implements MedicineUnitService{
     }
 
     @Override
-    public boolean updateMedicineUnit(MedicineUnit mu, int i) {
+    public boolean updateMedicineUnit(MedicineUnit mu, int i, MultipartFile file) {
+        if(file != null){
+            String img = this.cloudinaryService.uploadAvatar(file);
+            mu.setImage(img);
+        }
         return this.medicineUnitRepository.updateMedicineUnit(mu, i);
     }
     

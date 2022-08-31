@@ -61,7 +61,6 @@ public class MedicineUnit implements Serializable {
     @Basic(optional = false)
     @Size(min = 1, max = 255)
     @Column(name = "image")
-    @NotNull
     private String image;
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
