@@ -222,5 +222,23 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         </put-list-attribute>
     </definition>
     
+    <definition name="add-schedule" extends="adminBaseLayout">
+        <put-attribute name="title" value="Them lich truc" />
+        <put-attribute name="pageName" value="Them lich truc" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/add-schedule.jsp" />
+        <put-list-attribute name="javascripts">
+            <add-attribute value="/admin/js/api-script/add-schedule.js"/>
+        </put-list-attribute>
+    </definition>
+    
+    <definition name="chat-admin" extends="adminBaseLayout">
+        <put-attribute name="title" value="Tro chuyen truc tuyen" />
+        <put-attribute name="pageName" value="Tro chuyen truc tuyen" />
+        <put-attribute name="content" value="/WEB-INF/jsp/admin/chat-admin.jsp"/>
+        <put-list-attribute name="javascripts">
+          
+        </put-list-attribute>
+    </definition>
+    
 </tiles-definitions>
 

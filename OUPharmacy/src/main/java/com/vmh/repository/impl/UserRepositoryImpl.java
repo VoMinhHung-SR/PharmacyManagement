@@ -113,6 +113,41 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public List<User> getUserByMultipleRole(Map<String, String> params) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        try {
+
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<User> q = builder.createQuery(User.class);
+            Root root = q.from(User.class);
+
+            // +Lay tat ca dong du lieu
+            q = q.select(root);
+
+            
+            if (params != null) {
+                List<Predicate> predicates = new ArrayList<>();
+                if (params.containsKey("role-1") == true 
+                        && params.containsKey("role-2") == true) {
+                    String role1 = params.get("role-1");
+                    String role2 = params.get("role-2");
+                    Predicate predicate2 = builder.equal(root.get("userRole").as(String.class),role2.trim());
+                    Predicate predicate1 = builder.equal(root.get("userRole").as(String.class),role1.trim());
+                    predicates.add(builder.or(predicate1, predicate2));
+                }
+                q = q.where(predicates.toArray(new Predicate[]{}));
+            }
+            
+            
+            Query query = session.createQuery(q);
+            return query.getResultList();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public boolean addUserWithUserRole(User user, String string) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
         try {
@@ -283,10 +318,11 @@ public class UserRepositoryImpl implements UserRepository {
             user.setPhoneNumber(u.getPhoneNumber());
             user.setGender(u.getGender());
             user.setAddress(u.getAddress());
-           
-            if (u.getAvatar() != null)
+
+            if (u.getAvatar() != null) {
                 user.setAvatar(u.getAvatar());
-            
+            }
+
             session.update(user);
             return true;
         } catch (Exception ex) {

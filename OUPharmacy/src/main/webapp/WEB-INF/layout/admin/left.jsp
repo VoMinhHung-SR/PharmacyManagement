@@ -24,17 +24,27 @@
                     </a>
                 </li>
                 <li class="sidebar-item pt-2">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<c:url value="/admin/patient-stats"/>"
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" 
+                       href="<c:url value="/admin/patient-stats"/>"
                        aria-expanded="false">
                         <i class="far fa-clock" aria-hidden="true"></i>
                         <span class="hide-menu">Thong ke ben nhan</span>
                     </a>
                 </li>
                 <li class="sidebar-item pt-2">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<c:url value="/admin/revenue-stats"/>"
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" 
+                       href="<c:url value="/admin/revenue-stats"/>"
                        aria-expanded="false">
                         <i class="far fa-clock" aria-hidden="true"></i>
                         <span class="hide-menu">Thong ke doanh thu</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" 
+                       href="<c:url value="/admin/add-schedule" />"
+                       aria-expanded="false">
+                        <i class="fas fa-calendar-plus" aria-hidden="true"></i>
+                        <span class="hide-menu">Tao lich truc</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -79,8 +89,16 @@
                         </a>
                     </li>
                 </c:if>
+                    <li class="sidebar-item">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" 
+                       href="<c:url value="/admin/chats" />"
+                       aria-expanded="false">
+                        <i class="fas fa-users" aria-hidden="true"></i>
+                        <span class="hide-menu">Tro chuyen truc tuyen</span>
+                    </a>
+                </li>
             </ul>
-
+               
         </nav>
         <!-- End Sidebar navigation -->
     </div>

@@ -72,6 +72,20 @@ public class ApiUserController {
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @GetMapping(path = "/users/roles/r-1-2", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<List<User>> getUserDocTorAndNurse() {
+        
+        try{
+            Map<String, String> roles = new HashMap<>();
+            roles.put("role-1", "ROLE_DOCTOR");
+            roles.put("role-2", "ROLE_NURSE");
+            return new ResponseEntity<>(this.userDetailService.getUserByMultipleRole(roles), HttpStatus.OK);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+    }
+            
     @PatchMapping(path = "/users/{userId}/update-active", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<User> updateActiveUser(@PathVariable(value = "userId") int userId) {
         try {

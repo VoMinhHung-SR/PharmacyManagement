@@ -24,6 +24,7 @@ public interface UserRepository {
     List<User> getUser(String username);
     List<User> getUserNotAdmin(Map<String, String> params);
     List<User> getUserByUserRole(Map<String, String> params,String userRole, int page);
+    List<User> getUserByMultipleRole(Map<String, String> params);
     int countUsersByUserRole(String userRole);
     int countUser();
     int countUserWithoutAdmin();

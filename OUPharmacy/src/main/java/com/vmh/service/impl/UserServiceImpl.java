@@ -160,4 +160,9 @@ public class UserServiceImpl implements UserService{
         return this.userRepository.updateUser(u, userId);
     }
 
+    @Override
+    public List<User> getUserByMultipleRole(Map<String, String> map) {
+        return this.userRepository.getUserByMultipleRole(map);
+    }
+
 }

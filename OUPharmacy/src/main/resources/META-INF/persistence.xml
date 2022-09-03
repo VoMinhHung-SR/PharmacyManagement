@@ -12,6 +12,7 @@
     <class>com.vmh.pojo.ExaminationDetail</class>
     <class>com.vmh.pojo.Bill</class>
     <class>com.vmh.pojo.PrescriptionDetail</class>
+    <class>com.vmh.pojo.OnCallSchedule</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pharmacydb?zeroDateTimeBehavior=CONVERT_TO_NULL"/>

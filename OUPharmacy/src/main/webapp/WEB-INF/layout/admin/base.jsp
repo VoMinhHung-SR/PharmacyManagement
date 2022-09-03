@@ -155,7 +155,7 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <!--SweetAlert2-->
         <script src="<c:url value="/admin/js/common-js/alert.js"/>"></script>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 
 
     </body>

@@ -5,6 +5,7 @@
 package com.vmh.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Collection;
@@ -14,6 +15,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -55,6 +57,7 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "User.findByAddress", query = "SELECT u FROM User u WHERE u.address = :address"),
     @NamedQuery(name = "User.findByUserRole", query = "SELECT u FROM User u WHERE u.userRole = :userRole")})
 public class User implements Serializable {
+    
 
     @Column(name = "is_superuser")
     private Short isSuperuser;
@@ -119,6 +122,9 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     @JsonIgnore
     private Collection<Prescription> prescriptionCollection;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userOnCallId")
+    private Collection<OnCallSchedule> onCallScheduleCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userExaminationId")
     @JsonIgnore
     private Collection<Examination> examinationCollection;
@@ -337,6 +343,15 @@ public class User implements Serializable {
 
     public void setIsSuperuser(Short isSuperuser) {
         this.isSuperuser = isSuperuser;
+    }
+
+    @XmlTransient
+    public Collection<OnCallSchedule> getOnCallScheduleCollection() {
+        return onCallScheduleCollection;
+    }
+
+    public void setOnCallScheduleCollection(Collection<OnCallSchedule> onCallScheduleCollection) {
+        this.onCallScheduleCollection = onCallScheduleCollection;
     }
 
 }
