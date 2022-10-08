@@ -6,6 +6,7 @@ package com.vmh.service;
 
 import com.vmh.pojo.OnCallSchedule;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -13,5 +14,5 @@ import java.util.Date;
  */
 public interface OnCallScheduleService {
     boolean addCalender (OnCallSchedule o);
-    OnCallSchedule getSchedule (Date d);
+    List<OnCallSchedule> getSchedule (Date d);
 }

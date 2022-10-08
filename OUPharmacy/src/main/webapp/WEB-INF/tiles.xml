@@ -85,6 +85,7 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="content" value="/WEB-INF/jsp/bill.jsp" />
         <put-list-attribute name="javascripts">
             <add-attribute value="/js/bill.js"/>
+            <add-attribute value="/js/momo/momo.js"/>
         </put-list-attribute> 
     </definition>
     <!--PATIENT-->
@@ -123,6 +124,13 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="content" value="/WEB-INF/jsp/medical-history.jsp" />
         <put-list-attribute name="javascripts">
             <add-attribute value="/js/examination-detail.js"/>
+        </put-list-attribute> 
+    </definition>
+    <!--MOMO PAYMENT-->
+    <definition name="momo-payment" extends="baseLayout">
+        <put-attribute name="title" value="Thanh toan MoMo" />
+        <put-attribute name="content" value="/WEB-INF/jsp/momo-payment.jsp" />
+        <put-list-attribute name="javascripts">
         </put-list-attribute> 
     </definition>
     <!--    ============Admin=============  -->
@@ -228,6 +236,7 @@ Software Foundation//DTD Tiles Configuration 3.0//EN"
         <put-attribute name="content" value="/WEB-INF/jsp/admin/add-schedule.jsp" />
         <put-list-attribute name="javascripts">
             <add-attribute value="/admin/js/api-script/add-schedule.js"/>
+            <add-attribute value="/admin/js/common-js/flatpickr.js"/>
         </put-list-attribute>
     </definition>
     

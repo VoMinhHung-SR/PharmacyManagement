@@ -20,6 +20,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +37,9 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Autowired
     private Environment env;
+    
+    @Autowired
+    private PasswordEncoder passwordEncode;
 
     @Override
     public boolean addUser(User user) {
@@ -325,6 +329,19 @@ public class UserRepositoryImpl implements UserRepository {
 
             session.update(user);
             return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean checkPassword(int userId, String password) {
+        Session session = sessionFactory.getObject().getCurrentSession();
+        try {
+            User user = session.get(User.class, userId);
+            if (password != null && !password.isEmpty())
+                return passwordEncode.matches(password, user.getPassword());
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -40,8 +40,8 @@ public class EmailServiceImpl implements EmailService {
     private Environment environment;
 
     @Override
-    public boolean sendMail(String subject, String[] to, Map<String,Object> model) {
-        MimeMessagePreparator preparator = getMessagePreparator(subject, to, model);
+    public boolean sendMail(String subject, String[] to, Map<String,Object> model, int type) {
+        MimeMessagePreparator preparator = getMessagePreparator(subject, to, model, type);
 
         try {
             javaMailSender.send(preparator);
@@ -53,7 +53,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     private MimeMessagePreparator getMessagePreparator(final String subject, 
-            final String[] to,final Map<String,Object> model) {
+            final String[] to,final Map<String,Object> model, final int type) {
 
         return new MimeMessagePreparator() {
 
@@ -63,7 +63,7 @@ public class EmailServiceImpl implements EmailService {
                 helper.setSubject(subject);
                 helper.setFrom(Objects.requireNonNull(environment.getProperty("default.from.email")));
                 helper.setTo(to);
-                String text = geFreeMarkerTemplateContent(model);
+                String text = geFreeMarkerTemplateContent(model, type);
                 /*
                  * use the true flag to indicate you need a multipart message
                  */
@@ -78,10 +78,18 @@ public class EmailServiceImpl implements EmailService {
         };
     }
 
-    public String geFreeMarkerTemplateContent(Map<String,Object> model) {
+    public String geFreeMarkerTemplateContent(Map<String,Object> model, int type) {
         StringBuffer content = new StringBuffer();
         try {
-            content.append(FreeMarkerTemplateUtils.processTemplateIntoString(freemarkerConfiguration.getTemplate("email-sender.ftl"), model));
+            switch (type) {
+                case EmailConstant.EMAIL_TEMPLATE_SENDER:
+                    content.append(FreeMarkerTemplateUtils.processTemplateIntoString(freemarkerConfiguration.getTemplate("email-sender.ftl"), model));
+                    break;
+                case EmailConstant.EMAIL_TEMPLATE_ADD_SCHEDULE:
+                    content.append(FreeMarkerTemplateUtils.processTemplateIntoString(freemarkerConfiguration.getTemplate("email-add-schedule.ftl"), model));
+                    break;
+            }
+            
 
             return content.toString();
         } catch (Exception e) {

@@ -106,7 +106,6 @@
 
 <script>
     window.onload = () => {
-
         let dates = document.querySelectorAll(".created-date")
         for (let i = 0; i < dates.length; i++) {
             let d = dates[i];

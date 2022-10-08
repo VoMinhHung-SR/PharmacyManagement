@@ -11,5 +11,5 @@ package com.vmh.constant;
 public class EmailConstant {
     // mail
     public static final int EMAIL_TEMPLATE_SENDER = 1;
-    public static final int EMAIL_TEMPLATE_REPLY = 2;
+    public static final int EMAIL_TEMPLATE_ADD_SCHEDULE = 2;
 }

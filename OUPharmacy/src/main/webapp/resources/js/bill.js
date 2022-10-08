@@ -197,6 +197,7 @@ const showData = (id) => {
     prescriptions.forEach(p => {
         if (p.examinationDetailId === id) {
             //==== BODY-CONTENT ====
+            let momo = document.querySelector(`.momo-payment-${p.examinationDetailId}`);
             let bill = document.querySelector(`.export-bill-${p.examinationDetailId}`);
             let a = document.querySelector(`.p_${id}`);
             if (p.prescriptionContent.length === 0) {
@@ -206,6 +207,12 @@ const showData = (id) => {
                         Phiếu khám chưa được kê toa thuốc...
                     </td>
                 </tr>`;
+                momo.addEventListener("click", () => {
+                    errorAlert("Đã có lỗi", "Phiếu khám phải được kê toa!!!", "Ok");
+                });
+                bill.addEventListener("click", () => {
+                    errorAlert("Đã có lỗi", "Phiếu khám phải được kê toa!!!", "Ok");
+                });
             } else {
                 let skip = 0;
                 prescriptionPatientList.forEach(prescriptionDetail => {
@@ -214,25 +221,34 @@ const showData = (id) => {
                     if (prescriptionDetail.prescriptionDetailContent.length !== 0 &&
                             prescriptionDetail.prescriptionId === p.prescriptionContent[0].id) {
 
+
                         //EXPORT-BILL-AREA
                         if (skip === 0) {
                             skip++;
+                            //=== add event momo and Pay button ===                        
+                            momo.addEventListener("click", () => {
+                                let total = parseFloat(document.querySelector(`.pay_${p.examinationDetailId}`).innerText) * 1000;
+                                momoPayment(total, prescriptionDetail.prescriptionId);
+                            });
                             bill.addEventListener("click", () => {
                                 pay(p.examinationDetailId, prescriptionDetail.prescriptionId);
                             });
+                            //=== END add event momo and Pay button === 
+
                             //Show export-bill-btn
                             receipt.forEach(r => {
                                 let btn = document.querySelector(`.export-bill-${p.examinationDetailId}`);
+                                let btn2 = document.querySelector(`.momo-payment-${p.examinationDetailId}`);
                                 if (r.prescriptionBillContent.length !== 0
                                         && r.prescriptionBill === prescriptionDetail.prescriptionId) {
                                     document.querySelector(`#recepit-${p.examinationDetailId}`).innerHTML =
                                             `<i class="bi bi-check-circle"></i> Ðã thanh toán`;
                                     btn.style.display = "none";
+                                    btn2.style.display = "none";
                                 }
-
-
                             });
                             //EndShow export-bill-btn
+
                         }
                         //EXPORT-BILL-AREA
 

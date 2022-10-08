@@ -4,12 +4,14 @@
  */
 package com.vmh.service;
 
+import com.vmh.pojo.Bill;
 import java.util.Map;
+import org.json.JSONObject;
 
 /**
  *
  * @author ASUS
  */
-public interface EmailService {
-    boolean sendMail(String subject, String[] toUser,Map<String,Object> model, int type);
+public interface MomoService {
+    JSONObject payment(long total, int presciptionId);
 }

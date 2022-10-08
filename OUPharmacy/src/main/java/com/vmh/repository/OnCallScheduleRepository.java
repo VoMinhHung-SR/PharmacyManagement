@@ -6,12 +6,13 @@ package com.vmh.repository;
 
 import com.vmh.pojo.OnCallSchedule;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
  * @author ASUS
  */
 public interface OnCallScheduleRepository {
-    OnCallSchedule getSchedule (Date d);
+    List<OnCallSchedule> getSchedule (Date d);
     boolean addCalender (OnCallSchedule o);
 }

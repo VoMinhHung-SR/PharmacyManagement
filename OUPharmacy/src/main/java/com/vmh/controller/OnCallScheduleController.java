@@ -5,6 +5,10 @@
 package com.vmh.controller;
 
 import com.vmh.service.OnCallScheduleService;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import javax.persistence.NoResultException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +32,8 @@ public class OnCallScheduleController {
 
         Date date = new Date();
         try {
-            if (this.onCallScheduleService.getSchedule(date) != null) {
-                model.addAttribute("todaySchedule", this.onCallScheduleService.getSchedule(date));
-            }
+            model.addAttribute("todaySchedule", this.onCallScheduleService.getSchedule(date));
+            return "add-schedule";
         } catch (NoResultException n) {
             model.addAttribute("todaySchedule", null);
         }

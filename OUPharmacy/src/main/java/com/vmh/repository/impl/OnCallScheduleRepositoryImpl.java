@@ -8,7 +8,10 @@ import com.vmh.pojo.Bill;
 import com.vmh.pojo.OnCallSchedule;
 import com.vmh.pojo.Prescription;
 import com.vmh.repository.OnCallScheduleRepository;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -46,21 +49,26 @@ public class OnCallScheduleRepositoryImpl implements OnCallScheduleRepository{
     }
 
     @Override
-    public OnCallSchedule getSchedule(Date date) {
+    public List<OnCallSchedule> getSchedule(Date date) {
+        
+        
         Session session = this.sessionFactory.getObject().getCurrentSession();
         try {
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<OnCallSchedule> q = builder.createQuery(OnCallSchedule.class);
-            Root root = q.from(OnCallSchedule.class);
-            
-            q = q.select(root);
-            
-            Predicate p = builder.equal(root.get("createdDate").as(Date.class), date);
-            q = q.where(p);
-            
-            Query query = session.createQuery(q);
-            
-            return (OnCallSchedule) query.getSingleResult();
+//            CriteriaBuilder builder = session.getCriteriaBuilder();
+//            CriteriaQuery<OnCallSchedule> q = builder.createQuery(OnCallSchedule.class);
+//            Root root = q.from(OnCallSchedule.class);
+//            
+//            q = q.select(root);
+//            
+//            Predicate p = builder.equal(root.get("createdDate").as(Date.class), date);
+//            q = q.where(p);
+//            Query query = session.createQuery(q);
+
+            String sql = "FROM OnCallSchedule WHERE DATE(createdDate)=:date";
+            Query query = session.createQuery(sql);
+            query.setParameter("date", date);
+
+            return query.getResultList();
         } catch (HibernateException ex) {
             System.err.println(ex.getMessage());
             ex.printStackTrace();

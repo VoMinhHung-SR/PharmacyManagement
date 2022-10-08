@@ -6,6 +6,15 @@ const usersAvailable = [];
 window.onload = () => {
     onloadUser();
     hideLoading();
+    let btnAdd = document.getElementById("add-another");
+    btnAdd.onclick = () => {
+        if (document.querySelector("#datePicker").value === '')
+            triggerAddScheduleArea();
+        else {
+            triggerAddScheduleArea(document.querySelector("#datePicker").value);
+        }
+
+    };
 };
 const onloadUser = () => {
     fetch('/OUPharmacy/api/users/roles/r-1-2').then(res => res.json()).then(data => {
@@ -34,7 +43,7 @@ const onChangeUser = (change, uId) => {
         });
     }
 };
-const showUserAvailable = () => {
+const showUserAvailable = (date) => {
     let shiftOneArea = document.querySelector('#shift-1');
     let shiftTwoArea = document.querySelector('#shift-2');
     shiftOneArea.onchange = () => {
@@ -43,8 +52,8 @@ const showUserAvailable = () => {
     shiftTwoArea.onchange = () => {
         onChangeUser(2, this.event.target.value);
     };
-    document.getElementById("add-schedule").onclick = () =>{
-        addSchedule();
+    document.getElementById("add-schedule").onclick = () => {
+        addSchedule(date);
     };
     usersAvailable.forEach(u => {
         shiftOneArea.innerHTML += `<option value=${u.id}>${u.fullName}</option>`;
@@ -52,11 +61,18 @@ const showUserAvailable = () => {
     });
 };
 
-const triggerAddScheduleArea = () => {
+const triggerAddScheduleArea = (d = null) => {
     showLoading();
     moment.locale('vi');
     let contentArea = document.getElementById("main");
-    let date = moment(new Date()).format('L');
+    let date;
+    if (d !== null) {
+        date = moment(d).format('DD-MM-YYYY');
+    } else {
+        date = moment(new Date()).format('DD-MM-YYYY');
+        d = new Date();
+    }
+
 
     contentArea.innerHTML = `
             <div  class="white-box">
@@ -104,13 +120,16 @@ const triggerAddScheduleArea = () => {
                       
                     </tfoot>
                 </table></div>`;
-    showUserAvailable();
+
+    let d2 = moment(new Date(d)).format('YYYY-MM-DD');
+    console.log(d2);
+    showUserAvailable(d2);
     hideLoading();
 
 };
 
-const addSchedule = () => {
-    let date = new Date()
+const addSchedule = (d) => {
+    let date = d;
     let jsonSubmit = [{
             "shift": 1,
             "userOnCallId": parseInt(document.querySelector('#shift-1').value)
@@ -119,13 +138,14 @@ const addSchedule = () => {
             "userOnCallId": parseInt(document.querySelector('#shift-2').value)
         }]
     console.log(jsonSubmit);
+    let status = false;
     confirmAlert("Xác nhận tạo lịch", "", "Đồng ý", "Hủy", () => {
         showLoading();
         jsonSubmit.forEach(d => {
             fetch('/OUPharmacy/api/add-schedule', {
                 method: "POST",
                 body: JSON.stringify({
-                    "createdDate":date,
+                    "createdDate": date,
                     "shift": d.shift,
                     "userOnCallId": d.userOnCallId
                 }),
@@ -133,9 +153,10 @@ const addSchedule = () => {
                     "Content-Type": "application/json"
                 }
             }).then(res => {
-                if (res.status === 200) {
+                if (res.status === 200) {             
+                    sendEmail(d.userOnCallId, d.shift, date);
                     hideLoading();
-                    successfulAlert("Tạo thành công", "Ok");
+                    successfulAlert("Tạo thành công", "Ok", () => location.reload()); 
                 }
             }).catch(err => {
                 console.err(err);
@@ -145,3 +166,16 @@ const addSchedule = () => {
     });
 };
 
+const sendEmail = (userId, shift, date) => {
+    fetch('/OUPharmacy/api/send-email-add-schedule', {
+        method: "POST",
+        body: JSON.stringify({
+            "userId": userId,
+            "shift": shift,
+            "date": date
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+};

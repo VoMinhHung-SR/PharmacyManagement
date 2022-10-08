@@ -18,6 +18,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -35,6 +36,9 @@ class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
     private AuthenticationSuccessHandler loginSuccessHandler;
+    
+    @Autowired
+    private LogoutSuccessHandler logoutSuccessHandler;
     
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -59,7 +63,7 @@ class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
         
         http.formLogin().defaultSuccessUrl("/").failureUrl("/login?error");
         http.formLogin().defaultSuccessUrl("/").successHandler(loginSuccessHandler);
-        http.logout().logoutSuccessUrl("/login");
+        http.logout().logoutSuccessHandler(this.logoutSuccessHandler);
         
         http.exceptionHandling()
                 .accessDeniedPage("/login?accessDenied");

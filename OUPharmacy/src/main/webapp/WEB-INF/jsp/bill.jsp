@@ -70,6 +70,9 @@
                                     </tr>
                                     <tr style="text-align: right">
                                         <td colspan="6">
+                                            
+                                            <input type="button" class="momo-payment-${b.id} btn btn-success" value="Thanh toán MoMo" />
+                                            
                                             <input type="button" class="export-bill-${b.id} btn btn-success" value="Thanh toán" />
                                         </td>
                                     </tr>

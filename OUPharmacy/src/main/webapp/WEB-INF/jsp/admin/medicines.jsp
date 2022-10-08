@@ -51,8 +51,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-sm-12">
-                                    <button class="form-control ml-1 btn-warning btn" type="submit">
-                                        <i class=" fa fa-search" aria-hidden="true"></i> Tìm kiếm
+                                    <button class="form-control ml-1 btn-primary btn" type="submit">
+                                        <i class="fa fa-search " aria-hidden="true"></i> Tìm kiếm
                                     </button>
                                 </div>
                             </div>

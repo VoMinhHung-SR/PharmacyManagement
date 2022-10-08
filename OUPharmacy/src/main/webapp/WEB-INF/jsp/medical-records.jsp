@@ -63,7 +63,7 @@
                                 <tbody>
                                     <c:if test="${patientExaminationDeatails.size() == 0}">
                                         <tr>
-                                            <td colspan="6">
+                                            <td colspan="7">
                                                 <h5 class="text-center text-danger">
                                                     Hiện tại bệnh nhân chưa có lịch khám!!!
                                                 </h5>

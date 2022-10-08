@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <c:if test="${errMgs != null}">
@@ -77,7 +78,10 @@
                                     <td>${p.id}</td>
                                     <td>${p.firstName}</td>
                                     <td>${p.lastName}</td>
-                                    <td class="dob">${p.dateOfBirth}</td>
+                                    <td class="dob">
+                                        <fmt:formatDate pattern = "dd-MM-yyyy" 
+                                                        value = "${p.dateOfBirth}" />
+                                    </td>
                                     <td>${p.phoneNumber}</td>
                                     <td>
                                         <c:if test="${p.gender == 0}">
@@ -134,10 +138,10 @@
 <script>
     window.onload = () => {
 
-        let dates = document.querySelectorAll(".dob")
-        for (let i = 0; i < dates.length; i++) {
-            let d = dates[i];
-            d.innerText = moment(d.innerText).format('DD/MM/YYYY');
-        }
+//        let dates = document.querySelectorAll(".dob")
+//        for (let i = 0; i < dates.length; i++) {
+//            let d = dates[i];
+//            d.innerText = moment(d.innerText).format('DD/MM/YYYY');
+//        }
     }
 </script>

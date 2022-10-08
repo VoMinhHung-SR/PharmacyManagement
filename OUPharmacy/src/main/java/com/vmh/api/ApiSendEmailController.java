@@ -4,6 +4,7 @@
  */
 package com.vmh.api;
 
+import com.vmh.constant.EmailConstant;
 import com.vmh.pojo.Examination;
 import com.vmh.pojo.User;
 import com.vmh.service.EmailService;
@@ -69,7 +70,47 @@ public class ApiSendEmailController {
                 
                 
                 if(this.emailService.sendMail(subject,
-                        new String[]{user.getEmail()}, model)){
+                        new String[]{user.getEmail()}, model, EmailConstant.EMAIL_TEMPLATE_SENDER)){
+                    return new ResponseEntity<>(HttpStatus.OK);
+                };
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    
+    @PostMapping(path = "/send-email-add-schedule", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<Map<String, String>> sendEmailAddSchedule(
+            @RequestBody Map<String,String> params) {
+        try {
+            
+            if (params != null && !params.get("userId").isEmpty()
+                    && !params.get("date").isEmpty() && !params.get("shift").isEmpty()) {
+                
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(params.get("date")); 
+                
+                SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
+
+                
+                Integer uId = Integer.parseInt(params.get("userId"));
+                User user = this.userService.getUserById(uId);
+              
+               
+                String subject = "Thư thông báo lịch trực";
+                int shift = Integer.parseInt(params.get("shift"));
+                String stringDate= DateFor.format(date);
+                
+                Map<String, Object> model = new HashMap<>();
+                model.put("user", user);
+                model.put("date", stringDate);
+                model.put("shift", shift);
+                
+                
+                if(this.emailService.sendMail(subject,
+                        new String[]{user.getEmail()}, model, 
+                        EmailConstant.EMAIL_TEMPLATE_ADD_SCHEDULE)){
                     return new ResponseEntity<>(HttpStatus.OK);
                 };
             }

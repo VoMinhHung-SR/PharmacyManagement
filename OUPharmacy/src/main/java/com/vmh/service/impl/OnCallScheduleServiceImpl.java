@@ -8,6 +8,7 @@ import com.vmh.pojo.OnCallSchedule;
 import com.vmh.repository.OnCallScheduleRepository;
 import com.vmh.service.OnCallScheduleService;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +29,8 @@ public class OnCallScheduleServiceImpl implements OnCallScheduleService{
     }
 
     @Override
-    public OnCallSchedule getSchedule(Date d) {
+    public List<OnCallSchedule> getSchedule(Date d) {
        return this.onCallScheduleRepository.getSchedule(d);
     }
-    
+
 }

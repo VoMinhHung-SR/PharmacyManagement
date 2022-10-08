@@ -13,6 +13,7 @@ import java.util.Map;
  * @author ASUS
  */
 public interface UserRepository {
+    boolean checkPassword(int userId, String password);
     boolean getUniqueUserName(String username);
     boolean getUnitqueEmail(String email);
     boolean addUser(User user);

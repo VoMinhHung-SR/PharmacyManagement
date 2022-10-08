@@ -31,20 +31,20 @@
                 <div class="heroText d-flex flex-column justify-content-center">
 
                     <h1 class="mt-auto mb-2">
-                        Better
+                        Cải thiện
                         <div class="animated-info">
-                            <span class="animated-item">health</span>
-                            <span class="animated-item">days</span>
-                            <span class="animated-item">lives</span>
+                            <span class="animated-item">sức khỏe</span>
+                            <span class="animated-item">tâm lí</span>
+                            <span class="animated-item">cuộc sống</span>
                         </div>
                     </h1>
 
-                    <p class="mb-4">Medic Care is a Bootstrap 5 Template provided by TemplateMo website. Credits go to FreePik and RawPixel for images used in this template.</p>
+                    <p class="mb-4">Cung cấp các dịch vụ chăm sóc sức khỏe tận tình, lộ trình đăng ký khám đơn giản. Tương tác ngay</p>
 
                     <div class="heroLinks d-flex flex-wrap align-items-center">
-                        <a class="custom-link me-4" href="#about" data-hover="Learn More">Learn More</a>
+                        <a class="custom-link me-4" href="#about" data-hover="TÌM HIỂU THÊM">TÌM HIỂU THÊM</a>
 
-                        <p class="contact-phone mb-0"><i class="bi-phone"></i> 010-020-0340</p>
+                        <p class="contact-phone mb-0"><i class="bi-phone"></i> 0382-590-839</p>
                     </div>
                 </div>
             </div>
@@ -58,16 +58,16 @@
         <div class="row">
 
             <div class="col-lg-6 col-md-6 col-12">
-                <h2 class="mb-lg-3 mb-3">Meet Dr. Carson</h2>
+                <h2 class="mb-lg-3 mb-3">Gặp gỡ Dr. Carson</h2>
 
-                <p>Protect yourself and others by wearing masks and washing hands frequently. Outdoor is safer than indoor for gatherings or holding events. People who get sick with Coronavirus disease (COVID-19) will experience mild to moderate symptoms and recover without special treatments.</p>
+                <p>Bảo vệ bạn và những người khác bằng cách đeo khẩu trang và rửa tay thường xuyên. Ngoài trời an toàn hơn trong nhà cho các cuộc tụ họp hoặc tổ chức sự kiện. Những người bị bệnh do Coronavirus (COVID-19) sẽ có các triệu chứng từ nhẹ đến trung bình và hồi phục mà không cần điều trị đặc biệt.</p>
 
-                <p>You can feel free to use this CSS template for your medical profession or health care related websites. You can <a rel="nofollow" href="http://paypal.me/templatemo" target="_blank">support us a little</a> via PayPal if this template is good and useful for your work.</p>
+               
             </div>
 
             <div class="col-lg-4 col-md-5 col-12 mx-auto">
                 <div class="featured-circle bg-white shadow-lg d-flex justify-content-center align-items-center">
-                    <p class="featured-text"><span class="featured-number">12</span> Years<br> of Experiences</p>
+                    <p class="featured-text"><span class="featured-number">12</span> Năm<br> Kinh nghiệm</p>
                 </div>
             </div>
 

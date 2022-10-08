@@ -165,4 +165,9 @@ public class UserServiceImpl implements UserService{
         return this.userRepository.getUserByMultipleRole(map);
     }
 
+    @Override
+    public boolean checkPassword(int userId, String password) {
+        return this.userRepository.checkPassword(userId, password);
+    }
+
 }

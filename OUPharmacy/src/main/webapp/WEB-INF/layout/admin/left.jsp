@@ -89,7 +89,7 @@
                         </a>
                     </li>
                 </c:if>
-                    <li class="sidebar-item">
+                <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" 
                        href="<c:url value="/admin/chats" />"
                        aria-expanded="false">
@@ -97,8 +97,16 @@
                         <span class="hide-menu">Tro chuyen truc tuyen</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" 
+                       href="<c:url value="/" />"
+                       aria-expanded="false">
+                        <i class="fas fa-home text-danger fw-bold" aria-hidden="true"></i>
+                        <span class="hide-menu text-danger fw-bold">Tro ve trang chu</span>
+                    </a>
+                </li>
             </ul>
-               
+
         </nav>
         <!-- End Sidebar navigation -->
     </div>

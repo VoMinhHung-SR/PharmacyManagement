@@ -23,17 +23,18 @@
                     <form class="form-horizontal" action="${action}" method="post">
                         <c:if test="${param.error != null}">
                             <div class="alert alert-danger">
-                                Da co loi xay ra!!!
+                                Tai khoan hoac mat khau khong khop!!!
                             </div>
                         </c:if>
                         <div class="form-group">
                             <label for="username">Tên tài khoản</label>
-                            <input class="form-control" type="text"
+                            <input class="form-control" type="text" required
                                    id="username" name="username" placeholder="nhập tài khoản..">
                         </div>
                         <div class="form-group">
                             <label>Mật khẩu</label>
-                            <input class="form-control" name="password" type="password" placeholder="nhập mật khẩu..">
+                            <input class="form-control" name="password" required
+                                   type="password" placeholder="nhập mật khẩu..">
                         </div>
                         <button type="submit" class="btn btn-default">Ðăng nhập</button>
 

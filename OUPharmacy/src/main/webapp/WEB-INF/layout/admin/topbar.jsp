@@ -78,8 +78,13 @@
                         <c:if test="${currentUser.avatar == null}">
                             <i class="bi bi-person-fill"></i> ${pageContext.request.userPrincipal.name}
                         </c:if>
-
                     </a>
+
+                    <a class="text-danger" style="padding-right: 10px"
+                       href="<c:url value="/logout" />">
+                        <i class="fas fa-sign-out-alt p-0"></i> Đăng xuất
+                    </a>
+
                 </li>
                 <!-- ============================================================== -->
                 <!-- User profile and search -->

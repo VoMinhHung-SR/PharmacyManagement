@@ -52,9 +52,12 @@
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
         <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" id="theme-styles">
         <!--Jquery-->
-        <!--CDN-->
+        <!--CDN Chartist-->
         <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
         <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+        <!--CDN FlatpickerV4-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     </head>
     <body><!-- ============================================================== -->
@@ -153,6 +156,7 @@
 
         <!--chartis chart-->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        
         <!--SweetAlert2-->
         <script src="<c:url value="/admin/js/common-js/alert.js"/>"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>

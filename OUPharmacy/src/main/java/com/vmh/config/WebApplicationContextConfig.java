@@ -136,7 +136,7 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
     
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(new DateConverter("yyyy-mm-dd"));
+        registry.addConverter(new DateConverter("yyyy-MM-dd"));
         registry.addFormatter(new CategoryFormatter());
         registry.addFormatter(new MedicineFormatter());
     }
